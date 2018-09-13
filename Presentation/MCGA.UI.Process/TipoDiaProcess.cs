@@ -10,38 +10,72 @@ namespace MCGA.UI.Process
 {
 	public class TipoDiaProcess : IDisposable
 	{
-		private Business.TipoDiaCoponent business = new Business.TipoDiaCoponent();
+		private Business.TipoDiaComponent business = new Business.TipoDiaComponent();
 
 		public List<TipoDia> GetAll()
 		{
-
-			return business.GetAll();
+			try
+			{
+				return business.GetAll();
+			}
+			catch
+			{
+				throw;
+			}
 		}
 
 		public TipoDia GetById(int? id)
 		{
-			return business.GetById(id);
+			try
+			{
+				return business.GetById(id);
+			}
+			catch
+			{
+				throw;
+			}
 		}
 
-		public void Add(TipoDia tipoDia)
+		public void Add(TipoDia tpoDia)
 		{
-			business.Add(tipoDia);
+			try
+			{
+				business.Add(tpoDia);
+			}
+			catch
+			{
+				throw;
+			}
 		}
 
-		public void Modify(TipoDia tipoDia)
+		public void Edit(TipoDia tpoDia)
 		{
-			business.Modify(tipoDia);
+			try
+			{
+				business.Edit(tpoDia);
+			}
+			catch
+			{
+				throw;
+			}
 		}
 
-		public void Delete(TipoDia tipoDia)
+		public void Remove(TipoDia tpoDia)
 		{
-			business.Delete(tipoDia);
+			try
+			{
+				business.Remove(tpoDia);
+			}
+			catch
+			{
+				throw;
+			}
 		}
 
 		public void Dispose()
 		{
 			business.Dispose();
 		}
-	
+
 	}
 }

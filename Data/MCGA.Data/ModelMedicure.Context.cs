@@ -27,5 +27,11 @@ namespace MCGA.Data
         }
     
         public virtual DbSet<TipoDia> TipoDia { get; set; }
+        public virtual DbSet<EstadoCivil> EstadoCivil { get; set; }
+        public virtual DbSet<TipoCancelacion> TipoCancelacion { get; set; }
+        public virtual DbSet<TipoDocumento> TipoDocumento { get; set; }
+        public virtual DbSet<TipoEspecialidad> TipoEspecialidad { get; set; }
+        public virtual DbSet<TipoReseva> TipoReseva { get; set; }
+        public virtual DbSet<TipoSexo> TipoSexo { get; set; }
     }
 }

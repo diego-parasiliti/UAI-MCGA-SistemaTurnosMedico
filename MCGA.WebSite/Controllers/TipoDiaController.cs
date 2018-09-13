@@ -82,7 +82,7 @@ namespace MCGA.WebSite.Controllers
         {
             if (ModelState.IsValid)
             {
-				process.Modify(tipoDia);
+				process.Edit(tipoDia);
                 return RedirectToAction("Index");
             }
             return View(tipoDia);
@@ -109,7 +109,8 @@ namespace MCGA.WebSite.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TipoDia tipoDia = process.GetById(id);
-            return RedirectToAction("Index");
+			process.Remove(tipoDia);
+			return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

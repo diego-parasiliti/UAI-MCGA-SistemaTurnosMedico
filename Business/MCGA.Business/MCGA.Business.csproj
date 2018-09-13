@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EstadoCivilComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TipoDiaCoponent.cs" />
+    <Compile Include="TipoCancelacionComponent.cs" />
+    <Compile Include="TipoDiaComponent.cs" />
+    <Compile Include="TipoDocumentoComponent.cs" />
+    <Compile Include="TipoEspecialidadComponent.cs" />
+    <Compile Include="TipoResevaComponent.cs" />
+    <Compile Include="TipoSexoComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MCGA.Data\MCGA.Data.csproj">

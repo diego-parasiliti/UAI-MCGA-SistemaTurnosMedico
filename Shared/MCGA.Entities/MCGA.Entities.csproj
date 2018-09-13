@@ -46,13 +46,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EstadoCivil.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelMedicure.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TipoCancelacion.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
     <Compile Include="TipoDia.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoDocumento.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoEspecialidad.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoReseva.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoSexo.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
   </ItemGroup>

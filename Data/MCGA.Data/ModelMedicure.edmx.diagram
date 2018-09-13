@@ -6,6 +6,12 @@
     <edmx:Diagrams>
       <Diagram DiagramId="084b578c1b804086ad33b7aa42f328a6" Name="Diagram1">
         <EntityTypeShape EntityType="ModelMedicure.TipoDia" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ModelMedicure.EstadoCivil" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoCancelacion" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoDocumento" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoEspecialidad" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoReseva" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoSexo" Width="1.5" PointX="0.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
