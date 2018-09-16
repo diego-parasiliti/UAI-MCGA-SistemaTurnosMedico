@@ -10,46 +10,78 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            @Html.ActionLink("Clínica Alejandría", "Index", "Home", new { @class = "navbar-brand" })
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Navegar">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <a href="/Home/Index">
+                <img src="~/fonts/Logo.png" />
+            </a>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Acerca de", "About", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item">@Html.ActionLink("Contacto", "Contact", "Home", new { @class = "nav-link" })</li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Configuración
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @Html.ActionLink("Estado civil", "Index", "EstadoCivil", new { @class = "dropdown-item" })
-                            @Html.ActionLink("Tipo de cancelación", "Index", "TipoCancelacion", new { @class = "dropdown-item" })
-                            @Html.ActionLink("Tipo de día", "Index", "TipoDia", new { @class = "dropdown-item" })
-                            @Html.ActionLink("Tipo de documentos", "Index", "TipoDocumento", new { @class = "dropdown-item" })
-                            @Html.ActionLink("Tipo de especialidad", "Index", "TipoEspecialidad", new { @class = "dropdown-item" })
-                            @Html.ActionLink("Tipo de reserva", "Index", "TipoReserva", new { @class = "dropdown-item" })
-                            @Html.ActionLink("Tipo de sexo", "Index", "TipoSexo", new { @class = "dropdown-item" })
-                        </div>
-                    </li>
+                    <li class="nav-item item-principal"><a class="nav-link" href="/Home/Index">INICIO</a></li>
+                    <li class="nav-item item-principal"><a class="nav-link" href="/Home/About">¿QUIENES SOMOS?</a></li>
+                    <li class="nav-item item-principal bordeDerechoMenuPrincipal"><a class="nav-link" href="/Home/Contact">CONTACTO</a></li>
                 </ul>
-            @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
-    <div class="container body-content pt-2">
-        @RenderBody()
+
+
+    @using Microsoft.AspNet.Identity
+    @if (!Request.IsAuthenticated)
+    {
+        <div class="navbar d-none d-lg-block d-xl-block bg-dark" style="height:40px;">
+            <div class="container">
+                <p class="text-center text-light fontTamanio14">Somos un centro asistencial privado, que presta servicios de cuidado y atención en maternidad y patologías clínico-quirúrgicas prevalentes </p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPrincipal" aria-controls="navbarToggler" aria-expanded="false" aria-label="Navegar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarPrincipal">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0" id="mnuPrincipal">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle item-principal" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                CONFIGURACION
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/EstadoCivil/Index">Estado civil</a>
+                                <a class="dropdown-item" href="/TipoCancelacion/Index">Tipo de cancelación</a>
+                                <a class="dropdown-item" href="/TipoDia/Index">Tipo de día</a>
+                                <a class="dropdown-item" href="/TipoDocumento/Index">Tipo de documento</a>
+                                <a class="dropdown-item" href="/TipoEspecialidad/Index">Tipo de especialidad</a>
+                                <a class="dropdown-item" href="/TipoReseva/Index">Tipo de reserva</a>
+                                <a class="dropdown-item" href="/TipoSexo/Index">Tipo de sexo</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    }
+    <div class="container">
+        <div class="body-content">
+            @RenderBody()
+        </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Sistema de turnos - Clínica Alejandría</p>
+            <p>&copy; @DateTime.Now.Year - Sistema de turnos - Clínica Alejandría - Parasiliti, Diego Nicolás</p>
         </footer>
     </div>
-    
+
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    @RenderSection("Modal", required:false)
 </body>
 </html>

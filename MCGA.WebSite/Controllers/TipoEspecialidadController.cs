@@ -12,7 +12,8 @@ using MCGA.UI.Process;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class TipoEspecialidadController : Controller
+	[Authorize]
+	public class TipoEspecialidadController : Controller
     {
         private TipoEspecialidadProcess process = new TipoEspecialidadProcess();
 

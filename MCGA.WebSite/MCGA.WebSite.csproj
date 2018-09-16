@@ -196,8 +196,19 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Carousel.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\Consultorio1.jpg" />
+    <Content Include="fonts\EstamosParaCuidarte.jpg" />
+    <Content Include="fonts\Login.jpg" />
+    <Content Include="fonts\Logo.png" />
+    <Content Include="fonts\map.png" />
+    <Content Include="fonts\mapMaker.png" />
+    <Content Include="fonts\ObrasSociales.jpg" />
     <Content Include="fonts\Profesionales.jpg" />
+    <Content Include="fonts\QuienesSomos.jpg" />
+    <Content Include="fonts\Recepcion.jpg" />
+    <Content Include="fonts\SalaDeEspera.jpg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -222,6 +233,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -325,6 +337,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\_ButtonCarrousel.cshtml" />
+    <Content Include="Views\Home\_NosMudamos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

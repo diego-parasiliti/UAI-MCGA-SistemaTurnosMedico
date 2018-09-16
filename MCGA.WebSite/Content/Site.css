@@ -1,12 +1,14 @@
-﻿body {
-    padding-top: 0px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    webkit-box-shadow: 0 0 10px rgba(115,115,115,0.75);
+    -moz-box-shadow: 0 0 10px rgba(115,115,115,0.75);
+    box-shadow: 0 0 10px rgba(115,115,115,0.75);
+    background-color: #f8f9fa;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top:20px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -25,3 +27,60 @@ textarea {
 
 
 /* bajar web essentials 3.2*/
+
+
+.fontTamanio14
+{
+    font-size:14px;
+}
+
+.item-principal a {
+    color: #777;
+    font-weight: 500;
+}
+
+    @media only screen and (min-width: 768px) {
+        .item-principal a {
+            border-left: solid 1px #d1d1d1;
+        }
+
+        .bordeDerechoMenuPrincipal a {
+            border-right: solid 1px #d1d1d1;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {
+        .item-principal a {
+            border-bottom: solid 1px #d1d1d1;
+        }
+
+        .bordeDerechoMenuPrincipal a {
+            border-bottom: solid 1px #d1d1d1;
+        }
+    }
+
+.inicio {
+    background-color: #f8f9fa;
+    position: relative;
+    margin-right: 1px;
+    margin-left: 1px;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+@media only screen and (min-width: 768px) {
+    .bordeInicio {
+        border-right: solid 1px #d1d1d1;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .bordeInicio {
+        border-bottom: solid 1px #d1d1d1;
+    }
+}
+
+#mnuPrincipal .dropdown-menu
+{
+    margin:unset;
+}

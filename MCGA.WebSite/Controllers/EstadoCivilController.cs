@@ -11,7 +11,8 @@ using MCGA.UI.Process;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class EstadoCivilController : Controller
+	[Authorize]
+	public class EstadoCivilController : Controller
     {
 		private EstadoCivilProcess process = new EstadoCivilProcess();
 

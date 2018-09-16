@@ -12,7 +12,8 @@ using MCGA.UI.Process;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class TipoDocumentoController : Controller
+	[Authorize]
+	public class TipoDocumentoController : Controller
     {
         private TipoDocumentoProcess process = new TipoDocumentoProcess();
 

@@ -1,17 +1,27 @@
 ﻿@{
     ViewBag.Title = "Contacto";
 }
-<h2>@ViewBag.Title</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    Diego Nicolás Parasiliti<br />
-    Av. 9 de Julio 2409, CABA, Provincia de Bs. As.<br />
-    <abbr title="Celular">Cel:</abbr>
-    (011) 15 66234589
-</address>
+<div class="row inicio">
+    <div class="col-md-4 text-center">
+        <img src="~/fonts/map.png" />
+    </div>
+    <div class="col-md-8 text-justify">
+        <h2>@ViewBag.Title</h2>
+        <p>
+            <span style="font-weight:bold;">Clinica Alejandria, </span>
+            cuenta con una sola sede central, a continuación dejamos los datos para que pueda encontrarnos y contactarse con nosotros.
+        </p>
+        <p style="font-weight:bold; margin-bottom:0.5em;">
+            SEDE CENTRAL
+        </p>
+        <p style="font-weight:100; margin-bottom:0.5em;">
+            Av. 9 de Julio 2409, CABA, Provincia de Bs. As.
+        </p>
+        <p style="font-weight:bold; font-size:20px;margin-bottom:0.5em;">
+            (011) 15 66234589
+        </p>
+        <p style="font-size:20px;"><a href="mailto:atencion.clientes@clinicalejandria.com.ar">atencion.clientes@clinicalejandria.com.ar</a></p>
+    </div>
 
-<address>
-    <strong>Soporte:</strong>   <a href="mailto:soporte@diegoparasiliti.com">soporte@diegoparasiliti.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:marketing@diegoparasiliti.com">marketing@diegoparasiliti.com</a>
-</address>
+</div>

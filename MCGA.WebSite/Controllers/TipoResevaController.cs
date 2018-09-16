@@ -12,7 +12,8 @@ using MCGA.UI.Process;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class TipoResevaController : Controller
+	[Authorize]
+	public class TipoResevaController : Controller
     {
         private TipoResevaProcess process = new TipoResevaProcess();
 

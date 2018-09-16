@@ -1,33 +1,45 @@
 ﻿@model IEnumerable<MCGA.Entities.TipoSexo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tipo de sexo";
 }
+<div class="row">
+    <div class="col-12">
+        <h2>
+            Tipo de sexo
+            <a class="btn btn-sm btn-primary float-right mt-2" href="/TipoSexo/Create">Agregar</a>
+        </h2>
+    </div>
+</div>
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-sm table-hover table-light">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Descripción
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcion)
+                        </td>
+                        <td>
+                            <div class="float-right">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                            </div>
+                        </td>
+                    </tr>
+                }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+            </table>
+        </div>
+    </div>
+</div>

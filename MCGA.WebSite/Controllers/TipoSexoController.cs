@@ -12,7 +12,8 @@ using MCGA.UI.Process;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class TipoSexoController : Controller
+	[Authorize]
+	public class TipoSexoController : Controller
     {
         private TipoSexoProcess process = new TipoSexoProcess();
 

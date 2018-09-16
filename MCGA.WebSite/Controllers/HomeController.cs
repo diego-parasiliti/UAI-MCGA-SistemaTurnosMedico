@@ -15,15 +15,11 @@ namespace MCGA.WebSite.Controllers
 
         public ActionResult About()
         {
-			ViewBag.Message = "Clínica Alejandría";
-
 			return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Clínica Alejandría";
-
             return View();
         }
     }

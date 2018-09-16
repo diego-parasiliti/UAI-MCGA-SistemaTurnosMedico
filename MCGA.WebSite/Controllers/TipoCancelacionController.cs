@@ -12,7 +12,8 @@ using MCGA.Entities;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class TipoCancelacionController : Controller
+	[Authorize]
+	public class TipoCancelacionController : Controller
     {
         private TipoCancelacionProcess process = new TipoCancelacionProcess();
 

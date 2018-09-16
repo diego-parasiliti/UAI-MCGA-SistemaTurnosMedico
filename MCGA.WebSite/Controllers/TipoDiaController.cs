@@ -11,6 +11,7 @@ using MCGA.UI.Process;
 
 namespace MCGA.WebSite.Controllers
 {
+	[Authorize]
     public class TipoDiaController : Controller
     {
         private TipoDiaProcess process = new TipoDiaProcess();
