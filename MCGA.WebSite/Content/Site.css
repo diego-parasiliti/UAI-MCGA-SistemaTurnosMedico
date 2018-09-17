@@ -39,17 +39,17 @@ textarea {
     font-weight: 500;
 }
 
-    @media only screen and (min-width: 768px) {
-        .item-principal a {
-            border-left: solid 1px #d1d1d1;
-        }
-
-        .bordeDerechoMenuPrincipal a {
-            border-right: solid 1px #d1d1d1;
-        }
+@media only screen and (min-width: 992px) {
+    .item-principal a {
+        border-left: solid 1px #d1d1d1;
     }
 
-    @media only screen and (max-width: 768px) {
+    .bordeDerechoMenuPrincipal a {
+        border-right: solid 1px #d1d1d1;
+    }
+}
+
+    @media only screen and (max-width: 991px) {
         .item-principal a {
             border-bottom: solid 1px #d1d1d1;
         }
