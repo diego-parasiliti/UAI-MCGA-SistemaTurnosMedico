@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MCGA.WebSite.Models;
+using MCGA.Constants.AccountController;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -55,18 +56,20 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+		[Route("iniciar-sesion", Name = AccountControllerRoute.GetLogin)]
+		public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
-
-        //
-        // POST: /Account/Login
-        [HttpPost]
+			return this.View(AccountControllerAction.Login);
+		}
+		
+		//
+		// POST: /Account/Login
+		[HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+		[Route("iniciar-sesion", Name = AccountControllerRoute.PostLogin)]
+		public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -137,10 +140,11 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+		[Route("registrate", Name = AccountControllerRoute.GetRegister)]
+		public ActionResult Register()
         {
-            return View();
-        }
+			return this.View(AccountControllerAction.Register);
+		}
 
         //
         // POST: /Account/Register

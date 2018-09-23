@@ -1,13 +1,52 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head @(ViewBag.OpenGraph == null ? null : Html.OpenGraphNamespace((OpenGraphMetadata)ViewBag.OpenGraph))>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title - Clínica Alejandría</title>
+    <link rel="shortcut icon" href="/fonts/Icons/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/fonts/Icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/fonts/Icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/fonts/Icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/fonts/Icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/fonts/Icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/fonts/Icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/fonts/Icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/fonts/Icons/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/fonts/Icons/apple-touch-icon-180x180.png" />
+    <meta name="theme-color" content="#1E1E1E">
+
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+
+    <meta name="description" content="@ViewBag.Description">
+    @if (ViewBag.Author != null)
+    {
+        <meta name="author" content="@ViewBag.Author">
+    }
+    @if (ViewBag.TwitterCard != null)
+    {
+        @Html.TwitterCard((TwitterCard)ViewBag.TwitterCard);
+    }
+    @if (ViewBag.OpenGraph != null)
+    {
+        @Html.OpenGraph((OpenGraphMetadata)ViewBag.OpenGraph);
+    }
+    @if (ViewBag.ReferrerMode != null)
+    {
+        @Html.ReferrerMeta((ReferrerMode)ViewBag.ReferrerMode)
+    }
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-125974509-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-125974509-1');
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -15,14 +54,14 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Navegar">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="/Home/Index">
+            <a href="@Url.Action("Index", "Home")">
                 <img src="~/fonts/Logo.png" />
             </a>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                    <li class="nav-item item-principal"><a class="nav-link" href="/Home/Index">INICIO</a></li>
-                    <li class="nav-item item-principal"><a class="nav-link" href="/Home/About">¿QUIENES SOMOS?</a></li>
-                    <li class="nav-item item-principal bordeDerechoMenuPrincipal"><a class="nav-link" href="/Home/Contact">CONTACTO</a></li>
+                    <li class="nav-item item-principal">@Html.ActionLink("INICIO", "Index", "Home", new { }, htmlAttributes: new { @class = "nav-link" })</li>
+                    <li class="nav-item item-principal">@Html.ActionLink("¿QUIENES SOMOS?", "About", "Home", new { }, htmlAttributes: new { @class = "nav-link" })</li>
+                    <li class="nav-item item-principal bordeDerechoMenuPrincipal">@Html.ActionLink("CONTACTO", "Contact", "Home", new { }, htmlAttributes: new { @class = "nav-link" })</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MCGA.Constants.HomeController;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,19 +9,23 @@ namespace MCGA.WebSite.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        public ActionResult About()
-        {
-			return View();
-        }
+		[Route("", Name = HomeControllerRoute.GetIndex)]
+		public ActionResult Index()
+		{
+			return this.View(HomeControllerAction.Index);
+		}
 
-        public ActionResult Contact()
+		[Route("quienes-somos", Name = HomeControllerRoute.GetAbout)]
+		public ActionResult About()
         {
-            return View();
-        }
+			return this.View(HomeControllerAction.About);
+		}
+
+		[Route("contactese-con-nosotros", Name = HomeControllerRoute.GetContact)]
+		public ActionResult Contact()
+        {
+			return this.View(HomeControllerAction.Contact);
+		}
     }
 }
