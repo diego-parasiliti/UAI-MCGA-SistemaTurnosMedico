@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MCGA.Constants.TipoEspecialidadController;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
@@ -17,31 +18,18 @@ namespace MCGA.WebSite.Controllers
     {
         private TipoEspecialidadProcess process = new TipoEspecialidadProcess();
 
-        // GET: TipoEspecialidad
-        public ActionResult Index()
+		// GET: TipoEspecialidad
+		[Route("listado-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetIndex)]
+		public ActionResult Index()
         {
-            return View(process.GetAll());
+			return View(TipoEspecialidadControllerAction.Index, process.GetAll());
         }
 
-        // GET: TipoEspecialidad/Details/5
-        public ActionResult Details(int? id)
+		// GET: TipoEspecialidad/Create
+		[Route("agregar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetCreate)]
+		public ActionResult Create()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TipoEspecialidad tipoEspecialidad = process.GetById(id);
-            if (tipoEspecialidad == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tipoEspecialidad);
-        }
-
-        // GET: TipoEspecialidad/Create
-        public ActionResult Create()
-        {
-            return View();
+            return View(TipoEspecialidadControllerAction.Create);
         }
 
         // POST: TipoEspecialidad/Create
@@ -49,19 +37,20 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,descripcion")] TipoEspecialidad tipoEspecialidad)
+		[Route("agregar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.PostCreate)]
+		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoEspecialidad tipoEspecialidad)
         {
             if (ModelState.IsValid)
             {
 				process.Add(tipoEspecialidad);
                 return RedirectToAction("Index");
             }
+			return View(TipoEspecialidadControllerAction.Create, tipoEspecialidad);
+		}
 
-            return View(tipoEspecialidad);
-        }
-
-        // GET: TipoEspecialidad/Edit/5
-        public ActionResult Edit(int? id)
+		// GET: TipoEspecialidad/Edit/5
+		[Route("editar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetEdit)]
+		public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -72,7 +61,7 @@ namespace MCGA.WebSite.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoEspecialidad);
+			return View(TipoEspecialidadControllerAction.Edit, tipoEspecialidad);
         }
 
         // POST: TipoEspecialidad/Edit/5
@@ -80,18 +69,20 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoEspecialidad tipoEspecialidad)
+		[Route("editar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.PostEdit)]
+		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoEspecialidad tipoEspecialidad)
         {
             if (ModelState.IsValid)
             {
 				process.Edit(tipoEspecialidad);
                 return RedirectToAction("Index");
             }
-            return View(tipoEspecialidad);
-        }
+			return View(TipoEspecialidadControllerAction.Edit, tipoEspecialidad);
+		}
 
-        // GET: TipoEspecialidad/Delete/5
-        public ActionResult Delete(int? id)
+		// GET: TipoEspecialidad/Delete/5
+		[Route("eliminar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetDelete)]
+		public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -102,13 +93,14 @@ namespace MCGA.WebSite.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoEspecialidad);
+			return View(TipoEspecialidadControllerAction.Delete, tipoEspecialidad);
         }
 
         // POST: TipoEspecialidad/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+		[Route("eliminar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.PostDelete)]
+		public ActionResult DeleteConfirmed(int id)
         {
 			TipoEspecialidad tipoEspecialidad = process.GetById(id);
 			process.Remove(tipoEspecialidad);

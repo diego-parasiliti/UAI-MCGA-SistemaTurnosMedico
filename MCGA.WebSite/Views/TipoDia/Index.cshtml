@@ -1,45 +1,62 @@
 ﻿@model IEnumerable<MCGA.Entities.TipoDia>
-
 @{
     ViewBag.Title = "Tipo de día";
+    ViewBag.Description = "En esta página vamos a poder gestionar los tipos de día el sistema.";
+    ViewBag.Author = Application.Name;
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@TwitterCard");
+    ViewBag.OpenGraph = new OpenGraphBusiness(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/fonts/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 },
+        new OpenGraphContactData(Application.StreetAddress, Application.Locality, Application.PostalCode, Application.Country)
+        {
+            Email = Application.Email,
+            Phone = Application.Phone,
+            Website = Url.AbsoluteRouteUrl(TipoDiaControllerRoute.GetIndex)
+        },
+        new OpenGraphLocation(Application.Latitude, Application.Longitude))
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+        SiteName = Application.Name
+    };
 }
 <div class="row">
     <div class="col-12">
         <h2>
             Tipo de día
-            <a class="btn btn-sm btn-primary float-right mt-2" href="/TipoDia/Create">Agregar</a>
+            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "TipoDia")">Agregar</a>
         </h2>
     </div>
 </div>
 
 <div class="row">
     <div class="col-12">
-    <div class="table-responsive">
-        <table class="table table-sm table-hover table-light">
-            <thead class="thead-dark">
-                <tr>
-                    <th>
-                        Descripción
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descripcion)
-                    </td>
-                    <td>
-                        <div class="float-right">
-                            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
-                        </div>
-                    </td>
-                </tr>
-            }
+        <div class="table-responsive">
+            <table class="table table-sm table-hover table-light">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Descripción
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcion)
+                        </td>
+                        <td>
+                            <div class="float-right">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                            </div>
+                        </td>
+                    </tr>
+                }
 
-        </table>
+            </table>
+        </div>
     </div>
-</div>
 </div>

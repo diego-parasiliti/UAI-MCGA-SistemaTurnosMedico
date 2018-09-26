@@ -1,13 +1,33 @@
 ﻿@model IEnumerable<MCGA.Entities.EstadoCivil>
-
 @{
     ViewBag.Title = "Estado civil";
+    ViewBag.Description = "En esta página vamos a poder gestionar los estados civiles del sistema.";
+    ViewBag.Author = Application.Name;
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@TwitterCard");
+    ViewBag.OpenGraph = new OpenGraphBusiness(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/fonts/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 },
+        new OpenGraphContactData(Application.StreetAddress, Application.Locality, Application.PostalCode, Application.Country)
+        {
+            Email = Application.Email,
+            Phone = Application.Phone,
+            Website = Url.AbsoluteRouteUrl(EstadoCivilControllerRoute.GetIndex)
+        },
+        new OpenGraphLocation(Application.Latitude, Application.Longitude))
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+        SiteName = Application.Name
+    };
 }
 <div class="row">
     <div class="col-12">
         <h2>
             Estado civil
-            <a class="btn btn-sm btn-primary float-right mt-2" href="/EstadoCivil/Create">Agregar</a>
+            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "EstadoCivil")">
+                <i class="fa fa-plus-circle"></i>
+            Agregar
+            </a>
         </h2>
     </div>
 </div>

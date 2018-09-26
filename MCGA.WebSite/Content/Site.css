@@ -8,7 +8,7 @@
     padding-top: 5px;
     padding-left: 25px;
     padding-right: 25px;
-    margin-top:20px;
+    margin-top:10px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -25,6 +25,18 @@ textarea {
     max-width: 280px;
 }
 
+.hrSinMarginTop{
+    margin-top:unset;
+}
+
+.hrSinMarginBottom {
+    margin-bottom: unset;
+}
+
+.hrSinMargin {
+    margin-top: unset;
+    margin-bottom: unset;
+}
 
 /* bajar web essentials 3.2*/
 

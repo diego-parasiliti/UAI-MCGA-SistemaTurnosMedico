@@ -60,7 +60,7 @@ namespace MCGA.WebSite.Controllers
 		public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-			return this.View(AccountControllerAction.Login);
+			return View(AccountControllerAction.Login);
 		}
 		
 		//
@@ -90,9 +90,11 @@ namespace MCGA.WebSite.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
-            }
-        }
+					return View(AccountControllerAction.Login, model);
+					//return View(model);
+
+			}
+		}
 
         //
         // GET: /Account/VerifyCode
@@ -143,7 +145,7 @@ namespace MCGA.WebSite.Controllers
 		[Route("registrate", Name = AccountControllerRoute.GetRegister)]
 		public ActionResult Register()
         {
-			return this.View(AccountControllerAction.Register);
+			return View(AccountControllerAction.Register);
 		}
 
         //
@@ -151,7 +153,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+		[Route("registrate", Name = AccountControllerRoute.PostRegister)]
+		public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {

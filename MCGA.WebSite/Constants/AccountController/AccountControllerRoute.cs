@@ -9,6 +9,7 @@ namespace MCGA.Constants.AccountController
 	{
         public const string GetRegister = ControllerName.Account + "GetRegister";
         public const string GetLogin = ControllerName.Account + "GetLogin";
+		public const string PostRegister = ControllerName.Account + "PostRegister";
 		public const string PostLogin = ControllerName.Account + "PostLogin";
 		
 	}

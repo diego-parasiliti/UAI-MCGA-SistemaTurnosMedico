@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MCGA.Constants.EstadoCivilController;
 using MCGA.Entities;
 using MCGA.UI.Process;
 
@@ -17,30 +18,17 @@ namespace MCGA.WebSite.Controllers
 		private EstadoCivilProcess process = new EstadoCivilProcess();
 
 		// GET: EstadoCivil
+		[Route("listado-estado-civil", Name = EstadoCivilControllerRoute.GetIndex)]
 		public ActionResult Index()
         {
-			return View(process.GetAll());
+			return View(EstadoCivilControllerAction.Index, process.GetAll());
 		}
 
-        // GET: EstadoCivil/Details/5
-        public ActionResult Details(int? id)
+		// GET: EstadoCivil/Create
+		[Route("agregar-estado-civil", Name = EstadoCivilControllerRoute.GetCreate)]
+		public ActionResult Create()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            EstadoCivil estadoCivil = process.GetById(id);
-            if (estadoCivil == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estadoCivil);
-        }
-
-        // GET: EstadoCivil/Create
-        public ActionResult Create()
-        {
-            return View();
+			return View(EstadoCivilControllerAction.Create);
         }
 
         // POST: EstadoCivil/Create
@@ -48,19 +36,20 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,descripcion")] EstadoCivil estadoCivil)
+		[Route("agregar-estado-civil", Name = EstadoCivilControllerRoute.PostCreate)]
+		public ActionResult Create([Bind(Include = "Id,descripcion")] EstadoCivil estadoCivil)
         {
             if (ModelState.IsValid)
             {
 				process.Add(estadoCivil);
 				return RedirectToAction("Index");
             }
-
-            return View(estadoCivil);
+			return View(EstadoCivilControllerAction.Create, estadoCivil);
         }
 
-        // GET: EstadoCivil/Edit/5
-        public ActionResult Edit(int? id)
+		// GET: EstadoCivil/Edit/5
+		[Route("editar-estado-civil", Name = EstadoCivilControllerRoute.GetEdit)]
+		public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -72,7 +61,7 @@ namespace MCGA.WebSite.Controllers
             {
                 return HttpNotFound();
             }
-            return View(estadoCivil);
+            return View(EstadoCivilControllerAction.Edit,estadoCivil);
         }
 
         // POST: EstadoCivil/Edit/5
@@ -80,18 +69,20 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,descripcion")] EstadoCivil estadoCivil)
+		[Route("editar-estado-civil", Name = EstadoCivilControllerRoute.PostEdit)]
+		public ActionResult Edit([Bind(Include = "Id,descripcion")] EstadoCivil estadoCivil)
         {
             if (ModelState.IsValid)
             {
 				process.Edit(estadoCivil);
 				return RedirectToAction("Index");
             }
-            return View(estadoCivil);
+			return View(EstadoCivilControllerAction.Edit, estadoCivil);
         }
 
-        // GET: EstadoCivil/Delete/5
-        public ActionResult Delete(int? id)
+		// GET: EstadoCivil/Delete/5
+		[Route("eliminar-estado-civil", Name = EstadoCivilControllerRoute.GetDelete)]
+		public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -102,13 +93,14 @@ namespace MCGA.WebSite.Controllers
             {
                 return HttpNotFound();
             }
-            return View(estadoCivil);
+			return View(EstadoCivilControllerAction.Delete, estadoCivil);
         }
 
         // POST: EstadoCivil/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+		[Route("eliminar-estado-civil", Name = EstadoCivilControllerRoute.PostDelete)]
+		public ActionResult DeleteConfirmed(int id)
         {
             EstadoCivil estadoCivil = process.GetById(id);
 			process.Remove(estadoCivil);

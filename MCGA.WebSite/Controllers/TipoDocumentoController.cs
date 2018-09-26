@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MCGA.Constants.TipoDocumentoController;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
@@ -17,31 +18,18 @@ namespace MCGA.WebSite.Controllers
     {
         private TipoDocumentoProcess process = new TipoDocumentoProcess();
 
-        // GET: TipoDocumento
-        public ActionResult Index()
+		// GET: TipoDocumento
+		[Route("listado-tipo-documento", Name = TipoDocumentoControllerRoute.GetIndex)]
+		public ActionResult Index()
         {
-			return View(process.GetAll());
+			return View(TipoDocumentoControllerAction.Index, process.GetAll());
         }
 
-        // GET: TipoDocumento/Details/5
-        public ActionResult Details(int? id)
+		// GET: TipoDocumento/Create
+		[Route("agregar-tipo-documento", Name = TipoDocumentoControllerRoute.GetCreate)]
+		public ActionResult Create()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TipoDocumento tipoDocumento = process.GetById(id);
-            if (tipoDocumento == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tipoDocumento);
-        }
-
-        // GET: TipoDocumento/Create
-        public ActionResult Create()
-        {
-            return View();
+			return View(TipoDocumentoControllerAction.Create);
         }
 
         // POST: TipoDocumento/Create
@@ -49,7 +37,8 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,descripcion")] TipoDocumento tipoDocumento)
+		[Route("agregar-tipo-documento", Name = TipoDocumentoControllerRoute.PostCreate)]
+		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoDocumento tipoDocumento)
         {
             if (ModelState.IsValid)
             {
@@ -57,11 +46,12 @@ namespace MCGA.WebSite.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(tipoDocumento);
+			return View(TipoDocumentoControllerAction.Create, tipoDocumento);
         }
 
-        // GET: TipoDocumento/Edit/5
-        public ActionResult Edit(int? id)
+		// GET: TipoDocumento/Edit/5
+		[Route("editar-tipo-documento", Name = TipoDocumentoControllerRoute.GetEdit)]
+		public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -72,7 +62,7 @@ namespace MCGA.WebSite.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+			return View(TipoDocumentoControllerAction.Edit, tipoDocumento);
         }
 
         // POST: TipoDocumento/Edit/5
@@ -80,18 +70,20 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoDocumento tipoDocumento)
+		[Route("editar-tipo-documento", Name = TipoDocumentoControllerRoute.PostEdit)]
+		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoDocumento tipoDocumento)
         {
             if (ModelState.IsValid)
             {
 				process.Edit(tipoDocumento);
                 return RedirectToAction("Index");
             }
-            return View(tipoDocumento);
+			return View(TipoDocumentoControllerAction.Edit, tipoDocumento);
         }
 
-        // GET: TipoDocumento/Delete/5
-        public ActionResult Delete(int? id)
+		// GET: TipoDocumento/Delete/5
+		[Route("eliminar-tipo-documento", Name = TipoDocumentoControllerRoute.GetDelete)]
+		public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -102,13 +94,14 @@ namespace MCGA.WebSite.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tipoDocumento);
+			return View(TipoDocumentoControllerAction.Delete, tipoDocumento);
         }
 
         // POST: TipoDocumento/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+		[Route("eliminar-tipo-documento", Name = TipoDocumentoControllerRoute.PostDelete)]
+		public ActionResult DeleteConfirmed(int id)
         {
 			TipoDocumento tipoDocumento = process.GetById(id);
 			process.Remove(tipoDocumento);

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MvcSiteMapProvider.Web.Html;
+<!DOCTYPE html>
 <html>
 <head @(ViewBag.OpenGraph == null ? null : Html.OpenGraphNamespace((OpenGraphMetadata)ViewBag.OpenGraph))>
     <meta charset="utf-8">
@@ -72,7 +73,7 @@
     @using Microsoft.AspNet.Identity
     @if (!Request.IsAuthenticated)
     {
-        <div class="navbar d-none d-lg-block d-xl-block bg-dark" style="height:40px;">
+        <div class="navbar d-none d-lg-block d-xl-block bg-dark">
             <div class="container">
                 <p class="text-center text-light fontTamanio14">Somos un centro asistencial privado, que presta servicios de cuidado y atención en maternidad y patologías clínico-quirúrgicas prevalentes </p>
             </div>
@@ -92,13 +93,13 @@
                                 CONFIGURACION
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/EstadoCivil/Index">Estado civil</a>
-                                <a class="dropdown-item" href="/TipoCancelacion/Index">Tipo de cancelación</a>
-                                <a class="dropdown-item" href="/TipoDia/Index">Tipo de día</a>
-                                <a class="dropdown-item" href="/TipoDocumento/Index">Tipo de documento</a>
-                                <a class="dropdown-item" href="/TipoEspecialidad/Index">Tipo de especialidad</a>
-                                <a class="dropdown-item" href="/TipoReseva/Index">Tipo de reserva</a>
-                                <a class="dropdown-item" href="/TipoSexo/Index">Tipo de sexo</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "EstadoCivil")">Estado civil</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "TipoCancelacion")">Tipo de cancelación</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "TipoDia")">Tipo de día</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "TipoDocumento")">Tipo de documento</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "TipoEspecialidad")">Tipo de especialidad</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "TipoReseva")">Tipo de reserva</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "TipoSexo")">Tipo de sexo</a>
                             </div>
                         </li>
                     </ul>
@@ -107,6 +108,10 @@
         </nav>
     }
     <div class="container">
+        <div style="padding-top: 5px;font-size: 14px;font-weight: 400;">
+            @Html.MvcSiteMap().SiteMapPath()
+        </div>
+        <hr class="hrSinMarginTop" />
         <div class="body-content">
             @RenderBody()
         </div>
@@ -121,6 +126,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    @RenderSection("Modal", required:false)
+    @RenderSection("Modal", required: false)
 </body>
 </html>

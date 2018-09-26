@@ -13,19 +13,19 @@ namespace MCGA.WebSite.Controllers
 		[Route("", Name = HomeControllerRoute.GetIndex)]
 		public ActionResult Index()
 		{
-			return this.View(HomeControllerAction.Index);
+			return View(HomeControllerAction.Index);
 		}
 
 		[Route("quienes-somos", Name = HomeControllerRoute.GetAbout)]
 		public ActionResult About()
         {
-			return this.View(HomeControllerAction.About);
+			return View(HomeControllerAction.About);
 		}
 
 		[Route("contactese-con-nosotros", Name = HomeControllerRoute.GetContact)]
 		public ActionResult Contact()
         {
-			return this.View(HomeControllerAction.Contact);
+			return View(HomeControllerAction.Contact);
 		}
     }
 }

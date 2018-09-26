@@ -55,6 +55,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MvcSiteMapProvider, Version=4.6.26.0, Culture=neutral, PublicKeyToken=1923abe4657913cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.Core.4.6.26\lib\net45\MvcSiteMapProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="MvcSiteMapProvider.WebActivator, Version=4.6.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvcSiteMapProvider.MVC5.4.6.26\lib\net45\MvcSiteMapProvider.WebActivator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -108,6 +114,9 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -178,8 +187,22 @@
     <Compile Include="Constants\AccountController\AccountControllerRoute.cs" />
     <Compile Include="Constants\Application.cs" />
     <Compile Include="Constants\ControllerName.cs" />
+    <Compile Include="Constants\EstadoCivilController\EstadoCivilControllerAction.cs" />
+    <Compile Include="Constants\EstadoCivilController\EstadoCivilControllerRoute.cs" />
     <Compile Include="Constants\HomeController\HomeControllerAction.cs" />
     <Compile Include="Constants\HomeController\HomeControllerRoute.cs" />
+    <Compile Include="Constants\TipoCancelacionController\TipoCancelacionControllerAction.cs" />
+    <Compile Include="Constants\TipoCancelacionController\TipoCancelacionControllerRoute.cs" />
+    <Compile Include="Constants\TipoDiaController\TipoDiaControllerAction.cs" />
+    <Compile Include="Constants\TipoDiaController\TipoDiaControllerRoute.cs" />
+    <Compile Include="Constants\TipoDocumentoController\TipoDocumentoControllerAction.cs" />
+    <Compile Include="Constants\TipoDocumentoController\TipoDocumentoControllerRoute.cs" />
+    <Compile Include="Constants\TipoEspecialidadController\TipoEspecialidadControllerAction.cs" />
+    <Compile Include="Constants\TipoEspecialidadController\TipoEspecialidadControllerRoute.cs" />
+    <Compile Include="Constants\TipoResevaController\TipoResevaControllerAction.cs" />
+    <Compile Include="Constants\TipoResevaController\TipoResevaControllerRoute.cs" />
+    <Compile Include="Constants\TipoSexoController\TipoSexoControllerAction.cs" />
+    <Compile Include="Constants\TipoSexoController\TipoSexoControllerRoute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EstadoCivilController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,9 +230,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Carousel.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Consultorio1.jpg" />
     <Content Include="fonts\EstamosParaCuidarte.jpg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\Icons\apple-touch-icon-114x114.png" />
     <Content Include="fonts\Icons\apple-touch-icon-120x120.png" />
     <Content Include="fonts\Icons\apple-touch-icon-144x144.png" />
@@ -253,6 +279,15 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Mvc.sitemap" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="MvcSiteMapSchema.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -317,37 +352,30 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\TipoDia\Create.cshtml" />
     <Content Include="Views\TipoDia\Delete.cshtml" />
-    <Content Include="Views\TipoDia\Details.cshtml" />
     <Content Include="Views\TipoDia\Edit.cshtml" />
     <Content Include="Views\TipoDia\Index.cshtml" />
     <Content Include="Views\EstadoCivil\Create.cshtml" />
     <Content Include="Views\EstadoCivil\Delete.cshtml" />
-    <Content Include="Views\EstadoCivil\Details.cshtml" />
     <Content Include="Views\EstadoCivil\Edit.cshtml" />
     <Content Include="Views\EstadoCivil\Index.cshtml" />
     <Content Include="Views\TipoCancelacion\Create.cshtml" />
     <Content Include="Views\TipoCancelacion\Delete.cshtml" />
-    <Content Include="Views\TipoCancelacion\Details.cshtml" />
     <Content Include="Views\TipoCancelacion\Edit.cshtml" />
     <Content Include="Views\TipoCancelacion\Index.cshtml" />
     <Content Include="Views\TipoDocumento\Create.cshtml" />
     <Content Include="Views\TipoDocumento\Delete.cshtml" />
-    <Content Include="Views\TipoDocumento\Details.cshtml" />
     <Content Include="Views\TipoDocumento\Edit.cshtml" />
     <Content Include="Views\TipoDocumento\Index.cshtml" />
     <Content Include="Views\TipoEspecialidad\Create.cshtml" />
     <Content Include="Views\TipoEspecialidad\Delete.cshtml" />
-    <Content Include="Views\TipoEspecialidad\Details.cshtml" />
     <Content Include="Views\TipoEspecialidad\Edit.cshtml" />
     <Content Include="Views\TipoEspecialidad\Index.cshtml" />
     <Content Include="Views\TipoReseva\Create.cshtml" />
     <Content Include="Views\TipoReseva\Delete.cshtml" />
-    <Content Include="Views\TipoReseva\Details.cshtml" />
     <Content Include="Views\TipoReseva\Edit.cshtml" />
     <Content Include="Views\TipoReseva\Index.cshtml" />
     <Content Include="Views\TipoSexo\Create.cshtml" />
     <Content Include="Views\TipoSexo\Delete.cshtml" />
-    <Content Include="Views\TipoSexo\Details.cshtml" />
     <Content Include="Views\TipoSexo\Edit.cshtml" />
     <Content Include="Views\TipoSexo\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -361,6 +389,14 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\_ButtonCarrousel.cshtml" />
     <Content Include="Views\Home\_NosMudamos.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SiteMapHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
