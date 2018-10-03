@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using MCGA.WebSite.Models;
 using MCGA.Constants.AccountController;
+using reCAPTCHA.MVC;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -57,6 +58,7 @@ namespace MCGA.WebSite.Controllers
         // GET: /Account/Login
         [AllowAnonymous]
 		[Route("iniciar-sesion", Name = AccountControllerRoute.GetLogin)]
+		[Compress]
 		public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -69,6 +71,8 @@ namespace MCGA.WebSite.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
 		[Route("iniciar-sesion", Name = AccountControllerRoute.PostLogin)]
+		[Compress]
+		[CaptchaValidator(RequiredMessage ="Es obligatorio.")]
 		public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -99,7 +103,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+		[Compress]
+		public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Requerir que el usuario haya iniciado sesión con nombre de usuario y contraseña o inicio de sesión externo
             if (!await SignInManager.HasBeenVerifiedAsync())
@@ -114,7 +119,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+		[Compress]
+		public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -143,6 +149,7 @@ namespace MCGA.WebSite.Controllers
         // GET: /Account/Register
         [AllowAnonymous]
 		[Route("registrate", Name = AccountControllerRoute.GetRegister)]
+		[Compress]
 		public ActionResult Register()
         {
 			return View(AccountControllerAction.Register);
@@ -154,6 +161,8 @@ namespace MCGA.WebSite.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
 		[Route("registrate", Name = AccountControllerRoute.PostRegister)]
+		[Compress]
+		[CaptchaValidator(RequiredMessage = "Es obligatorio.")]
 		public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -182,7 +191,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+		[Compress]
+		public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -195,7 +205,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
-        public ActionResult ForgotPassword()
+		[Compress]
+		public ActionResult ForgotPassword()
         {
             return View();
         }
@@ -205,7 +216,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+		[Compress]
+		public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -231,7 +243,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+		[Compress]
+		public ActionResult ForgotPasswordConfirmation()
         {
             return View();
         }
@@ -249,7 +262,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+		[Compress]
+		public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -273,7 +287,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/ResetPasswordConfirmation
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+		[Compress]
+		public ActionResult ResetPasswordConfirmation()
         {
             return View();
         }
@@ -283,7 +298,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+		[Compress]
+		public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Solicitar redireccionamiento al proveedor de inicio de sesión externo
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
@@ -292,7 +308,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/SendCode
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+		[Compress]
+		public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
@@ -309,7 +326,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+		[Compress]
+		public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -327,7 +345,8 @@ namespace MCGA.WebSite.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+		[Compress]
+		public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
@@ -359,7 +378,8 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+		[Compress]
+		public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -396,7 +416,8 @@ namespace MCGA.WebSite.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+		[Compress]
+		public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");

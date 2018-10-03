@@ -1,10 +1,10 @@
 ﻿@using MvcSiteMapProvider.Web.Html;
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head @(ViewBag.OpenGraph == null ? null : Html.OpenGraphNamespace((OpenGraphMetadata)ViewBag.OpenGraph))>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewBag.Title - Clínica Alejandría</title>
+    <title>@ViewBag.Title - Somos Clínica Alejandría</title>
     <link rel="shortcut icon" href="/fonts/Icons/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="/fonts/Icons/apple-touch-icon.png" />
     <link rel="apple-touch-icon" sizes="57x57" href="/fonts/Icons/apple-touch-icon-57x57.png" />
@@ -48,6 +48,15 @@
         gtag('js', new Date());
         gtag('config', 'UA-125974509-1');
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+            $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+            $("div[onmouseover='S_ssac();']").remove();
+            $("center").remove();
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -56,7 +65,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a href="@Url.Action("Index", "Home")">
-                <img src="~/fonts/Logo.png" />
+                <img src="~/fonts/Logo.png" alt="Clinica Alejandría" />
             </a>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -75,7 +84,9 @@
     {
         <div class="navbar d-none d-lg-block d-xl-block bg-dark">
             <div class="container">
-                <p class="text-center text-light fontTamanio14">Somos un centro asistencial privado, que presta servicios de cuidado y atención en maternidad y patologías clínico-quirúrgicas prevalentes </p>
+                <p class="text-center text-light">
+                    Somos un centro asistencial privado, que presta servicios de cuidado y atención en maternidad y patologías clínico-quirúrgicas prevalentes 
+                </p>
             </div>
         </div>
     }
@@ -107,8 +118,9 @@
             </div>
         </nav>
     }
+
     <div class="container">
-        <div style="padding-top: 5px;font-size: 14px;font-weight: 400;">
+        <div class="siteMap">
             @Html.MvcSiteMap().SiteMapPath()
         </div>
         <hr class="hrSinMarginTop" />
@@ -117,7 +129,17 @@
         </div>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Sistema de turnos - Clínica Alejandría - Parasiliti, Diego Nicolás</p>
+                <div class="pull-right">
+                    &copy; @DateTime.Now.Year - Sistema de turnos - Clínica Alejandría - Parasiliti, Diego Nicolás
+                </div>
+                <div class="pull-left">
+                    <a href="https://es-la.facebook.com/uai.elfuturososvos" class="btn btn-sm fa fa-facebook"></a>
+                    <a href="https://twitter.com/uainow" class="btn btn-sm fa fa-twitter"></a>
+                    <a href="https://ar.linkedin.com/company/uai" class="btn btn-sm fa fa-linkedin"></a>
+                    <a href="https://plus.google.com/113155245406425976841" class="btn btn-sm fa fa-google-plus"></a>
+                    <a href="https://www.youtube.com/user/UAIelfuturososvos" class="btn btn-sm fa fa-youtube"></a>
+                    <a href="https://www.instagram.com/uainow" class="btn btn-sm fa fa-instagram"></a>
+                </div>
         </footer>
     </div>
 

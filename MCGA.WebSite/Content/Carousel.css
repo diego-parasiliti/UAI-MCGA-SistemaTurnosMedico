@@ -4,7 +4,7 @@
     margin-right: -25px;
 }
 
-.carousel-caption h5, .carousel-caption p {
+.carousel-caption span, .carousel-caption p {
     color: #000000;
 }
 
@@ -56,3 +56,12 @@ ol.carousel-indicators {
     right: 0px;
     background-color: rgba(255,255,255,0.8);
 }
+
+
+    .carousel-caption span {
+        font-size: 1.25rem;
+        margin-bottom: .5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+    }

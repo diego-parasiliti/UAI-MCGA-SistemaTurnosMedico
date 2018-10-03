@@ -44,15 +44,21 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check-circle"></i>
+                    Guardar
+                </button>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Volver al listado", "Index")
-</div>
+    <div>
+        <a class="btn btn-sm" href="@Url.Action("Index", "EstadoCivil")">
+            <i class="fa fa-chevron-circle-left"></i>
+            Volver al listado
+        </a>
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

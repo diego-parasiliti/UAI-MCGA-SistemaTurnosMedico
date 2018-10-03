@@ -2,7 +2,7 @@
 @model MCGA.WebSite.Models.LoginViewModel
 @{
     ViewBag.Title = "Iniciar sesión";
-    ViewBag.Description = "En esta página el usuario se va a poder loguear con su cuenta.";
+    ViewBag.Description = "En esta página el usuario se va a poder loguear con su cuenta de nuestra clinica Alejandría.";
     ViewBag.Author = Application.Name;
     ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
     ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@TwitterCard");
@@ -47,8 +47,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <div class="col-md-12">
+                        @using reCAPTCHA.MVC
+                        @using (Html.BeginForm())
+                        {
+                            @Html.Recaptcha()
+                            @Html.ValidationMessage("ReCaptcha", new { @class = "text-danger" })
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Iniciar sesión" class="btn btn-default btn-primary" />
+                        <input type="submit" value="Iniciar sesión" class="btn btn-default btn-primary" />                        
                     </div>
                 </div>
                 <p>
@@ -56,7 +66,7 @@
                 </p>
             </div>
             <div class="col-lg-8 d-none d-lg-block d-xl-block">
-                <img src="~/fonts/Login.jpg" alt="Cree una nueva cuenta" style="width:100%; height:100%;" />
+                <img src="~/fonts/Login.jpg" alt="Cree una nueva cuenta" /> @*style="width:100%; height:100%;"*@
             </div>
         </div>
     }

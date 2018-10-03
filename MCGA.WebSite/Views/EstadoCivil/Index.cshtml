@@ -52,8 +52,14 @@
                         </td>
                         <td>
                             <div class="float-right">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                                <a class="btn btn-sm" href="@Url.Action("Edit", "EstadoCivil",new { id = item.Id })">
+                                    <i class="fa fa-edit"></i>
+                                    Editar
+                                </a>
+                                |
+                                <a class="btn btn-sm text-danger" href="@Url.Action("Delete", "EstadoCivil",new { id = item.Id })">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

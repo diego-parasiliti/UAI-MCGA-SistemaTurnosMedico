@@ -20,6 +20,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoReseva
 		[Route("listado-tipo-reserva", Name = TipoResevaControllerRoute.GetIndex)]
+		[Compress]
 		public ActionResult Index()
         {
 			return View(TipoResevaControllerAction.Index, process.GetAll());
@@ -27,6 +28,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoReseva/Create
 		[Route("agregar-tipo-reserva", Name = TipoResevaControllerRoute.GetCreate)]
+		[Compress]
 		public ActionResult Create()
         {
 			return View(TipoResevaControllerAction.Create);
@@ -38,6 +40,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-reserva", Name = TipoResevaControllerRoute.PostCreate)]
+		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoReseva tipoReseva)
         {
             if (ModelState.IsValid)
@@ -50,6 +53,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoReseva/Edit/5
 		[Route("editar-tipo-reserva", Name = TipoResevaControllerRoute.GetEdit)]
+		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -70,6 +74,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-reserva", Name = TipoResevaControllerRoute.PostEdit)]
+		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoReseva tipoReseva)
         {
             if (ModelState.IsValid)
@@ -82,6 +87,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoReseva/Delete/5
 		[Route("eliminar-tipo-reserva", Name = TipoResevaControllerRoute.GetDelete)]
+		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -100,6 +106,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-tipo-reserva", Name = TipoResevaControllerRoute.PostDelete)]
+		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
 			TipoReseva tipoReseva = process.GetById(id);

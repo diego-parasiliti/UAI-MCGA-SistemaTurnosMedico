@@ -25,7 +25,10 @@
     <div class="col-12">
         <h2>
             Tipo de reserva
-            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "TipoReseva")">Agregar</a>
+            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "TipoReseva")">
+                <i class="fa fa-plus-circle"></i>
+                Agregar
+            </a>
         </h2>
     </div>
 </div>
@@ -50,8 +53,14 @@
                         </td>
                         <td>
                             <div class="float-right">
-                                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id })
+                                <a class="btn btn-sm" href="@Url.Action("Edit", "TipoReseva",new { id = item.Id })">
+                                    <i class="fa fa-edit"></i>
+                                    Editar
+                                </a>
+                                |
+                                <a class="btn btn-sm text-danger" href="@Url.Action("Delete", "TipoReseva",new { id = item.Id })">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
                             </div>
                         </td>
                     </tr>

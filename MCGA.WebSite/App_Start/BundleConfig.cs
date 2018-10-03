@@ -26,7 +26,7 @@ namespace MCGA.WebSite
             bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.min.css",
 					  "~/Content/font-awesome.min.css",
-					  "~/Content/site.css"));
+					  "~/Content/site.min.css"));
         }
     }
 }

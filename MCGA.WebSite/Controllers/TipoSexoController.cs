@@ -20,6 +20,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoSexo
 		[Route("listado-tipo-sexo", Name = TipoSexoControllerRoute.GetIndex)]
+		[Compress]
 		public ActionResult Index()
         {
 			return View(TipoSexoControllerAction.Index, process.GetAll());
@@ -27,6 +28,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoSexo/Create
 		[Route("agregar-tipo-sexo", Name = TipoSexoControllerRoute.GetCreate)]
+		[Compress]
 		public ActionResult Create()
         {
 			return View(TipoSexoControllerAction.Create);
@@ -38,6 +40,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-sexo", Name = TipoSexoControllerRoute.PostCreate)]
+		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoSexo tipoSexo)
         {
             if (ModelState.IsValid)
@@ -50,6 +53,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoSexo/Edit/5
 		[Route("editar-tipo-sexo", Name = TipoSexoControllerRoute.GetEdit)]
+		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -70,6 +74,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-sexo", Name = TipoSexoControllerRoute.PostEdit)]
+		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoSexo tipoSexo)
         {
             if (ModelState.IsValid)
@@ -82,6 +87,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoSexo/Delete/5
 		[Route("eliminar-tipo-sexo", Name = TipoSexoControllerRoute.GetDelete)]
+		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -100,6 +106,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-tipo-sexo", Name = TipoSexoControllerRoute.PostDelete)]
+		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
 			TipoSexo tipoSexo = process.GetById(id);

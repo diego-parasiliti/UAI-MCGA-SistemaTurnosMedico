@@ -19,6 +19,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDia
 		[Route("listado-tipo-dia", Name = TipoDiaControllerRoute.GetIndex)]
+		[Compress]
 		public ActionResult Index()
         {
 			return View(TipoDiaControllerAction.Index, process.GetAll());
@@ -26,6 +27,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDia/Create
 		[Route("agregar-tipo-dia", Name = TipoDiaControllerRoute.GetCreate)]
+		[Compress]
 		public ActionResult Create()
         {
 			return View(TipoDiaControllerAction.Create);
@@ -37,6 +39,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-dia", Name = TipoDiaControllerRoute.PostCreate)]
+		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoDia tipoDia)
         {
             if (ModelState.IsValid)
@@ -50,6 +53,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDia/Edit/5
 		[Route("editar-tipo-dia", Name = TipoDiaControllerRoute.GetEdit)]
+		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -70,6 +74,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-dia", Name = TipoDiaControllerRoute.PostEdit)]
+		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoDia tipoDia)
         {
             if (ModelState.IsValid)
@@ -82,6 +87,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDia/Delete/5
 		[Route("eliminar-tipo-dia", Name = TipoDiaControllerRoute.GetDelete)]
+		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -100,6 +106,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-tipo-dia", Name = TipoDiaControllerRoute.PostDelete)]
+		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
             TipoDia tipoDia = process.GetById(id);

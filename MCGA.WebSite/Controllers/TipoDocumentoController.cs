@@ -20,6 +20,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDocumento
 		[Route("listado-tipo-documento", Name = TipoDocumentoControllerRoute.GetIndex)]
+		[Compress]
 		public ActionResult Index()
         {
 			return View(TipoDocumentoControllerAction.Index, process.GetAll());
@@ -27,6 +28,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDocumento/Create
 		[Route("agregar-tipo-documento", Name = TipoDocumentoControllerRoute.GetCreate)]
+		[Compress]
 		public ActionResult Create()
         {
 			return View(TipoDocumentoControllerAction.Create);
@@ -38,6 +40,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-documento", Name = TipoDocumentoControllerRoute.PostCreate)]
+		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoDocumento tipoDocumento)
         {
             if (ModelState.IsValid)
@@ -51,6 +54,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDocumento/Edit/5
 		[Route("editar-tipo-documento", Name = TipoDocumentoControllerRoute.GetEdit)]
+		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,6 +75,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-documento", Name = TipoDocumentoControllerRoute.PostEdit)]
+		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoDocumento tipoDocumento)
         {
             if (ModelState.IsValid)
@@ -83,6 +88,7 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoDocumento/Delete/5
 		[Route("eliminar-tipo-documento", Name = TipoDocumentoControllerRoute.GetDelete)]
+		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -101,6 +107,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-tipo-documento", Name = TipoDocumentoControllerRoute.PostDelete)]
+		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
 			TipoDocumento tipoDocumento = process.GetById(id);
