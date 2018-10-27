@@ -35,13 +35,13 @@
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
-            <table class="table table-sm table-hover table-light">
-                <thead class="thead-dark">
+            <table class="table table-sm table-light table-bordered">
+                <thead class="thead-light">
                     <tr>
-                        <th>
+                        <th style="width:90%;">
                             Descripción
                         </th>
-                        <th></th>
+                        <th style="width:10%;"></th>
                     </tr>
                 </thead>
                 @foreach (var item in Model)
@@ -52,14 +52,15 @@
                         </td>
                         <td>
                             <div class="float-right">
-                                <a class="btn btn-sm" href="@Url.Action("Edit", "TipoCancelacion",new { id = item.Id })">
-                                    <i class="fa fa-edit"></i>
-                                    Editar
-                                </a>
-                                |
-                                <a class="btn btn-sm text-danger" href="@Url.Action("Delete", "TipoCancelacion",new { id = item.Id })">
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-secondary btn-sm" title="Editar" href="@Url.Action("Edit", "TipoCancelacion",new { id = item.Id })">
+                                        <i class="fa fa-edit"></i>
+                                        Editar
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "TipoCancelacion",new { id = item.Id })">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>

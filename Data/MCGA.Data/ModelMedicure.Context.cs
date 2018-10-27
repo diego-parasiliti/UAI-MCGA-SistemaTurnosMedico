@@ -33,5 +33,17 @@ namespace MCGA.Data
         public virtual DbSet<TipoEspecialidad> TipoEspecialidad { get; set; }
         public virtual DbSet<TipoReseva> TipoReseva { get; set; }
         public virtual DbSet<TipoSexo> TipoSexo { get; set; }
+        public virtual DbSet<Atencion> Atencion { get; set; }
+        public virtual DbSet<Especialidad> Especialidad { get; set; }
+        public virtual DbSet<Plan> Plan { get; set; }
+        public virtual DbSet<Afiliado> Afiliado { get; set; }
+        public virtual DbSet<Agenda> Agenda { get; set; }
+        public virtual DbSet<AgendaCancelacion> AgendaCancelacion { get; set; }
+        public virtual DbSet<Bono> Bono { get; set; }
+        public virtual DbSet<Cancelacion> Cancelacion { get; set; }
+        public virtual DbSet<EspecialidadesProfesional> EspecialidadesProfesional { get; set; }
+        public virtual DbSet<Profesional> Profesional { get; set; }
+        public virtual DbSet<Turno> Turno { get; set; }
+        public virtual DbSet<HistorialAfiliado> HistorialAfiliado { get; set; }
     }
 }

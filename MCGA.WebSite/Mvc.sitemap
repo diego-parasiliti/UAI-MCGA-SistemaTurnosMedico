@@ -49,8 +49,50 @@
     <mvcSiteMapNode title="Agregar" controller="TipoSexo" action="Create"/>
     <mvcSiteMapNode title="Editar" controller="TipoSexo" action="Edit"/>
     <mvcSiteMapNode title="Eliminar" controller="TipoSexo" action="Delete"/>
-  </mvcSiteMapNode>    
+  </mvcSiteMapNode>
 
+    <mvcSiteMapNode title="Especialidad" controller="Especialidad" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="Especialidad" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Especialidad" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Especialidad" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Plan" controller="Plan" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="Plan" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Plan" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Plan" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Profesional" controller="Profesional" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="Profesional" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Profesional" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Profesional" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Especialidades de profesional" controller="EspecialidadesProfesional" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="EspecialidadesProfesional" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="EspecialidadesProfesional" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="EspecialidadesProfesional" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Agenda" controller="Agenda" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="Agenda" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Agenda" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Agenda" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Afiliado" controller="Afiliado" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="Afiliado" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Afiliado" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Afiliado" action="Delete"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Turno" controller="Turno" action="Index">
+      <mvcSiteMapNode title="Agregar" controller="Turno" action="Create"/>
+      <mvcSiteMapNode title="Editar" controller="Turno" action="Edit"/>
+      <mvcSiteMapNode title="Eliminar" controller="Turno" action="Delete"/>
+    </mvcSiteMapNode>
+    
   </mvcSiteMapNode>
 
   

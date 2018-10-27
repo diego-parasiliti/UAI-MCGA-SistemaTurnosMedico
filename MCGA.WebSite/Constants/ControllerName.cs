@@ -17,6 +17,13 @@ namespace MCGA.Constants
 		public const string TipoEspecialidad = "TipoEspecialidad";
 		public const string TipoReseva = "TipoReseva";
 		public const string TipoSexo = "TipoSexo";
+		public const string Especialidad = "Especialidad";
+		public const string Plan = "Plan";
+		public const string Profesional = "Profesional";
+		public const string EspecialidadesProfesional = "EspecialidadesProfesional";
+		public const string Agenda = "Agenda";
+		public const string Afiliado = "Afiliado";
+		public const string Turno = "Turno";
 
 
 	}

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using MCGA.Data;
 using MCGA.UI.Process;
 using MCGA.Entities;
-using MCGA.Constants.TipoCancelacionController;
+using MCGA.Constants;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -20,7 +20,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoCancelacion
 		[Route("listado-tipo-cancelacion", Name = TipoCancelacionControllerRoute.GetIndex)]
-		[Compress]
 		public ActionResult Index()
         {
 			return View(TipoCancelacionControllerAction.Index, process.GetAll());
@@ -28,7 +27,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoCancelacion/Create
 		[Route("agregar-tipo-cancelacion", Name = TipoCancelacionControllerRoute.GetCreate)]
-		[Compress]
 		public ActionResult Create()
         {
 			return View(TipoCancelacionControllerAction.Create);
@@ -40,7 +38,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-cancelacion", Name = TipoCancelacionControllerRoute.PostCreate)]
-		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoCancelacion tipoCancelacion)
         {
             if (ModelState.IsValid)
@@ -54,7 +51,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoCancelacion/Edit/5
 		[Route("editar-tipo-cancelacion", Name = TipoCancelacionControllerRoute.GetEdit)]
-		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,7 +71,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-cancelacion", Name = TipoCancelacionControllerRoute.PostEdit)]
-		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoCancelacion tipoCancelacion)
         {
             if (ModelState.IsValid)
@@ -88,7 +83,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoCancelacion/Delete/5
 		[Route("eliminar-tipo-cancelacion", Name = TipoCancelacionControllerRoute.GetDelete)]
-		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,7 +101,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-tipo-cancelacion", Name = TipoCancelacionControllerRoute.PostDelete)]
-		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
 			TipoCancelacion tipoCancelacion = process.GetById(id);

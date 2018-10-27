@@ -14,7 +14,19 @@ namespace MCGA.Entities
     
     public partial class TipoDocumento
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoDocumento()
+        {
+            this.Afiliado = new HashSet<Afiliado>();
+            this.Profesional = new HashSet<Profesional>();
+        }
+    
         public int Id { get; set; }
         public string descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Afiliado> Afiliado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Profesional> Profesional { get; set; }
     }
 }

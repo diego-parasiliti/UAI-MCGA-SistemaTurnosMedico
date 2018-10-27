@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MCGA.Constants.TipoEspecialidadController;
+using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
@@ -20,7 +20,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoEspecialidad
 		[Route("listado-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetIndex)]
-		[Compress]
 		public ActionResult Index()
         {
 			return View(TipoEspecialidadControllerAction.Index, process.GetAll());
@@ -28,7 +27,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoEspecialidad/Create
 		[Route("agregar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetCreate)]
-		[Compress]
 		public ActionResult Create()
         {
             return View(TipoEspecialidadControllerAction.Create);
@@ -40,7 +38,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.PostCreate)]
-		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoEspecialidad tipoEspecialidad)
         {
             if (ModelState.IsValid)
@@ -53,7 +50,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoEspecialidad/Edit/5
 		[Route("editar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetEdit)]
-		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,7 +70,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.PostEdit)]
-		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoEspecialidad tipoEspecialidad)
         {
             if (ModelState.IsValid)
@@ -87,7 +82,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: TipoEspecialidad/Delete/5
 		[Route("eliminar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetDelete)]
-		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,7 +100,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-tipo-especialidad", Name = TipoEspecialidadControllerRoute.PostDelete)]
-		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
 			TipoEspecialidad tipoEspecialidad = process.GetById(id);

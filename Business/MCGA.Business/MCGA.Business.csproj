@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AfiliadoComponent.cs" />
+    <Compile Include="AgendaComponent.cs" />
+    <Compile Include="EspecialidadComponent.cs" />
+    <Compile Include="EspecialidadesProfesionalComponent.cs" />
     <Compile Include="EstadoCivilComponent.cs" />
+    <Compile Include="PlanComponent.cs" />
+    <Compile Include="ProfesionalComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoCancelacionComponent.cs" />
     <Compile Include="TipoDiaComponent.cs" />
@@ -49,6 +55,7 @@
     <Compile Include="TipoEspecialidadComponent.cs" />
     <Compile Include="TipoResevaComponent.cs" />
     <Compile Include="TipoSexoComponent.cs" />
+    <Compile Include="TurnoComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\MCGA.Data\MCGA.Data.csproj">

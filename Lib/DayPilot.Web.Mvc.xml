@@ -1,0 +1,1175 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DayPilot.Web.Mvc</name>
+    </assembly>
+    <members>
+        <member name="T:DayPilot.Web.Mvc.Data.Column">
+            <summary>
+            Class representing calendar column in <see cref="!:ViewTypeEnum.Resources">resources view</see>.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.Column.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.Column.#ctor(System.String,System.String)">
+            <summary>
+            Constructor that sets the default values.
+            </summary>
+            <param name="name">Column name (visible).</param>
+            <param name="id">Column value (id).</param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.Column.#ctor(System.String,System.String,System.DateTime)">
+            <summary>
+            Constructor that sets the default values.
+            </summary>
+            <param name="name">Column name (visible).</param>
+            <param name="id">Column value (id).</param>
+            <param name="date">Column date.</param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.Column.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </summary>
+            
+            <returns>
+            A <see cref="T:System.String"></see> that represents the current <see cref="T:System.Object"></see>.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Data.Column.Id">
+            <summary>
+            Column value (id).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Data.Column.Name">
+            <summary>
+            Column name (visible).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Data.Column.Date">
+            <summary>
+            Change the column date to override the default date in resources view.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Data.Column.ToolTip">
+            <summary>
+            Get or set the column ToolTip.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Data.Column.Children">
+            <summary>
+            A collection of child columns.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Data.ColumnCollection">
+            <summary>
+            Collection of columns for <see cref="!:ViewTypeEnum.Resources">Resources</see> view.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.ToArrayList">
+            <summary>
+            Converts ColumnCollection to ArrayList.
+            </summary>
+            <returns>ArrayList with ColumnCollection items.</returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.Add(DayPilot.Web.Mvc.Data.Column)">
+            <summary>
+            Adds a new <see cref="T:DayPilot.Web.Mvc.Data.Column">Column</see> to the collection.
+            </summary>
+            <param name="value">Column to be added.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.Add(System.String,System.String)">
+            <summary>
+            Adds a new <see cref="T:DayPilot.Web.Mvc.Data.Column">Column</see> to the collection.
+            </summary>
+            <param name="name">Column name</param>
+            <param name="id">Column id</param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.Add(System.String,System.String,System.DateTime)">
+            <summary>
+            Adds a new <see cref="T:DayPilot.Web.Mvc.Data.Column">Column</see> to the collection.
+            </summary>
+            <param name="name">Column name</param>
+            <param name="id">Column id</param>
+            <param name="date">Column date</param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.IndexOf(DayPilot.Web.Mvc.Data.Column)">
+            <summary>
+            Determines the index of a specific item in the collection.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.Insert(System.Int32,DayPilot.Web.Mvc.Data.Column)">
+            <summary>
+            Inserts a new column at the specified position.
+            </summary>
+            <param name="index">New column position.</param>
+            <param name="value">Column to be added.</param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.Remove(DayPilot.Web.Mvc.Data.Column)">
+            <summary>
+            Removes a column from the collection.
+            </summary>
+            <param name="value">Column to be removed.</param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.Contains(DayPilot.Web.Mvc.Data.Column)">
+            <summary>
+            Determines whether the collection contains a specified column.
+            </summary>
+            <param name="value">Column to be found.</param>
+            <returns>True if the collection contains the column</returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.#ctor(System.Collections.ArrayList)">
+            <summary>
+            Creates a new collection from an ArrayList.
+            </summary>
+            <param name="items">ArrayList that contains the new columns.</param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.#ctor">
+            <summary>
+            Creates a new ColumnCollection.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.GetColumnCount(System.Int32)">
+            <summary>
+            Returns number of columns in the collection.
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Data.ColumnCollection.GetColumns(System.Int32,System.Boolean)">
+            <summary>
+            Returns the columns at the specified level.
+            </summary>
+            <param name="level">Column level</param>
+            <param name="inherit">True if the column details should be inherited from the parent (if there is no column on the specified level).</param>
+            <returns></returns>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Data.ColumnCollection.Item(System.Int32)">
+            <summary>
+            Gets the specified <see cref="T:DayPilot.Web.Mvc.Data.Column">Column</see>.
+            </summary>
+            <param name="index">Item index</param>
+            <returns>Column at the specified position.</returns>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.DayPilotCalendar">
+            <summary>
+            Handles DayPilot Scheduler backend requests (AJAX).
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotCalendar.OnPrepare">
+            <summary>
+            Lifecycle hook. Called at the beginning of every callback request.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotCalendar.OnFinish">
+            <summary>
+            Lifecycle hook. Called at the end of every callback request.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotCalendar.#ctor">
+            <summary>
+             Default constructor.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotCalendar.CallBack(System.Web.Mvc.Controller)">
+            <summary>
+            Processes the callback request. This method should be called from the backend controller.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotCalendar.Redirect(System.String)">
+            <summary>
+            Redirects the page to a new location specified by the url parameter.
+            </summary>
+            <param name="url">The new location</param>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.UpdateType">
+            <summary>
+            Gets the update type.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">
+            <summary>
+            Gets or sets the name of an event member that holds the event text.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">
+            <summary>
+            Gets or sets the name of an event member that holds the event id.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">
+            <summary>
+            Gets or sets the name of an event member that holds the event start.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">
+            <summary>
+            Gets or sets the name of an event member that holds the event end.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.Events">
+            <summary>
+            Gest or sets the collection of events.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.BusinessBeginsHour">
+            <summary>
+             Gets or sets the start of the business day (in hours).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.BusinessEndsHour">
+            <summary>
+            Gets or sets the end of the business day (in hours).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.CellBackColor">
+            <summary>
+            Gets or sets the color of the cells.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.Id">
+            <summary>
+            Gets the id of the control on the client side.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.Culture">
+            <summary>
+            Gets or sets the culture that will be used for DateTime formatting.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.HeaderDateFormat">
+            <summary>
+            Gets or sets the format of the date display in the header columns (e.g. \"d\", \"yyyy-MM-dd\").
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.HeightSpec">
+            <summary>
+            Gets or sets the height specification. Determines how the control height will be calculated.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.StartDate">
+            <summary>
+            Gets or sets the first day to be displayed in ViewType=Days mode.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.ViewType">
+            <summary>
+            Gets or sets the ViewType. ViewType determines how many columns will be displayed (Day, Week, WorkWeek, Days) or whether the Columns collection will be used (Resources).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.TimeFormat">
+            <summary>
+            Gets or sets the time format (12 hour/24 hour clock) to be used for time formatting.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.EventHeaderVisible">
+            <summary>
+            Gets or sets the visibility of event headers.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.HourNameBackColor">
+            <summary>
+            Gets or sets the header background color.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.HourFontFamily">
+            <summary>
+            Gets or sets the header font family.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.HourFontSize">
+            <summary>
+            Gets or sets the header font size.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.HourFontColor">
+            <summary>
+            Gets or sets the header font color.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.WeekStarts">
+            <summary>
+            Gets or sets how the first day of week will be determined (fixed or auto).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotCalendar.EndDate">
+            <summary>
+             Gets the last visible day in ViewType other than Resources.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.DayPilotMonth">
+            <summary>
+            Handles DayPilot Scheduler backend requests (AJAX).
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotMonth.OnPrepare">
+            <summary>
+            Lifecycle hook. Called at the beginning of every request.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotMonth.LastVisibleDayOfMonth">
+            <summary>
+            End of the the last visible day of the selected month
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.DayPilotMonth.Redirect(System.String)">
+            <summary>
+            Redirects the page to a new location specified by the url parameter.
+            </summary>
+            <param name="url">The new location</param>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.StartDate">
+            <summary>
+            Gets or sets the month (ViewType=Month) or first week (ViewType=Weeks) to be displayed.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.WeekStarts">
+            <summary>
+            First day of week.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.HeaderBackColor">
+            <summary>
+            Header background color. Ignored in CssOnly mode.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.BackColor">
+            <summary>
+            Business cell background color. Ignored in CssOnly mode.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.NonBusinessBackColor">
+            <summary>
+            Non-business cell background color. Ignored in CssOnly mode.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.Id">
+            <summary>
+            Id of the control on the client side.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.UpdateType">
+            <summary>
+            Requested update type (None, EventsOnly, Full).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.DataTextField">
+            <summary>
+            Gets or sets the name of an event member that holds the event text.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.DataIdField">
+            <summary>
+            Gets or sets the name of an event member that holds the event id.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.DataStartField">
+            <summary>
+            Gets or sets the name of an event member that holds the event start.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonth.DataEndField">
+            <summary>
+            Gets or sets the name of an event member that holds the event end.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.DayPilotMonthConfig.ResolvedWeekStart">
+            <summary>
+            Day of week specified using WeekStarts property, translated to an actual DayOfWeek.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Enums.Calendar.HeightSpec">
+            <summary>
+            Enumeration of height specification types.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.Calendar.HeightSpec.Full">
+            <summary>
+            The height will be adjusted to full height. All hours will be visible. No scrollbar.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.Calendar.HeightSpec.BusinessHours">
+            <summary>
+            The height will be set according to business hours. The rest of the hours will be accessible using a scrollbar.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Enums.CallBackUpdateType">
+            <summary>
+            Enumeration of callback update types.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.CallBackUpdateType.None">
+            <summary>
+            Don't refresh anything
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.CallBackUpdateType.EventsOnly">
+            <summary>
+            Refresh events collection only.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.CallBackUpdateType.Full">
+            <summary>
+            Full refresh.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.TimeFormat.Clock12Hours">
+            <summary>
+            12-hours time format (e.g. 2 p.m.)
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.TimeFormat.Clock24Hours">
+            <summary>
+            24-hours time format (e.g. 14:00)
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.TimeFormat.Auto">
+            <summary>
+            Time format will be determined from the current culture
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Enums.WeekStarts">
+            <summary>
+            Enumeration of possible week start values.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Sunday">
+            <summary>
+            Week starts on Sunday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Monday">
+            <summary>
+            Week starts on Monday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Tuesday">
+            <summary>
+            Week starts on Tuesday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Wednesday">
+            <summary>
+            Week starts on Wednesday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Thursday">
+            <summary>
+            Week starts on Thursday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Friday">
+            <summary>
+            Week starts on Friday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Saturday">
+            <summary>
+            Week starts on Saturday.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Enums.WeekStarts.Auto">
+            <summary>
+            The week start is detected using the current culture.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.CommandArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventClickArgs.Id">
+            <summary>
+             Event value (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">DayPilotCalendar.DataValueField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventClickArgs.Start">
+            <summary>
+             Original event starting date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">DayPilotCalendar.DataStartField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventClickArgs.End">
+            <summary>
+             Original event ending date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">DayPilotCalendar.DataEndField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventClickArgs.Text">
+            <summary>
+            Event text. (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">DayPilotCalendar.DataTextField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventClickArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.Id">
+            <summary>
+             Event value (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">DayPilotCalendar.DataValueField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.OldStart">
+            <summary>
+             Original event starting date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">DayPilotCalendar.DataStartField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.OldEnd">
+            <summary>
+             Original event ending date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">DayPilotCalendar.DataEndField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.NewStart">
+            <summary>
+             New event starting date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.NewEnd">
+            <summary>
+             New event ending date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.Text">
+            <summary>
+            Event text. (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">DayPilotCalendar.DataTextField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.Id">
+            <summary>
+             Event value (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">DayPilotCalendar.DataValueField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.OldStart">
+            <summary>
+             Original event starting date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">DayPilotCalendar.DataStartField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.OldEnd">
+            <summary>
+             Original event ending date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">DayPilotCalendar.DataEndField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.NewStart">
+            <summary>
+             New event starting date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.NewEnd">
+            <summary>
+             New event ending date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.Text">
+            <summary>
+            Event text. (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">DayPilotCalendar.DataTextField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.CommandArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventClickArgs.Id">
+            <summary>
+             Event value (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">DayPilotCalendar.DataValueField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventClickArgs.Start">
+            <summary>
+             Original event starting date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">DayPilotCalendar.DataStartField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventClickArgs.End">
+            <summary>
+             Original event ending date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">DayPilotCalendar.DataEndField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventClickArgs.Text">
+            <summary>
+            Event text. (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">DayPilotCalendar.DataTextField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventClickArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.Id">
+            <summary>
+             Event value (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">DayPilotCalendar.DataValueField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.OldStart">
+            <summary>
+             Original event starting date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">DayPilotCalendar.DataStartField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.OldEnd">
+            <summary>
+             Original event ending date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">DayPilotCalendar.DataEndField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.NewStart">
+            <summary>
+             New event starting date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.NewEnd">
+            <summary>
+             New event ending date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.Text">
+            <summary>
+            Event text. (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">DayPilotCalendar.DataTextField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventMoveArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventMoveHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventMoveHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventMoveHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.Id">
+            <summary>
+             Event value (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataIdField">DayPilotCalendar.DataValueField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.OldStart">
+            <summary>
+             Original event starting date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataStartField">DayPilotCalendar.DataStartField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.OldEnd">
+            <summary>
+             Original event ending date and time (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataEndField">DayPilotCalendar.DataEndField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.NewStart">
+            <summary>
+             New event starting date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.NewEnd">
+            <summary>
+             New event ending date and time.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.Text">
+            <summary>
+            Event text. (<see cref="P:DayPilot.Web.Mvc.DayPilotCalendar.DataTextField">DayPilotCalendar.DataTextField</see> property).
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Events.Month.EventResizeArgs.Data">
+            <summary>
+            Custom data.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventResizeHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventResizeHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.EventResizeHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedHandlingType.JavaScript">
+            <summary>
+            The user action will run a JavaScript function.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedHandlingType.CallBack">
+            <summary>
+            The user action will call an AJAX CallBack event.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedHandlingType.Disabled">
+            <summary>
+            This functionality is disabled at all.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Json.JsonType">
+            <summary>
+            Json types. Thanks to http://litjson.sourceforge.net/.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.None">
+            <summary>
+            No type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.Object">
+            <summary>
+            Object type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.Array">
+            <summary>
+            Array type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.String">
+            <summary>
+            Strign type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.Int">
+            <summary>
+            Integer type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.Long">
+            <summary>
+            Long type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.Double">
+            <summary>
+            Double type.
+            </summary>
+        </member>
+        <member name="F:DayPilot.Web.Mvc.Json.JsonType.Boolean">
+            <summary>
+            Boolean type.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Json.JsonData">
+            <summary>
+            Universal class for holding a transformed JSON value. Thanks to Thanks to http://litjson.sourceforge.net/.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor(System.Boolean)">
+            <summary>
+            Initializes a JsonData class with a boolean value.
+            </summary>
+            <param name="boolean"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor(System.Double)">
+            <summary>
+            Initializes a JsonData class with a double value.
+            </summary>
+            <param name="number"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor(System.Int32)">
+            <summary>
+            Initializes a JsonData class with an integer value.
+            </summary>
+            <param name="number"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor(System.Int64)">
+            <summary>
+            Initializes a JsonData class with a long value.
+            </summary>
+            <param name="number"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor(System.Object)">
+            <summary>
+            Initializes a JsonData class with an object. Tries to detect the type.
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.#ctor(System.String)">
+            <summary>
+            Initializes a JsonData class with a string value.
+            </summary>
+            <param name="str"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Implicit(System.Boolean)~DayPilot.Web.Mvc.Json.JsonData">
+            <summary>
+            Implicit conversion from Boolean.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Implicit(System.Double)~DayPilot.Web.Mvc.Json.JsonData">
+            <summary>
+            Implicit conversion from Double.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Implicit(System.Int32)~DayPilot.Web.Mvc.Json.JsonData">
+            <summary>
+            Implicit conversion from Int32.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Implicit(System.Int64)~DayPilot.Web.Mvc.Json.JsonData">
+            <summary>
+            Implicit conversion from Int64.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Implicit(System.String)~DayPilot.Web.Mvc.Json.JsonData">
+            <summary>
+            Implicit conversion from String.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Explicit(DayPilot.Web.Mvc.Json.JsonData)~System.Boolean">
+            <summary>
+            Explicit conversion to Boolean.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Explicit(DayPilot.Web.Mvc.Json.JsonData)~System.Double">
+            <summary>
+            Explicit conversion to Double.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Explicit(DayPilot.Web.Mvc.Json.JsonData)~System.Int32">
+            <summary>
+            Explicit conversion to Int32.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Explicit(DayPilot.Web.Mvc.Json.JsonData)~System.Int64">
+            <summary>
+            Explicit conversion to Int64.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Explicit(DayPilot.Web.Mvc.Json.JsonData)~System.String">
+            <summary>
+            Explicit conversion to String.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.op_Explicit(DayPilot.Web.Mvc.Json.JsonData)~System.DateTime">
+            <summary>
+            Explicit conversion to DateTime.
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.Add(System.Object)">
+            <summary>
+            Adds a new object to the collection.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.Clear">
+            <summary>
+            Clears object/array.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.Equals(DayPilot.Web.Mvc.Json.JsonData)">
+            <summary>
+            Compares the value to another JsonData object.
+            </summary>
+            <param name="x"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.GetJsonType">
+            <summary>
+            Returns the internal type.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.SetJsonType(DayPilot.Web.Mvc.Json.JsonType)">
+            <summary>
+            Sets the internal type.
+            </summary>
+            <param name="type"></param>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.JsonData.ToString">
+            <summary>
+            Returns a string representation of the value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.Count">
+            <summary>
+            Gets the number of items in a collection.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsArray">
+            <summary>
+            Gets true for array values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsBoolean">
+            <summary>
+            Gets true for Boolean values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsDouble">
+            <summary>
+            Gets true for Double values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsInt">
+            <summary>
+            Gets true for Int values
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsLong">
+            <summary>
+            Gets true for Long values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsObject">
+            <summary>
+            Gets true for Object values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsString">
+            <summary>
+            Gets true for String values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.IsNull">
+            <summary>
+            Gets true for null values.
+            </summary>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.Item(System.String)">
+            <summary>
+            Accesses a dictionary value.
+            </summary>
+            <param name="prop_name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:DayPilot.Web.Mvc.Json.JsonData.Item(System.Int32)">
+            <summary>
+            Accesses a collection value
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Json.JSONObject">
+            <summary>
+            Wrapper to make the API compatible with the Java version. 
+            For internal use.
+            </summary>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Json.SimpleJsonDeserializer">
+            <summary>
+            Just for parsing short strings (inefficient for large data).
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.SimpleJsonDeserializer.Deserialize(System.String)">
+            <summary>
+            Deserialized a string.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Json.SimpleJsonSerializer">
+            <summary>
+            Class for serializing simple objects to JSON. Supports null, int, double, bool, DateTime, string, IDictionary, and IList.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Json.SimpleJsonSerializer.Serialize(System.Object)">
+            <summary>
+            Serializes an object to a JSON string. Unknown classes are serialized using ToString().
+            </summary>
+            <param name="obj">Supports null, int, double, bool, DateTime, string, IDictionary, and IList.</param>
+            <returns></returns>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Utils.Hour">
+            <summary>
+            Helper class for hour manipulation and formatting.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Hour.DetectTimeFormat(DayPilot.Web.Mvc.Enums.TimeFormat)">
+            <summary>
+            Detects the hour format for "Auto" TimeFormat value.
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Utils.Week">
+            <summary>
+            Helper class for week manipulation and formatting.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.FirstDayOfWeek">
+            <summary>
+            Gets the first day of this week. Based on current culture.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.FirstDayOfWeek(System.DateTime)">
+            <summary>
+            Gets the first day of a week where day (parameter) belongs. Based on current culture.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.FirstDayOfWeek(System.DateTime,System.DayOfWeek)">
+            <summary>
+            Gets the first day of a week where day (parameter) belongs. weekStart (parameter) specifies the starting day of week.
+            </summary>
+            <returns></returns> 
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.FirstWorkingDayOfWeek(System.DateTime)">
+            <summary>
+            Returns Monday of the week where day (parameter) belongs.
+            </summary>
+            <param name="day"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.WeekNrISO8601(System.DateTime)">
+            <summary>
+            Calculates week number for the specified date according to ISO 8601.
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.GetDayNames">
+            <summary>
+            Returns day names (using current culture).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Week.GetDayNames(System.String)">
+            <summary>
+            Returns day names (using current culture).
+            </summary>
+            <param name="format">Corresponds to DateTime.ToString() formats. "DD" is also available (first two characters of short day name).</param>
+            <returns></returns>
+        </member>
+        <member name="T:DayPilot.Web.Mvc.Utils.Year">
+            <summary>
+            Helper class for year manipulation and formatting.
+            </summary>
+        </member>
+        <member name="M:DayPilot.Web.Mvc.Utils.Year.GetMonthNames">
+            <summary>
+            Returns culture-specific month names (nominativ).
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

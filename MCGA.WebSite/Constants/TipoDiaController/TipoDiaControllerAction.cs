@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MCGA.Constants.TipoDiaController
+namespace MCGA.Constants
 {
     public static class TipoDiaControllerAction
 	{

@@ -49,14 +49,7 @@
         gtag('config', 'UA-125974509-1');
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
-            $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
-            $("div[onmouseover='S_ssac();']").remove();
-            $("center").remove();
-        });
-    </script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -85,7 +78,7 @@
         <div class="navbar d-none d-lg-block d-xl-block bg-dark">
             <div class="container">
                 <p class="text-center text-light">
-                    Somos un centro asistencial privado, que presta servicios de cuidado y atención en maternidad y patologías clínico-quirúrgicas prevalentes 
+                    Somos un centro asistencial privado, que presta servicios de cuidado y atención en maternidad y patologías clínico-quirúrgicas prevalentes
                 </p>
             </div>
         </div>
@@ -104,13 +97,20 @@
                                 CONFIGURACION
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="@Url.Action("Index", "Afiliado")">Afiliado</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Agenda")">Agenda</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Especialidad")">Especialidad</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "EstadoCivil")">Estado civil</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "EspecialidadesProfesional")">Especialidades profesional</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Plan")">Plan</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Profesional")">Profesional</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoCancelacion")">Tipo de cancelación</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoDia")">Tipo de día</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoDocumento")">Tipo de documento</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoEspecialidad")">Tipo de especialidad</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoReseva")">Tipo de reserva</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoSexo")">Tipo de sexo</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Turno")">Turno</a>
                             </div>
                         </li>
                     </ul>
@@ -129,17 +129,17 @@
         </div>
         <hr />
         <footer>
-                <div class="pull-right">
-                    &copy; @DateTime.Now.Year - Sistema de turnos - Clínica Alejandría - Parasiliti, Diego Nicolás
-                </div>
-                <div class="pull-left">
-                    <a href="https://es-la.facebook.com/uai.elfuturososvos" class="btn btn-sm fa fa-facebook"></a>
-                    <a href="https://twitter.com/uainow" class="btn btn-sm fa fa-twitter"></a>
-                    <a href="https://ar.linkedin.com/company/uai" class="btn btn-sm fa fa-linkedin"></a>
-                    <a href="https://plus.google.com/113155245406425976841" class="btn btn-sm fa fa-google-plus"></a>
-                    <a href="https://www.youtube.com/user/UAIelfuturososvos" class="btn btn-sm fa fa-youtube"></a>
-                    <a href="https://www.instagram.com/uainow" class="btn btn-sm fa fa-instagram"></a>
-                </div>
+            <div class="pull-right">
+                &copy; @DateTime.Now.Year - Sistema de turnos - Clínica Alejandría - Parasiliti, Diego Nicolás
+            </div>
+            <div class="pull-left">
+                <a href="https://es-la.facebook.com/uai.elfuturososvos" class="btn btn-sm fa fa-facebook"></a>
+                <a href="https://twitter.com/uainow" class="btn btn-sm fa fa-twitter"></a>
+                <a href="https://ar.linkedin.com/company/uai" class="btn btn-sm fa fa-linkedin"></a>
+                <a href="https://plus.google.com/113155245406425976841" class="btn btn-sm fa fa-google-plus"></a>
+                <a href="https://www.youtube.com/user/UAIelfuturososvos" class="btn btn-sm fa fa-youtube"></a>
+                <a href="https://www.instagram.com/uainow" class="btn btn-sm fa fa-instagram"></a>
+            </div>
         </footer>
     </div>
 
@@ -149,5 +149,15 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("Modal", required: false)
+
+    <script>
+        $(document).ready(function () {
+            $("div[style='opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;']").remove();
+            $("div[style='margin: 0px; padding: 0px; left: 0px; width: 100%; height: 65px; right: 0px; bottom: 0px; display: block; position: fixed; z-index: 2147483647; opacity: 0.9; background-color: rgb(32, 32, 32);']").remove();
+            $("div[onmouseover='S_ssac();']").remove();
+            $("center").remove();
+        });
+    </script>
+
 </body>
 </html>

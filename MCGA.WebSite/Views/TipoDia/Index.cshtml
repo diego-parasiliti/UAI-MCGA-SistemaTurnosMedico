@@ -24,10 +24,17 @@
     <div class="col-12">
         <h2>
             Tipo de día
-            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "TipoDia")">
-                <i class="fa fa-plus-circle"></i>
-                Agregar
-            </a>
+            <div class="float-right">
+                <div class="btn-group" role="group">
+                    <a title="Agregar tipo de día" class="btn btn-sm btn-primary mt-2" href="@Url.Action("Create", "TipoDia")">
+                        <i class="fa fa-plus-circle"></i>
+                        Agregar
+                    </a>
+                    <a title="Exportar a Excel" class="btn btn-sm btn-outline-success mt-2" href="@Url.Action("ExportExcel", "TipoDia")">
+                        <i class="fa fa-file-excel-o"></i>
+                    </a>
+                </div>
+            </div>
         </h2>
     </div>
 </div>
@@ -35,13 +42,13 @@
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
-            <table class="table table-sm table-hover table-light">
-                <thead class="thead-dark">
+            <table class="table table-sm table-light table-bordered">
+                <thead class="thead-light">
                     <tr>
-                        <th>
+                        <th style="width:90%;">
                             Descripción
                         </th>
-                        <th></th>
+                        <th style="width:10%;"></th>
                     </tr>
                 </thead>
                 @foreach (var item in Model)
@@ -52,14 +59,15 @@
                         </td>
                         <td>
                             <div class="float-right">
-                                <a class="btn btn-sm" href="@Url.Action("Edit", "TipoDia",new { id = item.Id })">
-                                    <i class="fa fa-edit"></i>
-                                    Editar
-                                </a>
-                                |
-                                <a class="btn btn-sm text-danger" href="@Url.Action("Delete", "TipoDia",new { id = item.Id })">
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-secondary btn-sm" title="Editar" href="@Url.Action("Edit", "TipoDia",new { id = item.Id })">
+                                        <i class="fa fa-edit"></i>
+                                        Editar
+                                    </a>
+                                    <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "TipoDia",new { id = item.Id })">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
                             </div>
                         </td>
                     </tr>

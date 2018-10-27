@@ -21,10 +21,10 @@
     };
 }
 <h2>Eliminar <small>tipo de sexo</small></h2>
-
 <h3>¿Estás seguro?</h3>
-<div>
-    <hr class="hrSinMarginTop" />
+<hr class="hrSinMarginTop" />
+<div class="content-personalizado">
+
     <dl class="dl-horizontal">
         <dt>
             @Html.LabelFor(model => model.descripcion, "Descripción")
@@ -39,7 +39,7 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="form-group">
+        <div class="form-group text-right paddingLeftRight_15">
             <div class="form-actions no-color">
                 <button type="submit" class="btn btn-danger">
                     <i class="fa fa-trash-o"></i>

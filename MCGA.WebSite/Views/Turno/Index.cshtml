@@ -1,0 +1,149 @@
+﻿@model IEnumerable<MCGA.Entities.Turno>
+@{
+    ViewBag.Title = "Turno";
+    ViewBag.Description = "En esta página vamos a poder gestionar los turnos del sistema.";
+    ViewBag.Author = Application.Name;
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@TwitterCard");
+    ViewBag.OpenGraph = new OpenGraphBusiness(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/fonts/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 },
+        new OpenGraphContactData(Application.StreetAddress, Application.Locality, Application.PostalCode, Application.Country)
+        {
+            Email = Application.Email,
+            Phone = Application.Phone,
+            Website = Url.AbsoluteRouteUrl(TurnoControllerRoute.GetIndex)
+        },
+        new OpenGraphLocation(Application.Latitude, Application.Longitude))
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+        SiteName = Application.Name
+    };
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2>
+            Turno
+            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "Turno")">
+                <i class="fa fa-plus-circle"></i>
+                Agregar
+            </a>
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-sm table-light table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fecha)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Hora)
+                        </th>
+                        <th>
+                            @Html.Raw("Especialidad")
+                        </th>
+                        <th>
+                            @Html.Raw("Profesional")
+                        </th>
+                        <th>
+                            @Html.Raw("Afiliado")
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.reserva)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Observaciones)
+                        </th>
+                        <th style="width:5;"></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hora)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Especialidad.descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Nombre)
+                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Apellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Afiliado.Nombre)
+                            @Html.DisplayFor(modelItem => item.Afiliado.Apellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.reserva)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Observaciones)
+                        </td>
+                        <td>
+                            <div class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "Turno",new { id = item.Id })">
+                                        <i class="fa fa-trash-o"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.TurnoGenerado != null)
+{
+    <div class="modal fade" id="turnoGenerado">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-light">
+                    <h4 class="modal-title">Turno registrado</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span class="font-weight-bold">Estimado, </span>
+                        queremos informale que el turno ha sido registrado.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="turnoGenerado" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+}
+
+@section Scripts {
+    <script>
+        
+
+        $(document).ready(function () {
+            $('#turnoGenerado').fadeTo(2000, 500).slideUp(500, function () {
+                $("#turnoGenerado").slideUp(500);
+            });
+            //$('#turnoGenerado').modal('show');
+            $('table').stacktable();
+        });
+    </script>
+}

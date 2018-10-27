@@ -1,0 +1,94 @@
+﻿@model IEnumerable<MCGA.Entities.Plan>
+@{
+    ViewBag.Title = "Plan";
+    ViewBag.Description = "En esta página vamos a poder gestionar los planes del sistema.";
+    ViewBag.Author = Application.Name;
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@TwitterCard");
+    ViewBag.OpenGraph = new OpenGraphBusiness(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/fonts/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 },
+        new OpenGraphContactData(Application.StreetAddress, Application.Locality, Application.PostalCode, Application.Country)
+        {
+            Email = Application.Email,
+            Phone = Application.Phone,
+            Website = Url.AbsoluteRouteUrl(PlanControllerRoute.GetIndex)
+        },
+        new OpenGraphLocation(Application.Latitude, Application.Longitude))
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+        SiteName = Application.Name
+    };
+}
+
+<div class="row">
+    <div class="col-12">
+        <h2>
+            Plan
+            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "Plan")">
+                <i class="fa fa-plus-circle"></i>
+                Agregar
+            </a>
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-sm table-light table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.descripcion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.precio_bono_consulta)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.precio_bono_farmacia)
+                        </th>
+                        <th style="width:10%;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.descripcion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.precio_bono_consulta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.precio_bono_farmacia)
+                            </td>
+                            <td>
+                                <div class="float-right">
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-secondary btn-sm" title="Editar" href="@Url.Action("Edit", "Plan",new { id = item.Id })">
+                                            <i class="fa fa-edit"></i>
+                                            Editar
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "Plan",new { id = item.Id })">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('table').stacktable();
+        });
+    </script>
+}

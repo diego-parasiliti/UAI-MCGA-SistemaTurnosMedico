@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MCGA.Constants.EstadoCivilController;
+using MCGA.Constants;
 using MCGA.Entities;
 using MCGA.UI.Process;
 
@@ -19,7 +19,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: EstadoCivil
 		[Route("listado-estado-civil", Name = EstadoCivilControllerRoute.GetIndex)]
-		[Compress]
 		public ActionResult Index()
         {
 			return View(EstadoCivilControllerAction.Index, process.GetAll());
@@ -27,7 +26,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: EstadoCivil/Create
 		[Route("agregar-estado-civil", Name = EstadoCivilControllerRoute.GetCreate)]
-		[Compress]
 		public ActionResult Create()
         {
 			return View(EstadoCivilControllerAction.Create);
@@ -39,7 +37,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-estado-civil", Name = EstadoCivilControllerRoute.PostCreate)]
-		[Compress]
 		public ActionResult Create([Bind(Include = "Id,descripcion")] EstadoCivil estadoCivil)
         {
             if (ModelState.IsValid)
@@ -52,7 +49,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: EstadoCivil/Edit/5
 		[Route("editar-estado-civil", Name = EstadoCivilControllerRoute.GetEdit)]
-		[Compress]
 		public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,7 +70,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-estado-civil", Name = EstadoCivilControllerRoute.PostEdit)]
-		[Compress]
 		public ActionResult Edit([Bind(Include = "Id,descripcion")] EstadoCivil estadoCivil)
         {
             if (ModelState.IsValid)
@@ -87,7 +82,6 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: EstadoCivil/Delete/5
 		[Route("eliminar-estado-civil", Name = EstadoCivilControllerRoute.GetDelete)]
-		[Compress]
 		public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,7 +100,6 @@ namespace MCGA.WebSite.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
 		[Route("eliminar-estado-civil", Name = EstadoCivilControllerRoute.PostDelete)]
-		[Compress]
 		public ActionResult DeleteConfirmed(int id)
         {
             EstadoCivil estadoCivil = process.GetById(id);
