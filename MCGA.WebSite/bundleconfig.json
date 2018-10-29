@@ -16,5 +16,11 @@
     "inputFiles": [
       "Content/SocialBar.css"
     ]
+  },
+  {
+    "outputFileName": "Content/PagedList.min.css",
+    "inputFiles": [
+      "Content/PagedList.css"
+    ]
   }
 ]

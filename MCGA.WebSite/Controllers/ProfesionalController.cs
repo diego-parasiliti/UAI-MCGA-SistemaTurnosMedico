@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -17,6 +19,13 @@ namespace MCGA.WebSite.Controllers
     {
 		private ProfesionalProcess process = new ProfesionalProcess();
 		private TipoDocumentoProcess tipoDocumentoProcess = new TipoDocumentoProcess();
+
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Nombre", "Apellido", "Tipo de documento", "Nº de documento", "Dirección", "Teléfono", "Email", "Fecha de nacimiento", "Matrícula"};
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.Nombre).ThenBy(o => o.Apellido).Select(o => new { o.Nombre, o.Apellido, o.TipoDocumento.descripcion, o.Numero, o.Direccion, o.Telefono, o.Email, FechaNacimiento = o.FechaNacimiento.ToShortDateString(), o.Matricula}).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de profesionales.xls");
+		}
 
 		public JsonResult GetProfesional(string Areas, string term = "")
 		{
@@ -26,10 +35,12 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: Profesional
 		[Route("listado-profesional", Name = ProfesionalControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
             var profesional = process.GetAll();
-            return View(profesional.ToList());
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(profesional.ToPagedList(pageNumber, pageSize));
         }
 
 		// GET: Profesional/Create

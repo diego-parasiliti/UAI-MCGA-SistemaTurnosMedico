@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -18,6 +20,13 @@ namespace MCGA.WebSite.Controllers
         private EspecialidadesProfesionalProcess process = new EspecialidadesProfesionalProcess();
 		private EspecialidadProcess especialidadProcess = new EspecialidadProcess();
 		private ProfesionalProcess profesionalProcess = new ProfesionalProcess();
+
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = {"Tipo de especialidad", "Especialidad", "Profesional" };
+			List<dynamic> lstDatos = process.GetAll().Select(o => new { o.Especialidad.TipoEspecialidad.descripcion, Especialidad = o.Especialidad.descripcion, Profesiona = string.Format("{0} {1}", o.Profesional.Nombre, o.Profesional.Apellido) }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de especialidad-profesional.xls");
+		}
 
 		public JsonResult GetEspecialidadProfesionalByProfesional(string Areas, string term = "", int idProfesional = 0)
 		{
@@ -33,10 +42,12 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: EspecialidadesProfesional
 		[Route("listado-especialidades-profesional", Name = EspecialidadesProfesionalControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
 			var especialidadesProfesional = process.GetAll();
-            return View(especialidadesProfesional.ToList());
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(especialidadesProfesional.ToPagedList(pageNumber, pageSize));
         }
 
 		// GET: EspecialidadesProfesional/Create

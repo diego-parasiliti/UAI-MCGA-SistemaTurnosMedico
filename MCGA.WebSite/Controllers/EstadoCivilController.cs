@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 using MCGA.Constants;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -17,11 +19,21 @@ namespace MCGA.WebSite.Controllers
     {
 		private EstadoCivilProcess process = new EstadoCivilProcess();
 
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Descripción" };
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.descripcion).Select(o => new { o.descripcion }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de estado civil.xls");
+		}
+
 		// GET: EstadoCivil
 		[Route("listado-estado-civil", Name = EstadoCivilControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
-			return View(EstadoCivilControllerAction.Index, process.GetAll());
+			var estadoCivil = process.GetAll();
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(estadoCivil.ToPagedList(pageNumber, pageSize));
 		}
 
 		// GET: EstadoCivil/Create

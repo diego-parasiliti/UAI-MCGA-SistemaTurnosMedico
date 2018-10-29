@@ -10,6 +10,8 @@ using MCGA.Data;
 using MCGA.UI.Process;
 using MCGA.Entities;
 using MCGA.Constants;
+using System.Configuration;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -18,11 +20,21 @@ namespace MCGA.WebSite.Controllers
     {
         private TipoCancelacionProcess process = new TipoCancelacionProcess();
 
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Descripción" };
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.descripcion).Select(o => new { o.descripcion }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de tipos de cancelación.xls");
+		}
+
 		// GET: TipoCancelacion
 		[Route("listado-tipo-cancelacion", Name = TipoCancelacionControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
-			return View(TipoCancelacionControllerAction.Index, process.GetAll());
+			var tipoCancelacion = process.GetAll();
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(tipoCancelacion.ToPagedList(pageNumber, pageSize));
 		}
 
 		// GET: TipoCancelacion/Create

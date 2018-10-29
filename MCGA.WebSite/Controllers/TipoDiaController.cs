@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.IO;
@@ -10,7 +11,7 @@ using System.Web.Mvc;
 using MCGA.Constants;
 using MCGA.Entities;
 using MCGA.UI.Process;
-using Spire.Xls;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -21,25 +22,19 @@ namespace MCGA.WebSite.Controllers
 
 		public FileResult ExportExcel()
 		{
-			Workbook book = new Workbook();
-			Worksheet sheet = book.Worksheets[0];
-			sheet.InsertArray(process.GetAll().OrderBy(o => o.descripcion).Select(o => o.descripcion).ToArray(),2 ,1, true);
-			sheet.InsertRow(0);
-			sheet.Rows[0].Text = "asdasdasdasd";
-			byte[] toArray = null;
-			using (MemoryStream ms1 = new MemoryStream())
-			{
-				book.SaveToStream(ms1, FileFormat.Version97to2003);
-				toArray = ms1.ToArray();
-			}	
-			return File(toArray, "application/vnd.ms-excel","Listado de días.xls");
+			string[] aColumnas = { "Descripción"};
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.descripcion).Select(o => new { o.descripcion }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de tipos de día.xls");
 		}
 
 		// GET: TipoDia
 		[Route("listado-tipo-dia", Name = TipoDiaControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
-			return View(TipoDiaControllerAction.Index, process.GetAll());
+			var tipoDia = process.GetAll();
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(tipoDia.ToPagedList(pageNumber, pageSize));
         }
 
 		// GET: TipoDia/Create

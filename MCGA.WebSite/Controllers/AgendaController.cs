@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -21,6 +23,13 @@ namespace MCGA.WebSite.Controllers
 		private EspecialidadProcess especialidadProcess = new EspecialidadProcess();
 		private ProfesionalProcess profesionalProcess = new ProfesionalProcess();
 		private TurnoProcess turnoProcess = new TurnoProcess();
+
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Profesional", "Especialidad", "Día","F. desde", "F. hasta", "H. desde", "H. hasta" };
+			List<dynamic> lstDatos = process.GetAll().Select(o => new { Profesional = string.Format("{0} {1}", o.EspecialidadesProfesional.Profesional.Nombre, o.EspecialidadesProfesional.Profesional.Apellido), Especialidad = o.EspecialidadesProfesional.Especialidad.descripcion, o.TipoDia.descripcion, FechaDesde = o.fecha_desde.ToShortDateString(), FechaHasta = o.fecha_hasta.ToShortDateString(), HoraDesde = o.hora_desde.ToString(), HoraHasta = o.hora_hasta.ToString()  }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de agendas.xls");
+		}
 
 		public JsonResult GetFechasDisponiblesByIdEspecialidadProfesional(int idEspecialidadProfesional = 0)
 		{
@@ -84,10 +93,12 @@ namespace MCGA.WebSite.Controllers
 	}
 		// GET: Agenda
 		[Route("listado-agenda", Name = AgendaControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
 			var agenda = process.GetAll();
-            return View(agenda.ToList());
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(agenda.ToPagedList(pageNumber, pageSize));
         }
 
 		// GET: Agenda/Create

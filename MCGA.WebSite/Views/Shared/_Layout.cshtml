@@ -17,10 +17,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/fonts/Icons/apple-touch-icon-180x180.png" />
     <meta name="theme-color" content="#1E1E1E">
 
-
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+    <link href="~/Content/fullcalendar.print.min.css" rel="stylesheet" media="print" />
 
     <meta name="description" content="@ViewBag.Description">
     @if (ViewBag.Author != null)
@@ -101,7 +101,7 @@
                                 <a class="dropdown-item" href="@Url.Action("Index", "Agenda")">Agenda</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "Especialidad")">Especialidad</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "EstadoCivil")">Estado civil</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "EspecialidadesProfesional")">Especialidades profesional</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "EspecialidadesProfesional")">Especialidades de profesional</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "Plan")">Plan</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "Profesional")">Profesional</a>
                                 <a class="dropdown-item" href="@Url.Action("Index", "TipoCancelacion")">Tipo de cancelación</a>
@@ -149,6 +149,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     @RenderSection("Modal", required: false)
+
+
 
     <script>
         $(document).ready(function () {

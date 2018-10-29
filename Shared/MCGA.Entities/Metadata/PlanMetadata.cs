@@ -15,6 +15,7 @@ namespace MCGA.Entities
 		{
 			[DisplayName("Nombre")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string descripcion { get; set; }
 
             [DisplayName("Bono de consulta")]

@@ -39,6 +39,7 @@ namespace MCGA.Entities
 
 			[DisplayName("Observaciones")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength (8000,ErrorMessage = "La longitud del texto debe ser <= a 8000 carácteres.")]
 			public string Observaciones { get; set; }
 		}
 	}

@@ -16,10 +16,12 @@ namespace MCGA.Entities
 		{
 			[DisplayName("Nombre")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Nombre { get; set; }
 
 			[DisplayName("Apellido")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Apellido { get; set; }
 
 			[DisplayName("Tipo de documento")]
@@ -28,19 +30,23 @@ namespace MCGA.Entities
 
 			[DisplayName("Nº de documento")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Numero { get; set; }
 
 			[DisplayName("Dirección")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Direccion { get; set; }
 
 			[DisplayName("Teléfono")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Telefono { get; set; }
 
 			[DisplayName("Email")]
 			[Required(ErrorMessage = "Obligatorio")]
 			[EmailAddress(ErrorMessage = "El formato es incorrecto.")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Email { get; set; }
 
 			[DisplayName("Fecha de nacimiento")]
@@ -51,6 +57,7 @@ namespace MCGA.Entities
 
 			[DisplayName("Matrícula")]
 			[Required(ErrorMessage = "Obligatorio")]
+			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string Matricula { get; set; }
 			
 		}

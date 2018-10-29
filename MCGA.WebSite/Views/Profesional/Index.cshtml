@@ -1,4 +1,5 @@
-﻿@model IEnumerable<MCGA.Entities.Profesional>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<MCGA.Entities.Profesional>
 @{
     ViewBag.Title = "Profesional";
     ViewBag.Description = "En esta página vamos a poder gestionar los profesionales del sistema.";
@@ -22,14 +23,23 @@
 }
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-lg-8 col-md-8 col-sm-12">
         <h2>
             Profesional
-            <a class="btn btn-sm btn-primary float-right mt-2" href="@Url.Action("Create", "Profesional")">
-                <i class="fa fa-plus-circle"></i>
-                Agregar
-            </a>
         </h2>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="float-lg-right float-md-right float-sm-none">
+            <div class="btn-group" role="group">
+                <a title="Agregar profesional" class="btn btn-sm btn-primary" href="@Url.Action("Create", "Profesional")">
+                    <i class="fa fa-plus-circle"></i>
+                    Agregar
+                </a>
+                <a title="Descargar a Excel" class="btn btn-sm btn-success" href="@Url.Action("ExportExcel", "Profesional")">
+                    <i class="fa fa-download"></i>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -46,22 +56,22 @@
                             @Html.Raw("Tipo de documento")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Numero)
+                            @Html.Raw("Nº de documento")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Direccion)
+                            @Html.Raw("Dirección")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Telefono)
+                            @Html.Raw("Teléfono")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Email)
+                            @Html.Raw("Email")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.FechaNacimiento)
+                            @Html.Raw("Fecha de nacimiento")
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Matricula)
+                            @Html.Raw("Matrícula")
                         </th>
                         <th style="width:10%;"></th>
                     </tr>
@@ -113,6 +123,12 @@
         </div>
     </div>
 </div>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+<p class="text-center">
+    Página <strong>@(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)</strong> de <strong>@Model.PageCount</strong>
+</p>
+
 @section Scripts {
     <script>
         $(document).ready(function () {

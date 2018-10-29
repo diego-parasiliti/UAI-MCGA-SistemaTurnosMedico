@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -18,11 +20,21 @@ namespace MCGA.WebSite.Controllers
     {
         private TipoEspecialidadProcess process = new TipoEspecialidadProcess();
 
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Descripción" };
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.descripcion).Select(o => new { o.descripcion }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de tipos de especialidad.xls");
+		}
+
 		// GET: TipoEspecialidad
 		[Route("listado-tipo-especialidad", Name = TipoEspecialidadControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
-			return View(TipoEspecialidadControllerAction.Index, process.GetAll());
+			var tipoEspecialidad = process.GetAll();
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(tipoEspecialidad.ToPagedList(pageNumber, pageSize));
         }
 
 		// GET: TipoEspecialidad/Create

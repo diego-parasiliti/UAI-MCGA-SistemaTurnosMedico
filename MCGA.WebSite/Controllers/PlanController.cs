@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -17,11 +19,21 @@ namespace MCGA.WebSite.Controllers
     {
         private PlanProcess process = new PlanProcess();
 
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Descripción", "Precio bono consulta", "Precio bono farmacia" };
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.descripcion).Select(o => new { o.descripcion, PrecioBonoConsulta =  o.precio_bono_consulta.ToString(), PrecioBonoFarmacia =  o.precio_bono_farmacia.ToString() }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de planes.xls");
+		}
+
 		// GET: Plan
 		[Route("listado-plan", Name = PlanControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
-			return View(process.GetAll());
+			var plan = process.GetAll();
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(plan.ToPagedList(pageNumber, pageSize));
 		}
 
 		// GET: Plan/Create

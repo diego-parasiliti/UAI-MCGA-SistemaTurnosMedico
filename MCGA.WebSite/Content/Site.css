@@ -199,3 +199,59 @@ label {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+
+.alert-fijo {
+    position: fixed;
+    bottom: 5px;
+    left: 2%;
+    width: 50%;
+}
+
+.pagination-container
+{
+    text-align:center;
+}
+
+.pagination
+{
+    margin-bottom:unset;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.fc-bootstrap3 hr.fc-divider, .fc-bootstrap4 hr.fc-divider {
+    border-color: #668eff !important;
+}
+
+#calendar{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.fc-center h2 {
+    font-weight: 400;
+}
+
+.fc-day-header{
+    background-color: #343a40;
+    color: #f8f9fa;
+    font-weight: 300;
+    text-transform: capitalize;
+}
+
+    .fc-time-grid-event {
+        margin-bottom: 0.1rem;
+    }
+
+.fc-scroller
+{
+    height:calc(100vh - 42vh) !important;
+}
+
+.alert-info {
+    background-color: #eeeeee;
+}

@@ -1,19 +1,63 @@
 ﻿
 @{
+    /**/
+
     ViewBag.Title = "List";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>List</h2>
+<h2>Nuevo <small>turno</small> </h2>
+<hr class="hrSinMarginTop" />
 
-<script src="@Url.Content("~/Scripts/DayPilot/daypilot-all.min.js")" type="text/javascript"></script>
+<div class="form-horizontal content-personalizado">
+    <div id="calendar"></div>
+</div>
 
-@Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
-{
-    BackendUrl = Url.Action("Backend"),
-    ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.Week,
-    EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
-    EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
-    TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-    TimeRangeSelectedJavaScript = "dpc.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });"
-})
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script>
+        $(document).ready(function () {
+            $('#calendar').fullCalendar({
+                themeSystem: 'bootstrap4',
+                locale: 'es',
+                defaultView: 'agendaWeek',
+                allDaySlot: false,
+                minTime: "07:00:00",
+                maxTime: "21:00:00",
+                slotDuration: "01:00:00",
+                nowIndicator: true,
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'agendaWeek,agendaDay'
+                },
+                events: function (start, end, timezone, callback) {
+                    $.ajax({
+                        url: '@Url.Action("GetCalendarData", "Turno")',
+                        type: "GET",
+                        dataType: "JSON",
+                        success: function (result) {
+                            var events = [];
+                            $.each(result, function (i, data) {
+                                events.push(
+                                    {
+                                        title: data.Title,
+                                        description: data.Desc,
+                                        start: moment(data.Start_Date).format('YYYY-MM-DD HH:mm'),
+                                        end: moment(data.End_Date).format('YYYY-MM-DD HH:mm'),
+                                        backgroundColor: "#28a745", //#dc3545 para ocupado
+                                        borderColor: "#28a745", //#dc3545 para ocupado
+                                        textColor:"#ffffff"
+                                    });
+                                });
+                            callback(events);
+                        }
+                    });
+                }
+            });
+        });
+        </script>
+    }

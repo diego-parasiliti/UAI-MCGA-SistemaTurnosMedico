@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -10,6 +11,7 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
@@ -21,6 +23,12 @@ namespace MCGA.WebSite.Controllers
 		private TipoDocumentoProcess tipoDocumentoProcess = new TipoDocumentoProcess();
 		private TipoSexoProcess tipoSexoProcess = new TipoSexoProcess();
 
+		public FileResult ExportExcel()
+		{
+			string[] aColumnas = { "Nombre", "Apellido", "Tipo de documento", "Nº de documento", "Dirección", "Teléfono", "Email", "Sexo", "Fecha de nacimiento", "Estado civil", "Nº de afiliado", "Plan" };
+			List<dynamic> lstDatos = process.GetAll().OrderBy(o => o.Nombre).ThenBy(o => o.Apellido).Select(o => new { o.Nombre, o.Apellido, o.TipoDocumento.descripcion, o.Numero, o.Direccion, o.Telefono, o.Email, Sexo = o.TipoSexo.descripcion, FechaNacimiento = o.FechaNacimiento.ToShortDateString(), EstadoCivil = o.EstadoCivil.descripcion, o.NumeroAfiliado, Plan = o.Plan.descripcion }).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de afiliados.xls");
+		}
 
 		public JsonResult GetAfiliado(string Areas, string term = "")
 		{
@@ -30,10 +38,12 @@ namespace MCGA.WebSite.Controllers
 
 		// GET: Afiliado
 		[Route("listado-afiliado", Name = AfiliadoControllerRoute.GetIndex)]
-		public ActionResult Index()
+		public ActionResult Index(int? page)
         {
-            var afiliado = process.GetAll();
-            return View(afiliado.ToList());
+			var afiliado = process.GetAll();
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+            return View(afiliado.ToPagedList(pageNumber, pageSize));
         }
 
 		// GET: Afiliado/Create

@@ -1,70 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DayPilot.Web.Mvc;
 using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-
-	class Dpc : DayPilotCalendar
+	public class PublicHoliday
 	{
-		//DataClasses1DataContext db = new DataClasses1DataContext();
-
-		//protected override void OnInit(InitArgs e)
-		//{
-		//	Update(CallBackUpdateType.Full);
-		//}
-
-		//protected override void OnEventResize(EventResizeArgs e)
-		//{
-		//	var toBeResized = (from ev in db.Events where ev.id == Convert.ToInt32(e.Id) select ev).First();
-		//	toBeResized.eventstart = e.NewStart;
-		//	toBeResized.eventend = e.NewEnd;
-		//	db.SubmitChanges();
-		//	Update();
-		//}
-
-		//protected override void OnEventMove(EventMoveArgs e)
-		//{
-		//	var toBeResized = (from ev in db.Events where ev.id == Convert.ToInt32(e.Id) select ev).First();
-		//	toBeResized.eventstart = e.NewStart;
-		//	toBeResized.eventend = e.NewEnd;
-		//	db.SubmitChanges();
-		//	Update();
-		//}
-
-		//protected override void OnTimeRangeSelected(TimeRangeSelectedArgs e)
-		//{
-		//	var toBeCreated = new Event { eventstart = e.Start, eventend = e.End, text = (string)e.Data["name"] };
-		//	db.Events.InsertOnSubmit(toBeCreated);
-		//	db.SubmitChanges();
-		//	Update();
-		//}
-
-		//protected override void OnFinish()
-		//{
-		//	if (UpdateType == CallBackUpdateType.None)
-		//	{
-		//		return;
-		//	}
-
-		//	Events = from ev in db.Events select ev;
-
-		//	DataIdField = "id";
-		//	DataTextField = "text";
-		//	DataStartField = "eventstart";
-		//	DataEndField = "eventend";
-		//}
-
+		public int Sr { get; set; }
+		public string Title { get; set; }
+		public string Desc { get; set; }
+		public string Start_Date { get; set; }
+		public string End_Date { get; set; }
 	}
 
 	public class TurnoController : Controller
@@ -73,26 +30,140 @@ namespace MCGA.WebSite.Controllers
 		private AfiliadoProcess afiliadoProcess = new AfiliadoProcess();
 		private EspecialidadesProfesionalProcess especialidadesProfesionalProcess = new EspecialidadesProfesionalProcess();
 
-		
-		public ActionResult List()
+		public FileResult ExportExcel()
 		{
-			return View();
+			string[] aColumnas = { "Fecha", "Hora", "Especialidad", "Profesional", "Afiliado", "Reserva", "Observaciones" };
+			List<dynamic> lstDatos = process.GetAll().Select(o => new {Fecha = o.Fecha.ToShortDateString(), Hora = o.Hora.ToString(),  Especialidad = o.EspecialidadesProfesional.Especialidad.descripcion, Profesional = string.Format("{0} {1}", o.EspecialidadesProfesional.Profesional.Nombre, o.EspecialidadesProfesional.Profesional.Apellido), Afiliado = string.Format("{0} {1}", o.Afiliado.Nombre, o.Afiliado.Apellido), Reserva= o.reserva.ToString(), o.Observaciones}).ToList<dynamic>();
+			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de turnos.xls");
 		}
 
-		public ActionResult Backend()
+
+		private List<PublicHoliday> LoadData()
 		{
-			return new Dpc().CallBack(this);
+			// Initialization.  
+			List<PublicHoliday> lst = new List<PublicHoliday>();
+		
+					PublicHoliday infoObj = new PublicHoliday();
+
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 09:00";
+			infoObj.End_Date = "2018-10-29 10:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 10:00";
+			infoObj.End_Date = "2018-10-29 11:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 11:00";
+			infoObj.End_Date = "2018-10-29 12:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 12:00";
+			infoObj.End_Date = "2018-10-29 13:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 14:00";
+			infoObj.End_Date = "2018-10-29 15:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 15:00";
+			infoObj.End_Date = "2018-10-29 16:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 16:00";
+			infoObj.End_Date = "2018-10-29 17:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+			// Setting.  
+			infoObj = new PublicHoliday();
+			infoObj.Sr = 1;
+			infoObj.Title = "Disponible";
+			infoObj.Desc = "";
+			infoObj.Start_Date = "2018-10-29 17:00";
+			infoObj.End_Date = "2018-10-29 18:00";
+			// Adding.  
+			lst.Add(infoObj);
+
+
+			// info.  
+			return lst;
+		}
+
+		public ActionResult GetCalendarData()
+		{
+			// Initialization.  
+			JsonResult result = new JsonResult();
+
+			
+				// Loading.  
+				List<PublicHoliday> data = this.LoadData();
+
+				// Processing.  
+				result = this.Json(data, JsonRequestBehavior.AllowGet);
+			
+			// Return info.  
+			return result;
+		}
+
+		public ActionResult List()
+		{
+			return this.View();
 		}
 
 		// GET: Turno
 		[Route("listado-turno", Name = TurnoControllerRoute.GetIndex)]
-		public ActionResult Index(bool turnoGenerado = false)
+		public ActionResult Index(int? page, bool turnoGenerado = false)
         {
 			if (turnoGenerado)
 				ViewBag.TurnoGenerado = true;
 
-			return View(process.GetAll().OrderBy(o => o.Fecha).ThenBy(o => o.Hora).ToList());
-        }
+			var turno = process.GetAll().OrderBy(o => o.Fecha).ThenBy(o => o.Hora);
+			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
+			int pageNumber = (page ?? 1);
+			return View(turno.ToPagedList(pageNumber, pageSize));
+		}
 
 		// GET: Turno/Create
 		[Route("agregar-turno", Name = TurnoControllerRoute.GetCreate)]
