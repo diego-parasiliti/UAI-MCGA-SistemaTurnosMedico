@@ -122,25 +122,17 @@
 
 @if (ViewBag.TurnoGenerado != null)
 {
-    <div id="turnoGenerado" class="alert alert-fijo alert-success" role="alert">
-        <span class="font-weight-bold">Turno registrado </span>, el turno ha sido registrado
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    @Html.Partial("_TurnoRegistrado")
 }
-
-
 
 @section Scripts {
     <script>
 
         $(document).ready(function () {
 
-            window.setTimeout(function () {
-                $('#turnoGenerado').fadeTo(500, 0).slideUp(500, function () {
-                    $(this).remove();
-                });
+            $('#turnoGenerado').fadeIn(1000);
+            setTimeout(function () {
+                $('#turnoGenerado').fadeOut(1000);
             }, 5000);
 
             $('table').stacktable();

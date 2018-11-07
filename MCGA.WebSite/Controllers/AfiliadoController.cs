@@ -15,7 +15,8 @@ using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class AfiliadoController : Controller
+	[Authorize]
+	public class AfiliadoController : Controller
     {
         private AfiliadoProcess process = new AfiliadoProcess();
 		private EstadoCivilProcess estadoCivilProcess = new EstadoCivilProcess();
@@ -32,7 +33,7 @@ namespace MCGA.WebSite.Controllers
 
 		public JsonResult GetAfiliado(string Areas, string term = "")
 		{
-			var lista = process.GetAll().Where(o => o.Nombre.ToUpper().Contains(term.ToUpper()) || o.Apellido.ToUpper().Contains(term.ToUpper())).OrderBy(o => o.Nombre).OrderBy(o => o.Apellido).Select(o => new { Id = o.Id, Name = string.Format("{0} {1}", o.Nombre, o.Apellido) }).ToList();
+			var lista = process.GetAll().Where(o => o.Nombre.ToUpper().Contains(term.ToUpper()) || o.Apellido.ToUpper().Contains(term.ToUpper())).OrderBy(o => o.Nombre).OrderBy(o => o.Apellido).Select(o => new { Id = o.Id, Name = string.Format("{0} {1} Nº {2} ({3} {4})", o.Nombre, o.Apellido, o.NumeroAfiliado, o.TipoDocumento.descripcion, o.Numero) }).ToList();
 			return Json(lista, JsonRequestBehavior.AllowGet);
 		}
 

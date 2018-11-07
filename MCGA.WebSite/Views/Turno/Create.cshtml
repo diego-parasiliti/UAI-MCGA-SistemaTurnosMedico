@@ -48,7 +48,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.AfiliadoId, null, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBox("BuscarAfiliado", (String)ViewBag.AfiliadoTexto,
+                        @Html.TextBox("BuscarAfiliado", null,
                         new
                         {
                             @class = "form-control",
@@ -63,21 +63,21 @@
                 <div class="form-group">
                     @Html.Label("Especialidad", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBox("BuscarEspecialidad", (String)ViewBag.EspecialidadTexto,
+                        @Html.TextBox("BuscarEspecialidad", null,
                         new
                         {
                             @class = "form-control",
                             autocomplete = "off",
                             placeholder = "Ingrese la especialidad",
                         })
-                        @Html.Hidden("EspecialidadId", (String)ViewBag.EspecialidadId)
+                        @Html.Hidden("EspecialidadId")
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.Label("Profesional", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBox("BuscarProfesional", (String)ViewBag.ProfesionalTexto,
+                        @Html.TextBox("BuscarProfesional", null,
                         new
                         {
                             @class = "form-control",

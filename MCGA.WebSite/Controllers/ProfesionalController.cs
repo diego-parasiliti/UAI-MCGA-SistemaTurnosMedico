@@ -15,7 +15,8 @@ using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class ProfesionalController : Controller
+	[Authorize]
+	public class ProfesionalController : Controller
     {
 		private ProfesionalProcess process = new ProfesionalProcess();
 		private TipoDocumentoProcess tipoDocumentoProcess = new TipoDocumentoProcess();

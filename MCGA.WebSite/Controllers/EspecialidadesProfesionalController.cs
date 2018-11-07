@@ -15,7 +15,8 @@ using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class EspecialidadesProfesionalController : Controller
+	[Authorize]
+	public class EspecialidadesProfesionalController : Controller
     {
         private EspecialidadesProfesionalProcess process = new EspecialidadesProfesionalProcess();
 		private EspecialidadProcess especialidadProcess = new EspecialidadProcess();

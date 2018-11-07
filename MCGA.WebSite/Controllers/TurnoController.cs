@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
@@ -15,15 +16,7 @@ using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-	public class PublicHoliday
-	{
-		public int Sr { get; set; }
-		public string Title { get; set; }
-		public string Desc { get; set; }
-		public string Start_Date { get; set; }
-		public string End_Date { get; set; }
-	}
-
+	[Authorize()]
 	public class TurnoController : Controller
     {
         private TurnoProcess process = new TurnoProcess();
@@ -37,116 +30,6 @@ namespace MCGA.WebSite.Controllers
 			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de turnos.xls");
 		}
 
-
-		private List<PublicHoliday> LoadData()
-		{
-			// Initialization.  
-			List<PublicHoliday> lst = new List<PublicHoliday>();
-		
-					PublicHoliday infoObj = new PublicHoliday();
-
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 09:00";
-			infoObj.End_Date = "2018-10-29 10:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 10:00";
-			infoObj.End_Date = "2018-10-29 11:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 11:00";
-			infoObj.End_Date = "2018-10-29 12:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 12:00";
-			infoObj.End_Date = "2018-10-29 13:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 14:00";
-			infoObj.End_Date = "2018-10-29 15:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 15:00";
-			infoObj.End_Date = "2018-10-29 16:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 16:00";
-			infoObj.End_Date = "2018-10-29 17:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-			// Setting.  
-			infoObj = new PublicHoliday();
-			infoObj.Sr = 1;
-			infoObj.Title = "Disponible";
-			infoObj.Desc = "";
-			infoObj.Start_Date = "2018-10-29 17:00";
-			infoObj.End_Date = "2018-10-29 18:00";
-			// Adding.  
-			lst.Add(infoObj);
-
-
-			// info.  
-			return lst;
-		}
-
-		public ActionResult GetCalendarData()
-		{
-			// Initialization.  
-			JsonResult result = new JsonResult();
-
-			
-				// Loading.  
-				List<PublicHoliday> data = this.LoadData();
-
-				// Processing.  
-				result = this.Json(data, JsonRequestBehavior.AllowGet);
-			
-			// Return info.  
-			return result;
-		}
-
 		public ActionResult List()
 		{
 			return this.View();
@@ -156,6 +39,8 @@ namespace MCGA.WebSite.Controllers
 		[Route("listado-turno", Name = TurnoControllerRoute.GetIndex)]
 		public ActionResult Index(int? page, bool turnoGenerado = false)
         {
+
+			//var roles = User.IsInRole("Admin");
 			if (turnoGenerado)
 				ViewBag.TurnoGenerado = true;
 
@@ -193,6 +78,13 @@ namespace MCGA.WebSite.Controllers
 			
             return View(turno);
         }
+
+		[HttpPost]
+		public JsonResult CreateTurno(Turno turno)
+		{
+			process.Add(turno);
+			return Json(turno, JsonRequestBehavior.AllowGet);
+		}
 
 		// GET: Turno/Edit/5
 		[Route("editar-turno", Name = TurnoControllerRoute.GetEdit)]

@@ -255,3 +255,7 @@ label {
 .alert-info {
     background-color: #eeeeee;
 }
+
+.inputSinMaxWidth {
+    max-width: unset;
+}
