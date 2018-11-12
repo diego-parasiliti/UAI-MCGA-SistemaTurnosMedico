@@ -495,6 +495,18 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Turno_TipoReserva">
+          <End Role="TipoReseva" Type="Self.TipoReseva" Multiplicity="1" />
+          <End Role="Turno" Type="Self.Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoReseva">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="reserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Turnos_EspecialidadesProfesional">
           <End Role="EspecialidadesProfesional" Type="Self.EspecialidadesProfesional" Multiplicity="1" />
           <End Role="Turno" Type="Self.Turno" Multiplicity="*" />
@@ -619,6 +631,10 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             <End Role="TipoDocumento" EntitySet="TipoDocumento" />
             <End Role="Profesional" EntitySet="Profesional" />
           </AssociationSet>
+          <AssociationSet Name="FK_Turno_TipoReserva" Association="Self.FK_Turno_TipoReserva">
+            <End Role="TipoReseva" EntitySet="TipoReseva" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
           <AssociationSet Name="FK_Turnos_EspecialidadesProfesional" Association="Self.FK_Turnos_EspecialidadesProfesional">
             <End Role="EspecialidadesProfesional" EntitySet="EspecialidadesProfesional" />
             <End Role="Turno" EntitySet="Turno" />
@@ -740,6 +756,10 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             <End Role="TipoDocumento" EntitySet="TipoDocumento" />
             <End Role="Profesional" EntitySet="Profesional" />
           </AssociationSet>
+          <AssociationSet Name="FK_Turno_TipoReserva" Association="ModelMedicure.FK_Turno_TipoReserva">
+            <End Role="TipoReseva" EntitySet="TipoReseva" />
+            <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="EstadoCivil">
           <Key>
@@ -780,6 +800,7 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Turno" Relationship="ModelMedicure.FK_Turno_TipoReserva" FromRole="TipoReseva" ToRole="Turno" />
         </EntityType>
         <EntityType Name="TipoSexo">
           <Key>
@@ -1012,6 +1033,7 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <NavigationProperty Name="Atencion" Relationship="ModelMedicure.FK__Atencione__turno__6B24EA82" FromRole="Turno" ToRole="Atencion" />
           <NavigationProperty Name="Cancelacion" Relationship="ModelMedicure.FK__Cancelaci__turno__6EF57B66" FromRole="Turno" ToRole="Cancelacion" />
           <NavigationProperty Name="EspecialidadesProfesional" Relationship="ModelMedicure.FK_Turnos_EspecialidadesProfesional" FromRole="Turno" ToRole="EspecialidadesProfesional" />
+          <NavigationProperty Name="TipoReseva" Relationship="ModelMedicure.FK_Turno_TipoReserva" FromRole="Turno" ToRole="TipoReseva" />
         </EntityType>
         <EntityType Name="HistorialAfiliado">
           <Key>
@@ -1272,6 +1294,18 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Principal>
             <Dependent Role="Profesional">
               <PropertyRef Name="TipoDocumentoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Turno_TipoReserva">
+          <End Type="ModelMedicure.TipoReseva" Role="TipoReseva" Multiplicity="1" />
+          <End Type="ModelMedicure.Turno" Role="Turno" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoReseva">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Turno">
+              <PropertyRef Name="reserva" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

@@ -11,12 +11,14 @@ using MCGA.Constants;
 using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
+using MCGA.WebSite.Models;
 using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class AgendaController : Controller
-    {
+	[Authorize]
+	public class AgendaController : Controller
+	{
 		private AgendaProcess process = new AgendaProcess();
 		private TipoDiaProcess tipoDiaProcess = new TipoDiaProcess();
 		private EspecialidadesProfesionalProcess especialidadesProfesionalProcess = new EspecialidadesProfesionalProcess();
@@ -26,9 +28,63 @@ namespace MCGA.WebSite.Controllers
 
 		public FileResult ExportExcel()
 		{
-			string[] aColumnas = { "Profesional", "Especialidad", "Día","F. desde", "F. hasta", "H. desde", "H. hasta" };
-			List<dynamic> lstDatos = process.GetAll().Select(o => new { Profesional = string.Format("{0} {1}", o.EspecialidadesProfesional.Profesional.Nombre, o.EspecialidadesProfesional.Profesional.Apellido), Especialidad = o.EspecialidadesProfesional.Especialidad.descripcion, o.TipoDia.descripcion, FechaDesde = o.fecha_desde.ToShortDateString(), FechaHasta = o.fecha_hasta.ToShortDateString(), HoraDesde = o.hora_desde.ToString(), HoraHasta = o.hora_hasta.ToString()  }).ToList<dynamic>();
+			string[] aColumnas = { "Profesional", "Especialidad", "Día", "F. desde", "F. hasta", "H. desde", "H. hasta" };
+			List<dynamic> lstDatos = process.GetAll().Select(o => new { Profesional = string.Format("{0} {1}", o.EspecialidadesProfesional.Profesional.Nombre, o.EspecialidadesProfesional.Profesional.Apellido), Especialidad = o.EspecialidadesProfesional.Especialidad.descripcion, o.TipoDia.descripcion, FechaDesde = o.fecha_desde.ToShortDateString(), FechaHasta = o.fecha_hasta.ToShortDateString(), HoraDesde = o.hora_desde.ToString(), HoraHasta = o.hora_hasta.ToString() }).ToList<dynamic>();
 			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de agendas.xls");
+		}
+
+		public JsonResult GetCalendarioByIdEspecialidadProfesional(DateTime fechaDesde, DateTime fechaHasta, int idEspecialidadProfesional = 0)
+		{
+			if (fechaDesde == null)
+				fechaDesde = new DateTime(1800, 1, 1);
+
+			if (fechaHasta == null)
+				fechaHasta = new DateTime(1800, 1, 1);
+
+			Agenda agenda = process.GetAll().Where(o => o.EspecialidadProfesionalId == idEspecialidadProfesional && fechaDesde >= o.fecha_desde && fechaHasta <= o.fecha_hasta).FirstOrDefault();
+			if (agenda != null)
+			{
+				List<CalendarioEspecialidadProfesionalViewModel> listCalendario = new List<CalendarioEspecialidadProfesionalViewModel>();
+				DateTime fecha = fechaDesde;
+				while (fecha <= fechaHasta)
+				{
+					TimeSpan hora = agenda.hora_desde;
+					while (hora <= agenda.hora_hasta)
+					{
+						CalendarioEspecialidadProfesionalViewModel calendario = new CalendarioEspecialidadProfesionalViewModel();
+						Turno turno = turnoProcess.GetAll().Where(o => o.Fecha == fecha && o.Hora == hora && o.EspecialidadProfesionalId == idEspecialidadProfesional).FirstOrDefault();
+						//Verificar si ese día y horario tiene turno
+						if (turno != null)
+						{
+							//Tiene turno
+							calendario.IdTurno = turno.Id;
+							calendario.Titulo = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
+							calendario.Descripcion = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
+							calendario.FechaInicio = (new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hours, hora.Minutes, hora.Seconds)).ToString("yyyy-MM-dd HH:mm"); //"2018-10-29 17:00";
+							calendario.FechaFin = (new DateTime(fecha.Year, fecha.Month, fecha.Day, (hora.Hours + 1), hora.Minutes, hora.Seconds)).ToString("yyyy-MM-dd HH:mm");
+							calendario.BackgroundColor = "#dc3545"; //Rojo
+							calendario.FontColor = "#FFFFFF";//Blanco
+						}
+						else
+						{
+							//No tiene turno
+							calendario.IdTurno = -1;
+							calendario.Titulo= "Disponible";
+							calendario.Descripcion = "Disponible";
+							calendario.FechaInicio = (new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hours, hora.Minutes, hora.Seconds)).ToString("yyyy-MM-dd HH:mm"); //"2018-10-29 17:00";
+							calendario.FechaFin = (new DateTime(fecha.Year, fecha.Month, fecha.Day, (hora.Hours + 1), hora.Minutes, hora.Seconds)).ToString("yyyy-MM-dd HH:mm");
+							calendario.BackgroundColor = "#28a745"; //Verde
+							calendario.FontColor = "#FFFFFF"; //Blanco
+						}
+						listCalendario.Add(calendario);
+						hora = hora.Add(new TimeSpan(1, 0, 0));
+					}
+					fecha = fecha.AddDays(1);
+				}
+				return Json(listCalendario, JsonRequestBehavior.AllowGet);
+			}
+			else
+				return Json(null, JsonRequestBehavior.AllowGet);
 		}
 
 		public JsonResult GetFechasDisponiblesByIdEspecialidadProfesional(int idEspecialidadProfesional = 0)
@@ -37,7 +93,7 @@ namespace MCGA.WebSite.Controllers
 			if (agenda != null)
 			{
 				List<dynamic> listaFecha = new List<dynamic>();
-				DateTime fecha = agenda.fecha_desde;
+				DateTime fecha = DateTime.Now.Date;// agenda.fecha_desde;
 				
 				while(fecha <= agenda.fecha_hasta)
 				{
@@ -72,8 +128,8 @@ namespace MCGA.WebSite.Controllers
 			if (agenda != null)
 			{
 				List<dynamic> listaHora = new List<dynamic>();
-				TimeSpan hora = agenda.hora_desde;
-				while (hora < agenda.hora_hasta)
+				TimeSpan hora =  agenda.hora_desde;
+				while (hora <= agenda.hora_hasta)
 				{
 					//ver si hay turno con esa hora y fecha
 					if (turnoProcess.GetAll().FirstOrDefault(o=> o.Fecha == fecha && o.Hora == hora && o.EspecialidadProfesionalId == idEspecialidadProfesional) == null)

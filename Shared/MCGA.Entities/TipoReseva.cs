@@ -14,7 +14,16 @@ namespace MCGA.Entities
     
     public partial class TipoReseva
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TipoReseva()
+        {
+            this.Turno = new HashSet<Turno>();
+        }
+    
         public int Id { get; set; }
         public string descripcion { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Turno> Turno { get; set; }
     }
 }

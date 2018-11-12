@@ -251,6 +251,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CalendarioEspecialidadProfesionalViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -621,6 +622,7 @@
     <Content Include="Views\Turno\Edit.cshtml" />
     <Content Include="Views\Turno\Index.cshtml" />
     <Content Include="Views\Turno\List.cshtml" />
+    <Content Include="Views\Turno\_TurnoRegistrado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

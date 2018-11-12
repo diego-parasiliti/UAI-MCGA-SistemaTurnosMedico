@@ -7,7 +7,8 @@ using System.Web.Mvc;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class HomeController : Controller
+	
+	public class HomeController : Controller
     {
 
 		[Route("", Name = HomeControllerRoute.GetIndex)]

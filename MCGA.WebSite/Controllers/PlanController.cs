@@ -15,7 +15,8 @@ using PagedList;
 
 namespace MCGA.WebSite.Controllers
 {
-    public class PlanController : Controller
+	[Authorize]
+	public class PlanController : Controller
     {
         private PlanProcess process = new PlanProcess();
 
