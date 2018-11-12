@@ -133,7 +133,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.reserva, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.reserva, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownList("reserva", null, "-Seleccionar tipo-", htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.reserva, "", new { @class = "text-danger" })
                     </div>
                 </div>

@@ -45,6 +45,7 @@
         <AssociationConnector Association="ModelMedicure.FK_Turnos_EspecialidadesProfesional" />
         <AssociationConnector Association="ModelMedicure.FK__Historial__plan___75A278F5" />
         <AssociationConnector Association="ModelMedicure.FK_Profesional_TipoDocumento" />
+        <AssociationConnector Association="ModelMedicure.FK_Turno_TipoReserva" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

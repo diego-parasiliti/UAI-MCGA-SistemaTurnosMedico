@@ -128,7 +128,7 @@ namespace MCGA.WebSite.Controllers
 			if (agenda != null)
 			{
 				List<dynamic> listaHora = new List<dynamic>();
-				TimeSpan hora = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);// agenda.hora_desde;
+				TimeSpan hora =  agenda.hora_desde;
 				while (hora <= agenda.hora_hasta)
 				{
 					//ver si hay turno con esa hora y fecha

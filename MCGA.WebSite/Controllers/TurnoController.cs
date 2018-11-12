@@ -22,6 +22,7 @@ namespace MCGA.WebSite.Controllers
         private TurnoProcess process = new TurnoProcess();
 		private AfiliadoProcess afiliadoProcess = new AfiliadoProcess();
 		private EspecialidadesProfesionalProcess especialidadesProfesionalProcess = new EspecialidadesProfesionalProcess();
+		private TipoResevaProcess tipoReservaProcess = new TipoResevaProcess(); 
 
 		public FileResult ExportExcel()
 		{
@@ -56,7 +57,8 @@ namespace MCGA.WebSite.Controllers
         {
 			ViewBag.AfiliadoId = new SelectList(afiliadoProcess.GetAll().Select(o => new { o.Id, Nombre = string.Format("{0} {1}", o.Nombre, o.Apellido) }).ToList(), "Id", "Nombre");
             ViewBag.EspecialidadProfesionalId = new SelectList(especialidadesProfesionalProcess.GetAll().Select(o => new { o.Id, Especialidad = string.Format("{0} ({1} {2})", o.Especialidad.descripcion, o.Profesional.Nombre, o.Profesional.Apellido) }).ToList(), "Id", "Especialidad");
-            return View();
+			ViewBag.reserva = new SelectList(tipoReservaProcess.GetAll(), "Id", "descripcion");
+			return View();
         }
 
         // POST: Turno/Create
@@ -156,6 +158,7 @@ namespace MCGA.WebSite.Controllers
 				process.Dispose();
 				afiliadoProcess.Dispose();
 				especialidadesProfesionalProcess.Dispose();
+				tipoReservaProcess.Dispose();
 
 			}
             base.Dispose(disposing);
