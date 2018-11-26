@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="AfiliadoComponent.cs" />
     <Compile Include="AgendaComponent.cs" />
+    <Compile Include="AtencionComponent.cs" />
+    <Compile Include="AgendaCancelacionComponent.cs" />
+    <Compile Include="CancelacionComponent.cs" />
     <Compile Include="EspecialidadComponent.cs" />
     <Compile Include="EspecialidadesProfesionalComponent.cs" />
     <Compile Include="EstadoCivilComponent.cs" />

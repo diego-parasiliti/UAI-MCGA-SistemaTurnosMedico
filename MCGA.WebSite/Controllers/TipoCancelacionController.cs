@@ -20,6 +20,12 @@ namespace MCGA.WebSite.Controllers
     {
         private TipoCancelacionProcess process = new TipoCancelacionProcess();
 
+		public JsonResult GetTipoCancelacion()
+		{
+			var listTipoCancelacion = process.GetAll().Select(o => new { Id = o.Id, descripcion = o.descripcion }).ToList();
+			return Json(listTipoCancelacion, JsonRequestBehavior.AllowGet);
+		}
+
 		public FileResult ExportExcel()
 		{
 			string[] aColumnas = { "Descripción" };

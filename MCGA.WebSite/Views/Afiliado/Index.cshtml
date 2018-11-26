@@ -142,6 +142,10 @@
                                         <i class="fa fa-edit"></i>
                                         Editar
                                     </a>
+                                    <a class="btn btn-info btn-sm" title="Editar" href="@Url.Action("List", "Atencion",new { afiliadoId = item.Id })">
+                                        <i class="fa fa-list"></i>
+                                        Atención
+                                    </a>
                                     <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "Afiliado",new { id = item.Id })">
                                         <i class="fa fa-trash-o"></i>
                                     </a>

@@ -43,6 +43,9 @@
   <ItemGroup>
     <Compile Include="AfiliadoProcess.cs" />
     <Compile Include="AgendaProcess.cs" />
+    <Compile Include="AtencionProcess.cs" />
+    <Compile Include="AgendaCancelacionProcess.cs" />
+    <Compile Include="CancelacionProcess.cs" />
     <Compile Include="EspecialidadesProfesionalProcess.cs" />
     <Compile Include="EspecialidadProcess.cs" />
     <Compile Include="EstadoCivilProcess.cs" />
