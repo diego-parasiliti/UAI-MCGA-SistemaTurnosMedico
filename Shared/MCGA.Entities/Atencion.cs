@@ -26,7 +26,6 @@ namespace MCGA.Entities
         public System.DateTime changedon { get; set; }
         public string changedby { get; set; }
     
-        public virtual Bono Bono { get; set; }
         public virtual Turno Turno { get; set; }
     }
 }

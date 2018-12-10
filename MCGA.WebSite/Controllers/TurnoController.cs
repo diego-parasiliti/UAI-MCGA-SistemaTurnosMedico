@@ -20,6 +20,7 @@ namespace MCGA.WebSite.Controllers
 	public class TurnoController : Controller
     {
         private TurnoProcess process = new TurnoProcess();
+		private CancelacionProcess cancelacionProcess = new CancelacionProcess();
 		private AfiliadoProcess afiliadoProcess = new AfiliadoProcess();
 		private EspecialidadesProfesionalProcess especialidadesProfesionalProcess = new EspecialidadesProfesionalProcess();
 		private TipoResevaProcess tipoReservaProcess = new TipoResevaProcess(); 
@@ -40,12 +41,19 @@ namespace MCGA.WebSite.Controllers
 		[Route("listado-turno", Name = TurnoControllerRoute.GetIndex)]
 		public ActionResult Index(int? page, bool turnoGenerado = false)
         {
-
 			//var roles = User.IsInRole("Admin");
 			if (turnoGenerado)
 				ViewBag.TurnoGenerado = true;
 
-			var turno = process.GetAll().OrderBy(o => o.Fecha).ThenBy(o => o.Hora);
+			List<Turno> turno; 
+			if (User.IsInRole("Paciente"))
+			{
+				Afiliado afiliado = afiliadoProcess.GetAll().Where(o => o.Email == User.Identity.Name).FirstOrDefault();
+				turno = process.GetAll().Where(o => o.AfiliadoId == afiliado.Id).OrderBy(o => o.Fecha).ThenBy(o => o.Hora).ToList();
+			}
+			else
+				turno = process.GetAll().OrderBy(o => o.Fecha).ThenBy(o => o.Hora).ToList();
+
 			int pageSize = int.Parse(ConfigurationManager.AppSettings.Get("CantidadFilasPagina"));
 			int pageNumber = (page ?? 1);
 			return View(turno.ToPagedList(pageNumber, pageSize));
@@ -55,9 +63,19 @@ namespace MCGA.WebSite.Controllers
 		[Route("agregar-turno", Name = TurnoControllerRoute.GetCreate)]
 		public ActionResult Create()
         {
-			ViewBag.AfiliadoId = new SelectList(afiliadoProcess.GetAll().Select(o => new { o.Id, Nombre = string.Format("{0} {1}", o.Nombre, o.Apellido) }).ToList(), "Id", "Nombre");
-            ViewBag.EspecialidadProfesionalId = new SelectList(especialidadesProfesionalProcess.GetAll().Select(o => new { o.Id, Especialidad = string.Format("{0} ({1} {2})", o.Especialidad.descripcion, o.Profesional.Nombre, o.Profesional.Apellido) }).ToList(), "Id", "Especialidad");
-			ViewBag.reserva = new SelectList(tipoReservaProcess.GetAll(), "Id", "descripcion");
+			if(User.IsInRole("Paciente"))
+			{
+				Afiliado afiliado = afiliadoProcess.GetAll().Where(o => o.Email == User.Identity.Name).FirstOrDefault();
+				ViewBag.AfiliadoLogueadoId = afiliado.Id.ToString();
+				ViewBag.AfiliadoLogueadoNombreApellido = string.Format("{0} {1} Nº {2} ({3} {4})", afiliado.Nombre, afiliado.Apellido, afiliado.NumeroAfiliado, afiliado.TipoDocumento.descripcion, afiliado.Numero); ;
+				ViewBag.ReservaOnlineId = 3.ToString();
+				ViewBag.ReservaOnlineNombre = tipoReservaProcess.GetById(3).descripcion;
+			}
+			else
+				ViewBag.reserva = new SelectList(tipoReservaProcess.GetAll(), "Id", "descripcion");
+			//ViewBag.AfiliadoId = new SelectList(afiliadoProcess.GetAll().Select(o => new { o.Id, Nombre = string.Format("{0} {1}", o.Nombre, o.Apellido) }).ToList(), "Id", "Nombre");
+			//ViewBag.EspecialidadProfesionalId = new SelectList(especialidadesProfesionalProcess.GetAll().Select(o => new { o.Id, Especialidad = string.Format("{0} ({1} {2})", o.Especialidad.descripcion, o.Profesional.Nombre, o.Profesional.Apellido) }).ToList(), "Id", "Especialidad");
+
 			return View();
         }
 
@@ -66,19 +84,29 @@ namespace MCGA.WebSite.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+		[ValidateInput(false)]
 		[Route("agregar-turno", Name = TurnoControllerRoute.PostCreate)]
 		public ActionResult Create([Bind(Include = "Id,Fecha,Hora,AfiliadoId,EspecialidadProfesionalId,reserva,Observaciones")] Turno turno)
         {
             if (ModelState.IsValid)
             {
 				process.Add(turno);
-				return RedirectToAction("Index", new { turnoGenerado = true });
+				return RedirectToAction("Index", new { page = 1, turnoGenerado = true });
             }
+			if (User.IsInRole("Paciente"))
+			{
+				Afiliado afiliado = afiliadoProcess.GetAll().Where(o => o.Email == User.Identity.Name).FirstOrDefault();
+				ViewBag.AfiliadoLogueadoId = afiliado.Id.ToString();
+				ViewBag.AfiliadoLogueadoNombreApellido = string.Format("{0} {1} Nº {2} ({3} {4})", afiliado.Nombre, afiliado.Apellido, afiliado.NumeroAfiliado, afiliado.TipoDocumento.descripcion, afiliado.Numero); ;
+				ViewBag.ReservaOnlineId = 3.ToString();
+				ViewBag.ReservaOnlineNombre = tipoReservaProcess.GetById(3).descripcion;
+			}
+			else
+				ViewBag.reserva = new SelectList(tipoReservaProcess.GetAll(), "Id", "descripcion", turno.reserva);
+			//ViewBag.AfiliadoId = new SelectList(afiliadoProcess.GetAll().Select(o => new { o.Id, Nombre = string.Format("{0} {1}", o.Nombre, o.Apellido) }).ToList(), "Id", "Nombre", turno.AfiliadoId);
+			//         ViewBag.EspecialidadProfesionalId = new SelectList(especialidadesProfesionalProcess.GetAll().Select(o => new { o.Id, Especialidad = string.Format("{0} ({1} {2})", o.Especialidad.descripcion, o.Profesional.Nombre, o.Profesional.Apellido) }).ToList(), "Id", "Especialidad", turno.EspecialidadProfesionalId);
 
-            ViewBag.AfiliadoId = new SelectList(afiliadoProcess.GetAll().Select(o => new { o.Id, Nombre = string.Format("{0} {1}", o.Nombre, o.Apellido) }).ToList(), "Id", "Nombre", turno.AfiliadoId);
-            ViewBag.EspecialidadProfesionalId = new SelectList(especialidadesProfesionalProcess.GetAll().Select(o => new { o.Id, Especialidad = string.Format("{0} ({1} {2})", o.Especialidad.descripcion, o.Profesional.Nombre, o.Profesional.Apellido) }).ToList(), "Id", "Especialidad", turno.EspecialidadProfesionalId);
-			
-            return View(turno);
+			return View(turno);
         }
 
 		[HttpPost]
@@ -86,6 +114,22 @@ namespace MCGA.WebSite.Controllers
 		{
 			process.Add(turno);
 			return Json(turno, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public JsonResult CancelarTurno(string TurnoId, string TipoCancelacion, string DetalleCancelacion)
+		{
+			Cancelacion cancelacion = new Cancelacion();
+			cancelacion.turno_id = Convert.ToInt32(TurnoId);
+			cancelacion.detalle_cancel = DetalleCancelacion;
+			cancelacion.fecha_cancel = DateTime.Now;
+			cancelacion.tipo_cancel_id= Convert.ToInt32(TipoCancelacion);
+			cancelacion.createdon = DateTime.Now;
+			cancelacion.createdby = "";
+			cancelacion.changedon = DateTime.Now;
+			cancelacion.changedby = "";
+			cancelacionProcess.Add(cancelacion);
+			return Json(cancelacion, JsonRequestBehavior.AllowGet);
 		}
 
 		// GET: Turno/Edit/5
@@ -159,7 +203,7 @@ namespace MCGA.WebSite.Controllers
 				afiliadoProcess.Dispose();
 				especialidadesProfesionalProcess.Dispose();
 				tipoReservaProcess.Dispose();
-
+				cancelacionProcess.Dispose();
 			}
             base.Dispose(disposing);
         }

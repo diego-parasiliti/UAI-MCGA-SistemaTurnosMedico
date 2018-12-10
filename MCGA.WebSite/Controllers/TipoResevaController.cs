@@ -20,6 +20,12 @@ namespace MCGA.WebSite.Controllers
     {
 		private TipoResevaProcess process = new TipoResevaProcess();
 
+		public JsonResult GetTipoReseva()
+		{
+			var listTipoReserva = process.GetAll().Select(o=> new { Id=o.Id, descripcion = o.descripcion }).ToList();
+			return Json(listTipoReserva, JsonRequestBehavior.AllowGet);			
+		}
+
 		public FileResult ExportExcel()
 		{
 			string[] aColumnas = { "Descripción" };

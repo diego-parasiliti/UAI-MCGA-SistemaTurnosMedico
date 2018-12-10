@@ -14,5 +14,6 @@ namespace MCGA.WebSite.Models
 		public string FechaFin { get; set; }
 		public string BackgroundColor { get; set; }
 		public string FontColor { get; set; }
+		public bool Atendido { get; set; }
 	}
 }

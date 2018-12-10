@@ -105,6 +105,26 @@
           <Property Name="changedon" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="changedby" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="DatoAdicionalAfiliado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="AfiliadoId" Type="int" Nullable="false" />
+          <Property Name="TipoKeyId" Type="int" Nullable="false" />
+          <Property Name="JsonData" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleTipoKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoKeyId" Type="int" Nullable="false" />
+          <Property Name="TipoControlId" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="JsonData" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Especialidad">
           <Key>
             <PropertyRef Name="Id" />
@@ -201,6 +221,14 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
+        <EntityType Name="TipoControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NombreInterno" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityType Name="TipoDia">
           <Key>
             <PropertyRef Name="Id" />
@@ -221,6 +249,13 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="descripcion" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TipoKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="TipoReseva">
           <Key>
@@ -276,18 +311,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Principal>
             <Dependent Role="Afiliado">
               <PropertyRef Name="PlanId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Atencion__bono_i__72C60C4A">
-          <End Role="Bono" Type="Self.Bono" Multiplicity="1" />
-          <End Role="Atencion" Type="Self.Atencion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bono">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Atencion">
-              <PropertyRef Name="bono_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -471,6 +494,54 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DATOADICIONALAFILIADO_AFILIADO">
+          <End Role="Afiliado" Type="Self.Afiliado" Multiplicity="1" />
+          <End Role="DatoAdicionalAfiliado" Type="Self.DatoAdicionalAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Afiliado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatoAdicionalAfiliado">
+              <PropertyRef Name="AfiliadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DATOADICIONALAFILIADO_TIPOKEY">
+          <End Role="TipoKey" Type="Self.TipoKey" Multiplicity="1" />
+          <End Role="DatoAdicionalAfiliado" Type="Self.DatoAdicionalAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatoAdicionalAfiliado">
+              <PropertyRef Name="TipoKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLETIPOKEY_TIPOCONTROL">
+          <End Role="TipoControl" Type="Self.TipoControl" Multiplicity="1" />
+          <End Role="DetalleTipoKey" Type="Self.DetalleTipoKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoControl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleTipoKey">
+              <PropertyRef Name="TipoControlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLETIPOKEY_TIPOKEY">
+          <End Role="TipoKey" Type="Self.TipoKey" Multiplicity="1" />
+          <End Role="DetalleTipoKey" Type="Self.DetalleTipoKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleTipoKey">
+              <PropertyRef Name="TipoKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EspecialidadesProfesional_Especialidad">
           <End Role="Especialidad" Type="Self.Especialidad" Multiplicity="1" />
           <End Role="EspecialidadesProfesional" Type="Self.EspecialidadesProfesional" Multiplicity="*" />
@@ -526,15 +597,19 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <EntitySet Name="Atencion" EntityType="Self.Atencion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bono" EntityType="Self.Bono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cancelacion" EntityType="Self.Cancelacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatoAdicionalAfiliado" EntityType="Self.DatoAdicionalAfiliado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleTipoKey" EntityType="Self.DetalleTipoKey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Especialidad" EntityType="Self.Especialidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EspecialidadesProfesional" EntityType="Self.EspecialidadesProfesional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoCivil" EntityType="Self.EstadoCivil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Plan" EntityType="Self.Plan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profesional" EntityType="Self.Profesional" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoCancelacion" EntityType="Self.TipoCancelacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoControl" EntityType="Self.TipoControl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDia" EntityType="Self.TipoDia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoDocumento" EntityType="Self.TipoDocumento" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoEspecialidad" EntityType="Self.TipoEspecialidad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoKey" EntityType="Self.TipoKey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoReseva" EntityType="Self.TipoReseva" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoSexo" EntityType="Self.TipoSexo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Turno" EntityType="Self.Turno" Schema="dbo" store:Type="Tables" />
@@ -558,10 +633,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <AssociationSet Name="FK__Afiliados__plan___5629CD9C" Association="Self.FK__Afiliados__plan___5629CD9C">
             <End Role="Plan" EntitySet="Plan" />
             <End Role="Afiliado" EntitySet="Afiliado" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Atencion__bono_i__72C60C4A" Association="Self.FK__Atencion__bono_i__72C60C4A">
-            <End Role="Bono" EntitySet="Bono" />
-            <End Role="Atencion" EntitySet="Atencion" />
           </AssociationSet>
           <AssociationSet Name="FK__Atencione__turno__6B24EA82" Association="Self.FK__Atencione__turno__6B24EA82">
             <End Role="Turno" EntitySet="Turno" />
@@ -622,6 +693,22 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <AssociationSet Name="FK_AgendaCancelacion_Agenda" Association="Self.FK_AgendaCancelacion_Agenda">
             <End Role="Agenda" EntitySet="Agenda" />
             <End Role="AgendaCancelacion" EntitySet="AgendaCancelacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DATOADICIONALAFILIADO_AFILIADO" Association="Self.FK_DATOADICIONALAFILIADO_AFILIADO">
+            <End Role="Afiliado" EntitySet="Afiliado" />
+            <End Role="DatoAdicionalAfiliado" EntitySet="DatoAdicionalAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DATOADICIONALAFILIADO_TIPOKEY" Association="Self.FK_DATOADICIONALAFILIADO_TIPOKEY">
+            <End Role="TipoKey" EntitySet="TipoKey" />
+            <End Role="DatoAdicionalAfiliado" EntitySet="DatoAdicionalAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLETIPOKEY_TIPOCONTROL" Association="Self.FK_DETALLETIPOKEY_TIPOCONTROL">
+            <End Role="TipoControl" EntitySet="TipoControl" />
+            <End Role="DetalleTipoKey" EntitySet="DetalleTipoKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLETIPOKEY_TIPOKEY" Association="Self.FK_DETALLETIPOKEY_TIPOKEY">
+            <End Role="TipoKey" EntitySet="TipoKey" />
+            <End Role="DetalleTipoKey" EntitySet="DetalleTipoKey" />
           </AssociationSet>
           <AssociationSet Name="FK_EspecialidadesProfesional_Especialidad" Association="Self.FK_EspecialidadesProfesional_Especialidad">
             <End Role="Especialidad" EntitySet="Especialidad" />
@@ -716,10 +803,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             <End Role="Agenda" EntitySet="Agenda" />
             <End Role="AgendaCancelacion" EntitySet="AgendaCancelacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Atencion__bono_i__72C60C4A" Association="ModelMedicure.FK__Atencion__bono_i__72C60C4A">
-            <End Role="Bono" EntitySet="Bono" />
-            <End Role="Atencion" EntitySet="Atencion" />
-          </AssociationSet>
           <AssociationSet Name="FK__Atencione__turno__6B24EA82" Association="ModelMedicure.FK__Atencione__turno__6B24EA82">
             <End Role="Turno" EntitySet="Turno" />
             <End Role="Atencion" EntitySet="Atencion" />
@@ -759,6 +842,26 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <AssociationSet Name="FK_Turno_TipoReserva" Association="ModelMedicure.FK_Turno_TipoReserva">
             <End Role="TipoReseva" EntitySet="TipoReseva" />
             <End Role="Turno" EntitySet="Turno" />
+          </AssociationSet>
+          <EntitySet Name="DatoAdicionalAfiliado" EntityType="ModelMedicure.DatoAdicionalAfiliado" />
+          <EntitySet Name="DetalleTipoKey" EntityType="ModelMedicure.DetalleTipoKey" />
+          <EntitySet Name="TipoControl" EntityType="ModelMedicure.TipoControl" />
+          <EntitySet Name="TipoKey" EntityType="ModelMedicure.TipoKey" />
+          <AssociationSet Name="FK_DATOADICIONALAFILIADO_AFILIADO" Association="ModelMedicure.FK_DATOADICIONALAFILIADO_AFILIADO">
+            <End Role="Afiliado" EntitySet="Afiliado" />
+            <End Role="DatoAdicionalAfiliado" EntitySet="DatoAdicionalAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DATOADICIONALAFILIADO_TIPOKEY" Association="ModelMedicure.FK_DATOADICIONALAFILIADO_TIPOKEY">
+            <End Role="TipoKey" EntitySet="TipoKey" />
+            <End Role="DatoAdicionalAfiliado" EntitySet="DatoAdicionalAfiliado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLETIPOKEY_TIPOCONTROL" Association="ModelMedicure.FK_DETALLETIPOKEY_TIPOCONTROL">
+            <End Role="TipoControl" EntitySet="TipoControl" />
+            <End Role="DetalleTipoKey" EntitySet="DetalleTipoKey" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLETIPOKEY_TIPOKEY" Association="ModelMedicure.FK_DETALLETIPOKEY_TIPOKEY">
+            <End Role="TipoKey" EntitySet="TipoKey" />
+            <End Role="DetalleTipoKey" EntitySet="DetalleTipoKey" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="EstadoCivil">
@@ -825,7 +928,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <Property Name="createdby" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="changedon" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="changedby" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Bono" Relationship="ModelMedicure.FK__Atencion__bono_i__72C60C4A" FromRole="Atencion" ToRole="Bono" />
           <NavigationProperty Name="Turno" Relationship="ModelMedicure.FK__Atencione__turno__6B24EA82" FromRole="Atencion" ToRole="Turno" />
         </EntityType>
         <EntityType Name="Especialidad">
@@ -903,6 +1005,7 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <NavigationProperty Name="Turno" Relationship="ModelMedicure.FK__Turnos__afiliado__797309D9" FromRole="Afiliado" ToRole="Turno" />
           <NavigationProperty Name="TipoDocumento" Relationship="ModelMedicure.FK_Afiliado_TipoDocumento" FromRole="Afiliado" ToRole="TipoDocumento" />
           <NavigationProperty Name="TipoSexo" Relationship="ModelMedicure.FK_Afiliado_TipoSexo" FromRole="Afiliado" ToRole="TipoSexo" />
+          <NavigationProperty Name="DatoAdicionalAfiliado" Relationship="ModelMedicure.FK_DATOADICIONALAFILIADO_AFILIADO" FromRole="Afiliado" ToRole="DatoAdicionalAfiliado" />
         </EntityType>
         <EntityType Name="Agenda">
           <Key>
@@ -951,7 +1054,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <Property Name="fecha_impresion" Type="DateTime" Precision="3" />
           <Property Name="consumido" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Afiliado" Relationship="ModelMedicure.FK__Bonos__afiliado___59FA5E80" FromRole="Bono" ToRole="Afiliado" />
-          <NavigationProperty Name="Atencion" Relationship="ModelMedicure.FK__Atencion__bono_i__72C60C4A" FromRole="Bono" ToRole="Atencion" />
           <NavigationProperty Name="Plan" Relationship="ModelMedicure.FK__Bono__plan_id__74AE54BC" FromRole="Bono" ToRole="Plan" />
         </EntityType>
         <EntityType Name="Cancelacion">
@@ -1177,18 +1279,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Atencion__bono_i__72C60C4A">
-          <End Type="ModelMedicure.Bono" Role="Bono" Multiplicity="1" />
-          <End Type="ModelMedicure.Atencion" Role="Atencion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bono">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Atencion">
-              <PropertyRef Name="bono_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Atencione__turno__6B24EA82">
           <End Type="ModelMedicure.Turno" Role="Turno" Multiplicity="1" />
           <End Type="ModelMedicure.Atencion" Role="Atencion" Multiplicity="*" />
@@ -1306,6 +1396,96 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Principal>
             <Dependent Role="Turno">
               <PropertyRef Name="reserva" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DatoAdicionalAfiliado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AfiliadoId" Type="Int32" Nullable="false" />
+          <Property Name="TipoKeyId" Type="Int32" Nullable="false" />
+          <Property Name="JsonData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Afiliado" Relationship="ModelMedicure.FK_DATOADICIONALAFILIADO_AFILIADO" FromRole="DatoAdicionalAfiliado" ToRole="Afiliado" />
+          <NavigationProperty Name="TipoKey" Relationship="ModelMedicure.FK_DATOADICIONALAFILIADO_TIPOKEY" FromRole="DatoAdicionalAfiliado" ToRole="TipoKey" />
+        </EntityType>
+        <EntityType Name="DetalleTipoKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoKeyId" Type="Int32" Nullable="false" />
+          <Property Name="TipoControlId" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="JsonData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TipoControl" Relationship="ModelMedicure.FK_DETALLETIPOKEY_TIPOCONTROL" FromRole="DetalleTipoKey" ToRole="TipoControl" />
+          <NavigationProperty Name="TipoKey" Relationship="ModelMedicure.FK_DETALLETIPOKEY_TIPOKEY" FromRole="DetalleTipoKey" ToRole="TipoKey" />
+        </EntityType>
+        <EntityType Name="TipoControl">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NombreInterno" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetalleTipoKey" Relationship="ModelMedicure.FK_DETALLETIPOKEY_TIPOCONTROL" FromRole="TipoControl" ToRole="DetalleTipoKey" />
+        </EntityType>
+        <EntityType Name="TipoKey">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DatoAdicionalAfiliado" Relationship="ModelMedicure.FK_DATOADICIONALAFILIADO_TIPOKEY" FromRole="TipoKey" ToRole="DatoAdicionalAfiliado" />
+          <NavigationProperty Name="DetalleTipoKey" Relationship="ModelMedicure.FK_DETALLETIPOKEY_TIPOKEY" FromRole="TipoKey" ToRole="DetalleTipoKey" />
+        </EntityType>
+        <Association Name="FK_DATOADICIONALAFILIADO_AFILIADO">
+          <End Type="ModelMedicure.Afiliado" Role="Afiliado" Multiplicity="1" />
+          <End Type="ModelMedicure.DatoAdicionalAfiliado" Role="DatoAdicionalAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Afiliado">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatoAdicionalAfiliado">
+              <PropertyRef Name="AfiliadoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DATOADICIONALAFILIADO_TIPOKEY">
+          <End Type="ModelMedicure.TipoKey" Role="TipoKey" Multiplicity="1" />
+          <End Type="ModelMedicure.DatoAdicionalAfiliado" Role="DatoAdicionalAfiliado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatoAdicionalAfiliado">
+              <PropertyRef Name="TipoKeyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLETIPOKEY_TIPOCONTROL">
+          <End Type="ModelMedicure.TipoControl" Role="TipoControl" Multiplicity="1" />
+          <End Type="ModelMedicure.DetalleTipoKey" Role="DetalleTipoKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoControl">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleTipoKey">
+              <PropertyRef Name="TipoControlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLETIPOKEY_TIPOKEY">
+          <End Type="ModelMedicure.TipoKey" Role="TipoKey" Multiplicity="1" />
+          <End Type="ModelMedicure.DetalleTipoKey" Role="DetalleTipoKey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoKey">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DetalleTipoKey">
+              <PropertyRef Name="TipoKeyId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1572,6 +1752,45 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
                 <ScalarProperty Name="plan_activo" ColumnName="plan_activo" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="afiliado_id" ColumnName="afiliado_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatoAdicionalAfiliado">
+            <EntityTypeMapping TypeName="ModelMedicure.DatoAdicionalAfiliado">
+              <MappingFragment StoreEntitySet="DatoAdicionalAfiliado">
+                <ScalarProperty Name="JsonData" ColumnName="JsonData" />
+                <ScalarProperty Name="TipoKeyId" ColumnName="TipoKeyId" />
+                <ScalarProperty Name="AfiliadoId" ColumnName="AfiliadoId" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleTipoKey">
+            <EntityTypeMapping TypeName="ModelMedicure.DetalleTipoKey">
+              <MappingFragment StoreEntitySet="DetalleTipoKey">
+                <ScalarProperty Name="JsonData" ColumnName="JsonData" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="TipoControlId" ColumnName="TipoControlId" />
+                <ScalarProperty Name="TipoKeyId" ColumnName="TipoKeyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoControl">
+            <EntityTypeMapping TypeName="ModelMedicure.TipoControl">
+              <MappingFragment StoreEntitySet="TipoControl">
+                <ScalarProperty Name="NombreInterno" ColumnName="NombreInterno" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoKey">
+            <EntityTypeMapping TypeName="ModelMedicure.TipoKey">
+              <MappingFragment StoreEntitySet="TipoKey">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

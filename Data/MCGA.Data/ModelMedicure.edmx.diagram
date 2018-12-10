@@ -35,7 +35,6 @@
         <AssociationConnector Association="ModelMedicure.FK_Agenda_EspecialidadesProfesional" />
         <AssociationConnector Association="ModelMedicure.FK_Agenda_TipoDia" />
         <AssociationConnector Association="ModelMedicure.FK_AgendaCancelacion_Agenda" />
-        <AssociationConnector Association="ModelMedicure.FK__Atencion__bono_i__72C60C4A" />
         <AssociationConnector Association="ModelMedicure.FK__Atencione__turno__6B24EA82" />
         <AssociationConnector Association="ModelMedicure.FK__Bono__plan_id__74AE54BC" />
         <AssociationConnector Association="ModelMedicure.FK__Cancelaci__tipo___76969D2E" />
@@ -46,6 +45,14 @@
         <AssociationConnector Association="ModelMedicure.FK__Historial__plan___75A278F5" />
         <AssociationConnector Association="ModelMedicure.FK_Profesional_TipoDocumento" />
         <AssociationConnector Association="ModelMedicure.FK_Turno_TipoReserva" />
+        <EntityTypeShape EntityType="ModelMedicure.DatoAdicionalAfiliado" Width="1.5" PointX="12.25" PointY="12.75" />
+        <EntityTypeShape EntityType="ModelMedicure.DetalleTipoKey" Width="1.5" PointX="3" PointY="13.625" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoControl" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="ModelMedicure.TipoKey" Width="1.5" PointX="0.75" PointY="14" />
+        <AssociationConnector Association="ModelMedicure.FK_DATOADICIONALAFILIADO_AFILIADO" />
+        <AssociationConnector Association="ModelMedicure.FK_DATOADICIONALAFILIADO_TIPOKEY" />
+        <AssociationConnector Association="ModelMedicure.FK_DETALLETIPOKEY_TIPOCONTROL" />
+        <AssociationConnector Association="ModelMedicure.FK_DETALLETIPOKEY_TIPOKEY" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

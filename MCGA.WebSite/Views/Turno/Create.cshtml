@@ -46,18 +46,36 @@
         <div class="tab-content ">
             <div class="tab-pane container active" id="General">
                 <div class="form-group">
-                    @Html.LabelFor(model => model.AfiliadoId, null, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.TextBox("BuscarAfiliado", null,
-                        new
-                        {
-                            @class = "form-control",
-                            autocomplete = "off",
-                            placeholder = "Ingrese el afiliado",
-                        })
-                        @Html.ValidationMessageFor(model => model.AfiliadoId, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.AfiliadoId)
-                    </div>
+                    @if (User.IsInRole("Paciente"))
+                    {
+                        @Html.LabelFor(model => model.AfiliadoId, null, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBox("BuscarAfiliado", (string)ViewBag.AfiliadoLogueadoNombreApellido,
+                            new
+                            {
+                                @class = "form-control disabled",
+                                autocomplete = "off",
+                                placeholder = "Ingrese el afiliado",
+                                @readonly = "readonly"
+                            })
+                            @Html.Hidden("AfiliadoId", (string)ViewBag.AfiliadoLogueadoId)
+                        </div>
+                    }
+                    else
+                    {
+                        @Html.LabelFor(model => model.AfiliadoId, null, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBox("BuscarAfiliado", null,
+                            new
+                            {
+                                @class = "form-control",
+                                autocomplete = "off",
+                                placeholder = "Ingrese el afiliado",
+                            })
+                            @Html.ValidationMessageFor(model => model.AfiliadoId, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.AfiliadoId)
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
@@ -101,7 +119,7 @@
                 <div class="form-group">
                     @Html.Label("Fecha", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        <select id="cboFecha" class="form-control" onchange="CargarHorarioDisponibles($('#EspecialidadProfesionalId').val(), $('#cboFecha').val());"></select>
+                        <div id="datepickerFecha"></div>
                         @Html.HiddenFor(model => model.Fecha)
                     </div>
                 </div>
@@ -132,10 +150,25 @@
             <div class="tab-pane container fade" id="Confirmacion">
                 <div class="form-group">
                     @Html.LabelFor(model => model.reserva, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("reserva", null, "-Seleccionar tipo-", htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.reserva, "", new { @class = "text-danger" })
-                    </div>
+                    @if (User.IsInRole("Paciente"))
+                    {
+                        <div class="col-md-10">
+                            @Html.TextBox("TipoReserva", (string)ViewBag.ReservaOnlineNombre,
+                            new
+                            {
+                                @class = "form-control",
+                                @readonly = "readonly"
+                            })
+                            @Html.Hidden("reserva", (string)ViewBag.ReservaOnlineId)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-10">
+                            @Html.DropDownList("reserva", null, "-Seleccionar reserva-", htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.reserva, "", new { @class = "text-danger" })
+                        </div>
+                    }
                 </div>
 
                 <div class="form-group">
@@ -176,9 +209,26 @@
 
 
 @section Scripts {
+    @*<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>*@
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="~/Scripts/tinymce/plugins/print/plugin.min.js"></script>
+    <script src="~/Scripts/tinymce/plugins/textcolor/plugin.min.js"></script>
+    <script src="~/Scripts/tinymce/plugins/lists/plugin.min.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        
+        tinymce.init({
+            selector: '#Observaciones',
+            height: 200,
+            max_height: 200,
+            min_height: 200,
+            menubar: false,
+            statusbar: false,
+            plugins: "lists, textcolor, print",
+            toolbar: 'fontselect | fontsizeselect | bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor | numlist bullist | print',
+            font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;',
+            fontsize_formats: '8pt 10pt 12pt 14pt 18pt 24pt 36pt'
+
+        });
 
         $("#BuscarEspecialidad").autocomplete({
             autoSelect: true,
@@ -213,7 +263,6 @@
                     datatype: "json",
                     data: { Areas: '', term: request.term, idEspecialidad: $("#EspecialidadId").val() },
                     success: function (data) {
-
                         response($.map(data, function (val, item) {
                             return { label: val.Name, value: val.Name, Id: val.Id };
                         }));
@@ -224,8 +273,6 @@
                 $("#EspecialidadProfesionalId").val(ui.item.Id);
                 //Cargar fecha disponible del profesional especialidad
                 CargarFechasDisponibles($("#EspecialidadProfesionalId").val());
-                CargarHorarioDisponibles($('#EspecialidadProfesionalId').val(), $('#cboFecha').val())
-
             }
         });
 
@@ -257,29 +304,39 @@
                 async:false,
                 data: { idEspecialidadProfesional: idEspecialidadProfesional},
                 success: function (data) {
-                    debugger;
-                    var datos = data;
-                    $("#cboFecha").empty();
-                    for (var i = 0; i < datos.length; i++) {
-                        $("#cboFecha").append($('<option>', {
-                            value: datos[i].FechaValue,
-                            text: datos[i].FechaText
-                        }));
-                    }
-                    $("#Fecha").val($('#cboFecha').val());
+                    $("#datepickerFecha").datepicker(
+                        $.extend({
+                            changeMonth: true,
+                            changeYear: true,
+                            beforeShowDay: function (date) {
+                                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                                if (data.indexOf(string) != -1)
+                                    return [true];
+                                else
+                                    return [false];
+                            },
+                            onSelect: function (date) {
+                                var res = date.split("/");
+                                $("#Fecha").val(res[2] + '-' + res[1] + '-' + res[0]);
+                                CargarHorarioDisponibles($('#EspecialidadProfesionalId').val(),date);
+                            }
+                        }, $.datepicker.regional["es"])
+                    );
                 }
             });
         }
 
-        function CargarHorarioDisponibles(idEspecialidadProfesional, fecha) {
-            debugger;
+        function CargarHorarioDisponibles(idEspecialidadProfesional, fechaString) {
+            
+            var listFecha = fechaString.split("/");
+            var fecha = new Date(listFecha[2], listFecha[1] - 1, listFecha[0]);
             $.ajax({
                 url: '@Url.Action("GetHorarioDisponiblesByIdEspecialidadProfesionalFecha", "Agenda")',
                 datatype: "json",
                 async:false,
-                data: { idEspecialidadProfesional: idEspecialidadProfesional, fecha : fecha},
+                data: { idEspecialidadProfesional: idEspecialidadProfesional, fecha: moment(fecha).format("YYYY-MM-DD")},
                 success: function (data) {
-                    debugger;
+                    
                     var datos = data;
                     $("#cboHorario").empty();
                     for (var i = 0; i < datos.length; i++) {
@@ -288,7 +345,6 @@
                             text: datos[i].HoraText
                         }));
                     }
-                    $('#Fecha').val($('#cboFecha').val());
                     $("#Hora").val($('#cboHorario').val());
                 }
             });
