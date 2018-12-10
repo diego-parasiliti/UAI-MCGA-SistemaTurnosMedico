@@ -112,7 +112,7 @@ else
                         @Html.DisplayFor(modelItem => item.TipoReseva.descripcion)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Observaciones)
+                        @Html.Raw(item.Observaciones)
                     </td>
                     @if (!User.IsInRole("Paciente"))
                     {

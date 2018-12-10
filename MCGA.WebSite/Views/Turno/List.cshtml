@@ -214,7 +214,7 @@
                         success: function (result) {
                             var events = [];
                             $.each(result, function (i, data) {
-                                debugger;
+                                
                                 events.push(
                                     {
                                         Id: data.IdTurno,
@@ -233,7 +233,7 @@
                     });
                 },
                 eventClick: function (calEvent, jsEvent, view) {
-                    debugger;
+                    
                     if (calEvent.atendido != true) 
                     {
                         if (calEvent.Id == -1) {
@@ -276,7 +276,7 @@
                 dataType: "json",
                 data: jsonData,
                 success: function (response) {
-                    debugger;
+                    
                     if (response != null) {
                         $("#nuevoTurno").modal('hide');
                         $('#calendar').fullCalendar('refetchEvents');
@@ -304,9 +304,9 @@
                 datatype: "json",
                 async:false,
                 success: function (data) {
-                    debugger;
+                    
                     var datos = data;
-                    debugger;
+                    
                     $("#cboTipoReserva").empty();
                     for (var i = 0; i < datos.length; i++) {
                         $("#cboTipoReserva").append($('<option>', {

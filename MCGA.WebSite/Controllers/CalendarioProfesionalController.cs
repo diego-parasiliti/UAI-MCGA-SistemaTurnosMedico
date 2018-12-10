@@ -99,18 +99,19 @@ namespace MCGA.WebSite.Controllers
 											else
 											{
 												//Tiene turno
-												calendario.Atendido = true;
 												calendario.IdTurno = turno.Id;
 												calendario.Titulo = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
 												calendario.Descripcion = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
 												//Turno ocupado
 												if (cancelacionProcess.GetAll().Where(o => o.turno_id == turno.Id).FirstOrDefault() != null)
 												{
+													calendario.Atendido = true;
 													calendario.BackgroundColor = Framework.ColorEvento.CANCELADO;
 													calendario.BorderColor = Framework.ColorEvento.CANCELADO;
 												}
 												else
 												{
+													calendario.Atendido = false;
 													calendario.BorderColor = Framework.ColorEvento.OCUPADO;
 													calendario.BorderColor = Framework.ColorEvento.OCUPADO;
 												}

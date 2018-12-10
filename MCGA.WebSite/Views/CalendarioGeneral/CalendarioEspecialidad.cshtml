@@ -347,9 +347,9 @@
                 datatype: "json",
                 async:false,
                 success: function (data) {
-                    debugger;
+                    
                     var datos = data;
-                    debugger;
+                    
                     $("#cboTipoReserva").empty();
                     for (var i = 0; i < datos.length; i++) {
                         $("#cboTipoReserva").append($('<option>', {
@@ -404,7 +404,7 @@
                 dataType: "json",
                 data: jsonData,
                 success: function (response) {
-                    debugger;
+                    
                     if (response != null) {
                         CargarCalendario();
                         $("#cancelarTurno").modal('hide');

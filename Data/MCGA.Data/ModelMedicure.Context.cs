@@ -45,5 +45,9 @@ namespace MCGA.Data
         public virtual DbSet<Profesional> Profesional { get; set; }
         public virtual DbSet<Turno> Turno { get; set; }
         public virtual DbSet<HistorialAfiliado> HistorialAfiliado { get; set; }
+        public virtual DbSet<DatoAdicionalAfiliado> DatoAdicionalAfiliado { get; set; }
+        public virtual DbSet<DetalleTipoKey> DetalleTipoKey { get; set; }
+        public virtual DbSet<TipoControl> TipoControl { get; set; }
+        public virtual DbSet<TipoKey> TipoKey { get; set; }
     }
 }
