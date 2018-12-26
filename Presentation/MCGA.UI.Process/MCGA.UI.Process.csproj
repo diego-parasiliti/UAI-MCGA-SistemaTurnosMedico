@@ -1,3 +1,4 @@
+
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -46,6 +47,8 @@
     <Compile Include="AtencionProcess.cs" />
     <Compile Include="AgendaCancelacionProcess.cs" />
     <Compile Include="CancelacionProcess.cs" />
+    <Compile Include="DatoAdicionalAfiliadoProcess.cs" />
+    <Compile Include="DetalleTipoKeyProcess.cs" />
     <Compile Include="EspecialidadesProfesionalProcess.cs" />
     <Compile Include="EspecialidadProcess.cs" />
     <Compile Include="EstadoCivilProcess.cs" />
@@ -53,9 +56,11 @@
     <Compile Include="ProfesionalProcess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoCancelacionProcess.cs" />
+    <Compile Include="TipoControlProcess.cs" />
     <Compile Include="TipoDiaProcess.cs" />
     <Compile Include="TipoDocumentoProcess.cs" />
     <Compile Include="TipoEspecialidadProcess.cs" />
+    <Compile Include="TipoKeyProcess.cs" />
     <Compile Include="TipoResevaProcess.cs" />
     <Compile Include="TipoSexoProcess.cs" />
     <Compile Include="TurnoProcess.cs" />

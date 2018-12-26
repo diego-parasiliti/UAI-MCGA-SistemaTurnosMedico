@@ -65,6 +65,12 @@
     <Compile Include="Cancelacion.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatoAdicionalAfiliado.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetalleTipoKey.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
     <Compile Include="Especialidad.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
@@ -106,6 +112,9 @@
     <Compile Include="TipoCancelacion.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
+    <Compile Include="TipoControl.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
     <Compile Include="TipoDia.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
@@ -113,6 +122,9 @@
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoEspecialidad.cs">
+      <DependentUpon>ModelMedicure.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TipoKey.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoReseva.cs">

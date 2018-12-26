@@ -46,6 +46,8 @@
     <Compile Include="AtencionComponent.cs" />
     <Compile Include="AgendaCancelacionComponent.cs" />
     <Compile Include="CancelacionComponent.cs" />
+    <Compile Include="DatoAdicionalAfiliadoComponent.cs" />
+    <Compile Include="DetalleTipoKeyComponent.cs" />
     <Compile Include="EspecialidadComponent.cs" />
     <Compile Include="EspecialidadesProfesionalComponent.cs" />
     <Compile Include="EstadoCivilComponent.cs" />
@@ -53,9 +55,11 @@
     <Compile Include="ProfesionalComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TipoCancelacionComponent.cs" />
+    <Compile Include="TipoControlComponent.cs" />
     <Compile Include="TipoDiaComponent.cs" />
     <Compile Include="TipoDocumentoComponent.cs" />
     <Compile Include="TipoEspecialidadComponent.cs" />
+    <Compile Include="TipoKeyComponent.cs" />
     <Compile Include="TipoResevaComponent.cs" />
     <Compile Include="TipoSexoComponent.cs" />
     <Compile Include="TurnoComponent.cs" />

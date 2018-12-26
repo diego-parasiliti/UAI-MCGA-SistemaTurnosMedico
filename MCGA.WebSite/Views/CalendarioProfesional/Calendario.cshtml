@@ -205,7 +205,7 @@
                 'Sintomas': $("#Sintomas").val(),
                 'Diagnostico': $("#Diagnostico").val()
             });
-            debugger;
+            
             $.ajax({
                 url: '@Url.Action("AtenderTurno", "CalendarioProfesional")',
                 type: 'POST',

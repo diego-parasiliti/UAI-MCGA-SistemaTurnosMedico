@@ -14,12 +14,6 @@ namespace MCGA.Entities
     
     public partial class Bono
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bono()
-        {
-            this.Atencion = new HashSet<Atencion>();
-        }
-    
         public int Id { get; set; }
         public int plan_id { get; set; }
         public int afiliado_id { get; set; }
@@ -28,8 +22,6 @@ namespace MCGA.Entities
         public bool consumido { get; set; }
     
         public virtual Afiliado Afiliado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Atencion> Atencion { get; set; }
         public virtual Plan Plan { get; set; }
     }
 }
