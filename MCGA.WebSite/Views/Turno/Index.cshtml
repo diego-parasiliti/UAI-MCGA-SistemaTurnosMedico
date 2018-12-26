@@ -22,27 +22,39 @@
     };
 }
 
-<div class="row">
-    <div class="col-lg-8 col-md-8 col-sm-12">
-        <h2>
-            Turno
-        </h2>
+@if (User.IsInRole("Paciente"))
+{
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <h2>
+                Mis turnos
+            </h2>
+        </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-12">
-        <div class="float-lg-right float-md-right float-sm-none">
-            <div class="btn-group" role="group">
-                <a title="Agregar turno" class="btn btn-sm btn-primary" href="@Url.Action("Create", "Turno")">
-                    <i class="fa fa-plus-circle"></i>
-                    Agregar
-                </a>
-                <a title="Descargar a Excel" class="btn btn-sm btn-success" href="@Url.Action("ExportExcel", "Turno")">
-                    <i class="fa fa-download"></i>
-                </a>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <h2>
+                Turno
+            </h2>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="float-lg-right float-md-right float-sm-none">
+                <div class="btn-group" role="group">
+                    <a title="Agregar turno" class="btn btn-sm btn-primary" href="@Url.Action("Create", "Turno")">
+                        <i class="fa fa-plus-circle"></i>
+                        Agregar
+                    </a>
+                    <a title="Descargar a Excel" class="btn btn-sm btn-success" href="@Url.Action("ExportExcel", "Turno")">
+                        <i class="fa fa-download"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
+}
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
@@ -70,44 +82,50 @@
                         <th>
                             @Html.Raw("Observaciones")
                         </th>
-                        <th style="width:5;"></th>
+                        @if (!User.IsInRole("Paciente"))
+                        {
+                            <th style="width:5%;"></th>
+                        }
                     </tr>
                 </thead>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Fecha)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Hora)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Especialidad.descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Nombre)
-                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Apellido)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Afiliado.Nombre)
-                            @Html.DisplayFor(modelItem => item.Afiliado.Apellido)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TipoReseva.descripcion)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Observaciones)
-                        </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hora)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Especialidad.descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Nombre)
+                        @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Afiliado.Nombre)
+                        @Html.DisplayFor(modelItem => item.Afiliado.Apellido)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoReseva.descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observaciones)
+                    </td>
+                    @if (!User.IsInRole("Paciente"))
+                    {
                         <td>
                             <div class="text-center">
                                 <div class="btn-group" role="group">
-                                    <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "Turno",new { id = item.Id })">
+                                    <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "Turno", new { id = item.Id })">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 </div>
                             </div>
                         </td>
+                    }
                     </tr>
                 }
             </table>

@@ -70,48 +70,67 @@
                         <th>
                             @Html.Raw("H. hasta")
                         </th>
+                        <th>
+                            @Html.Raw("Estado")
+                        </th>
                         <th style="width:10%;"></th>
                     </tr>
 
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Nombre)
-                                @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Apellido)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Especialidad.descripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TipoDia.descripcion)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fecha_desde)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.fecha_hasta)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.hora_desde)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.hora_hasta)
-                            </td>
-                            <td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Nombre)
+                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Profesional.Apellido)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EspecialidadesProfesional.Especialidad.descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TipoDia.descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fecha_desde)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.fecha_hasta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.hora_desde)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.hora_hasta)
+                        </td>
+                        <td>
+                            @if (item.AgendaCancelacion.Count > 0)
+                            {
+                                @Html.Raw("CANCELADA")
+                            }
+                            else
+                            {
+                                @Html.Raw("ACTIVA")
+                            }
+                        </td>
+                        <td>
+                            @if (item.AgendaCancelacion.FirstOrDefault() == null)
+                            {
                                 <div class="float-right">
                                     <div class="btn-group" role="group">
                                         <a class="btn btn-secondary btn-sm" title="Editar" href="@Url.Action("Edit", "Agenda",new { id = item.Id })">
                                             <i class="fa fa-edit"></i>
                                             Editar
                                         </a>
+                                        <a class="btn btn-dark btn-sm" title="Cancelar" href="@Url.Action("Cancelar", "Agenda", new { id = item.Id })">
+                                            <i class="fa fa-calendar-times-o"></i>
+                                        </a>
                                         <a class="btn btn-danger btn-sm" title="Eliminar" href="@Url.Action("Delete", "Agenda",new { id = item.Id })">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
+                            }
+                        </td>
+                    </tr>
                     }
             </table>
         </div>

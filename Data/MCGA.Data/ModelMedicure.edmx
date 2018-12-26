@@ -279,18 +279,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Atencion__bono_i__72C60C4A">
-          <End Role="Bono" Type="Self.Bono" Multiplicity="1" />
-          <End Role="Atencion" Type="Self.Atencion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bono">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Atencion">
-              <PropertyRef Name="bono_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Atencione__turno__6B24EA82">
           <End Role="Turno" Type="Self.Turno" Multiplicity="1" />
           <End Role="Atencion" Type="Self.Atencion" Multiplicity="*" />
@@ -559,10 +547,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             <End Role="Plan" EntitySet="Plan" />
             <End Role="Afiliado" EntitySet="Afiliado" />
           </AssociationSet>
-          <AssociationSet Name="FK__Atencion__bono_i__72C60C4A" Association="Self.FK__Atencion__bono_i__72C60C4A">
-            <End Role="Bono" EntitySet="Bono" />
-            <End Role="Atencion" EntitySet="Atencion" />
-          </AssociationSet>
           <AssociationSet Name="FK__Atencione__turno__6B24EA82" Association="Self.FK__Atencione__turno__6B24EA82">
             <End Role="Turno" EntitySet="Turno" />
             <End Role="Atencion" EntitySet="Atencion" />
@@ -716,10 +700,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             <End Role="Agenda" EntitySet="Agenda" />
             <End Role="AgendaCancelacion" EntitySet="AgendaCancelacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Atencion__bono_i__72C60C4A" Association="ModelMedicure.FK__Atencion__bono_i__72C60C4A">
-            <End Role="Bono" EntitySet="Bono" />
-            <End Role="Atencion" EntitySet="Atencion" />
-          </AssociationSet>
           <AssociationSet Name="FK__Atencione__turno__6B24EA82" Association="ModelMedicure.FK__Atencione__turno__6B24EA82">
             <End Role="Turno" EntitySet="Turno" />
             <End Role="Atencion" EntitySet="Atencion" />
@@ -825,7 +805,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <Property Name="createdby" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="changedon" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="changedby" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Bono" Relationship="ModelMedicure.FK__Atencion__bono_i__72C60C4A" FromRole="Atencion" ToRole="Bono" />
           <NavigationProperty Name="Turno" Relationship="ModelMedicure.FK__Atencione__turno__6B24EA82" FromRole="Atencion" ToRole="Turno" />
         </EntityType>
         <EntityType Name="Especialidad">
@@ -951,7 +930,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
           <Property Name="fecha_impresion" Type="DateTime" Precision="3" />
           <Property Name="consumido" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Afiliado" Relationship="ModelMedicure.FK__Bonos__afiliado___59FA5E80" FromRole="Bono" ToRole="Afiliado" />
-          <NavigationProperty Name="Atencion" Relationship="ModelMedicure.FK__Atencion__bono_i__72C60C4A" FromRole="Bono" ToRole="Atencion" />
           <NavigationProperty Name="Plan" Relationship="ModelMedicure.FK__Bono__plan_id__74AE54BC" FromRole="Bono" ToRole="Plan" />
         </EntityType>
         <EntityType Name="Cancelacion">
@@ -1174,18 +1152,6 @@ advertencia 6002: La tabla o vista 'Medicure.dbo.HistorialAfiliado' no tiene def
             </Principal>
             <Dependent Role="AgendaCancelacion">
               <PropertyRef Name="agenda_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Atencion__bono_i__72C60C4A">
-          <End Type="ModelMedicure.Bono" Role="Bono" Multiplicity="1" />
-          <End Type="ModelMedicure.Atencion" Role="Atencion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bono">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Atencion">
-              <PropertyRef Name="bono_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

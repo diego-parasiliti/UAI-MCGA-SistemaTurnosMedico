@@ -92,28 +92,54 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarPrincipal">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0" id="mnuPrincipal">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle item-principal" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                CONFIGURACION
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="@Url.Action("Index", "Afiliado")">Afiliado</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "Agenda")">Agenda</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "Especialidad")">Especialidad</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "EstadoCivil")">Estado civil</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "EspecialidadesProfesional")">Especialidades de profesional</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "Plan")">Plan</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "Profesional")">Profesional</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "TipoCancelacion")">Tipo de cancelación</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "TipoDia")">Tipo de día</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "TipoDocumento")">Tipo de documento</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "TipoEspecialidad")">Tipo de especialidad</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "TipoReseva")">Tipo de reserva</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "TipoSexo")">Tipo de sexo</a>
-                                <a class="dropdown-item" href="@Url.Action("Index", "Turno")">Turno</a>
-                                <a class="dropdown-item" href="@Url.Action("List", "Turno")">Turno calendario</a>
-                            </div>
-                        </li>
+                        @if (User.IsInRole("Profesional"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Calendario", "CalendarioProfesional")">Mi calendario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Afiliado")">Afiliados</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Paciente"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Create", "Turno")">Sacar turno</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Turno")">Mis turnos</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("CalendarioProfesional", "CalendarioGeneral")">Calendario profesional</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("CalendarioEspecialidad", "CalendarioGeneral")">Calendario especialidad</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle item-principal" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    CONFIGURACION
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Afiliado")">Afiliado</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Agenda")">Agenda</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Especialidad")">Especialidad</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "EstadoCivil")">Estado civil</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "EspecialidadesProfesional")">Especialidades de profesional</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Plan")">Plan</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Profesional")">Profesional</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "TipoCancelacion")">Tipo de cancelación</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "TipoDia")">Tipo de día</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "TipoDocumento")">Tipo de documento</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "TipoEspecialidad")">Tipo de especialidad</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "TipoReseva")">Tipo de reserva</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "TipoSexo")">Tipo de sexo</a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Turno")">Turno</a>
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -74,14 +74,17 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12">
                         <div class="form-group">
                             @Html.Label("Reserva", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.Editor("Reserva", new { htmlAttributes = new { @class = "form-control inputSinMaxWidth" } })
+                                <select id="cboTipoReserva" class="form-control" onchange="$('#Reserva').val($('#cboTipoReserva').val());"></select>
+                                @Html.Hidden("Reserva")
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12">
                         <div class="form-group">
                             @Html.Label("Observaciones", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -221,7 +224,8 @@
                                         end: moment(data.FechaFin).format('YYYY-MM-DD HH:mm'),
                                         backgroundColor: data.BackgroundColor,
                                         borderColor: data.BackgroundColor,
-                                        textColor: data.FontColor
+                                        textColor: data.FontColor,
+                                        atendido : data.Atendido
                                     });
                                 });
                             callback(events);
@@ -229,24 +233,28 @@
                     });
                 },
                 eventClick: function (calEvent, jsEvent, view) {
-                    if (calEvent.Id == -1) {
-                        //validar que la fecha sea menor igual a hoy
-                        var fechaTurno = moment(calEvent.start.format('YYYY-MM-DD HH:mm'));
-                        var hoy = moment();
-                        if (hoy > fechaTurno) 
-                            alert('Día y horario NO disponible');
-                        else {
-                            $("#SubTitulo").text(calEvent.start.format('dddd DD MMM YYYY') + ' ' + calEvent.start.format('HH:mm'));
-                            $("#Fecha").val(calEvent.start.format('YYYY-MM-DD'));
-                            $("#Hora").val(calEvent.start.format('HH:mm'));
-                            $("#BuscarAfiliado").val('');
-                            $("#Reserva").val('');
-                            $("#Observaciones").val('');
-                            $("#nuevoTurno").modal('show');
+                    debugger;
+                    if (calEvent.atendido != true) 
+                    {
+                        if (calEvent.Id == -1) {
+                            //validar que la fecha sea menor igual a hoy
+                            var fechaTurno = moment(calEvent.start.format('YYYY-MM-DD HH:mm'));
+                            var hoy = moment();
+                            if (hoy > fechaTurno) 
+                                alert('Día y horario NO disponible');
+                            else {
+                                $("#SubTitulo").text(calEvent.start.format('dddd DD MMM YYYY') + ' ' + calEvent.start.format('HH:mm'));
+                                $("#Fecha").val(calEvent.start.format('YYYY-MM-DD'));
+                                $("#Hora").val(calEvent.start.format('HH:mm'));
+                                $("#BuscarAfiliado").val('');
+                                CargarReservas();
+                                $("#Observaciones").val('');
+                                $("#nuevoTurno").modal('show');
+                            }
                         }
+                        else
+                            alert('Turno NO disponible');
                     }
-                    else
-                        alert('Turno NO disponible');
                 }
             });
         }
@@ -261,7 +269,6 @@
                 'Reserva': $("#Reserva").val(),
                 'Observaciones': $("#Observaciones").val()
             });
-            debugger;
             $.ajax({
                 url: '@Url.Action("CreateTurno", "Turno")',
                 type: 'POST',
@@ -290,5 +297,27 @@
                 }
             });
         }
+
+        function CargarReservas() {
+            $.ajax({
+                url: '@Url.Action("GetTipoReseva", "TipoReseva")',
+                datatype: "json",
+                async:false,
+                success: function (data) {
+                    debugger;
+                    var datos = data;
+                    debugger;
+                    $("#cboTipoReserva").empty();
+                    for (var i = 0; i < datos.length; i++) {
+                        $("#cboTipoReserva").append($('<option>', {
+                            value: datos[i].Id,
+                            text: datos[i].descripcion
+                        }));
+                    }
+                    $('#reserva').val($('#cboTipoReserva').val());
+                }
+            });
+        }
+
     </script>
 }

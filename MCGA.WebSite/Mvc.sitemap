@@ -93,6 +93,12 @@
       <mvcSiteMapNode title="Eliminar" controller="Turno" action="Delete"/>
     </mvcSiteMapNode>
     
+    <mvcSiteMapNode title="Atención de paciente" controller="Atencion" action="List">
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Calendario profesional" controller="CalendarioProfesional" action="Calendario">
+    </mvcSiteMapNode>
+    
   </mvcSiteMapNode>
 
   

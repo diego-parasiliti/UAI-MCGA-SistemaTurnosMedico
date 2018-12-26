@@ -196,6 +196,12 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Constants\AtencionController\AtencionControllerAction.cs" />
+    <Compile Include="Constants\AtencionController\AtencionControllerRoute.cs" />
+    <Compile Include="Constants\CalendarioGeneralController\CalendarioGeneralControllerAction.cs" />
+    <Compile Include="Constants\CalendarioGeneralController\CalendarioGeneralControllerRoute.cs" />
+    <Compile Include="Constants\CalendarioProfesionalController\CalendarioProfesionalControllerAction.cs" />
+    <Compile Include="Constants\CalendarioProfesionalController\CalendarioProfesionalControllerRoute.cs" />
     <Compile Include="Constants\AccountController\AccountControllerAction.cs" />
     <Compile Include="Constants\AccountController\AccountControllerRoute.cs" />
     <Compile Include="Constants\TurnoController\TurnoControllerAction.cs" />
@@ -233,6 +239,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AfiliadoController.cs" />
     <Compile Include="Controllers\AgendaController.cs" />
+    <Compile Include="Controllers\AtencionController.cs" />
+    <Compile Include="Controllers\CalendarioGeneralController.cs" />
+    <Compile Include="Controllers\CalendarioProfesionalController.cs" />
     <Compile Include="Controllers\EspecialidadController.cs" />
     <Compile Include="Controllers\EspecialidadesProfesionalController.cs" />
     <Compile Include="Controllers\EstadoCivilController.cs" />
@@ -252,6 +261,8 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CalendarioEspecialidadProfesionalViewModel.cs" />
+    <Compile Include="Models\CalendarioGeneralViewModel.cs" />
+    <Compile Include="Models\CalendarioViewProfesionalModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -623,6 +634,14 @@
     <Content Include="Views\Turno\Index.cshtml" />
     <Content Include="Views\Turno\List.cshtml" />
     <Content Include="Views\Turno\_TurnoRegistrado.cshtml" />
+    <Content Include="Views\CalendarioProfesional\Calendario.cshtml" />
+    <Content Include="Views\CalendarioProfesional\_TurnoAtendido.cshtml" />
+    <Content Include="Views\Atencion\List.cshtml" />
+    <Content Include="Views\CalendarioGeneral\CalendarioProfesional.cshtml" />
+    <Content Include="Views\CalendarioGeneral\CalendarioEspecialidad.cshtml" />
+    <Content Include="Views\CalendarioGeneral\_TurnoRegistrado.cshtml" />
+    <Content Include="Views\CalendarioGeneral\_TurnoCancelado.cshtml" />
+    <Content Include="Views\Agenda\Cancelar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

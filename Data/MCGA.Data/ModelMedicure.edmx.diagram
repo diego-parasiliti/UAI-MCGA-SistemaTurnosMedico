@@ -35,7 +35,6 @@
         <AssociationConnector Association="ModelMedicure.FK_Agenda_EspecialidadesProfesional" />
         <AssociationConnector Association="ModelMedicure.FK_Agenda_TipoDia" />
         <AssociationConnector Association="ModelMedicure.FK_AgendaCancelacion_Agenda" />
-        <AssociationConnector Association="ModelMedicure.FK__Atencion__bono_i__72C60C4A" />
         <AssociationConnector Association="ModelMedicure.FK__Atencione__turno__6B24EA82" />
         <AssociationConnector Association="ModelMedicure.FK__Bono__plan_id__74AE54BC" />
         <AssociationConnector Association="ModelMedicure.FK__Cancelaci__tipo___76969D2E" />

@@ -11,5 +11,6 @@ namespace MCGA.Constants
 		public const string Create = "Create";
 		public const string Edit = "Edit";
 		public const string Delete = "Delete";
+		public const string Cancelar = "Cancelar";
 	}
 }
