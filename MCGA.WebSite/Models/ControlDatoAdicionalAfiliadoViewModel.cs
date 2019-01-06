@@ -7,9 +7,9 @@ namespace MCGA.WebSite.Models
 {
 	public class ControlDatoAdicionalAfiliadoViewModel
 	{
-		public int ControlId { get; set; }
-		public string TipoControl { get; set; }
-		public string LabelControl { get; set; }
-		public string JsonData { get; set; }
+		public int Id { get; set; }
+		public string Tipo { get; set; }
+		public string Label { get; set; }
+		public string Valor { get; set; }
 	}
 }

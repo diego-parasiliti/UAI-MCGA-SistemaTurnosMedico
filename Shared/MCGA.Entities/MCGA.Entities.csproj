@@ -109,10 +109,10 @@
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TipoCancelacion.cs">
+    <Compile Include="TipoCampo.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
-    <Compile Include="TipoControl.cs">
+    <Compile Include="TipoCancelacion.cs">
       <DependentUpon>ModelMedicure.tt</DependentUpon>
     </Compile>
     <Compile Include="TipoDia.cs">

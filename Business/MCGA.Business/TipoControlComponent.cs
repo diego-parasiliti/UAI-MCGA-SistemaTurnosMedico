@@ -14,11 +14,11 @@ namespace MCGA.Business
 	{
 		private MedicureContext db = new MedicureContext();
 
-		public List<TipoControl> GetAll()
+		public List<TipoCampo> GetAll()
 		{
 			try
 			{
-				return db.TipoControl.ToList();
+				return db.TipoCampo.ToList();
 			}
 			catch
 			{
@@ -26,11 +26,11 @@ namespace MCGA.Business
 			}
 		}
 
-		public TipoControl GetById(int? id)
+		public TipoCampo GetById(int? id)
 		{
 			try
 			{
-				return db.TipoControl.Find(id);
+				return db.TipoCampo.Find(id);
 			}
 			catch
 			{
@@ -38,13 +38,13 @@ namespace MCGA.Business
 			}
 		}
 
-		public void Add(TipoControl tipoControl)
+		public void Add(TipoCampo tipoCampo)
 		{
 			try
 			{
 				using (TransactionScope scope = new TransactionScope())
 				{
-					db.TipoControl.Add(tipoControl);
+					db.TipoCampo.Add(tipoCampo);
 					db.SaveChanges();
 
 					scope.Complete();
@@ -56,13 +56,13 @@ namespace MCGA.Business
 			}
 		}
 
-		public void Edit(TipoControl tipoControl)
+		public void Edit(TipoCampo tipoCampo)
 		{
 			try
 			{
 				using (TransactionScope scope = new TransactionScope())
 				{
-					db.Entry(tipoControl).State = EntityState.Modified;
+					db.Entry(tipoCampo).State = EntityState.Modified;
 					db.SaveChanges();
 
 					scope.Complete();

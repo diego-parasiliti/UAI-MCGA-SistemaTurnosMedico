@@ -85,6 +85,7 @@
       <mvcSiteMapNode title="Agregar" controller="Afiliado" action="Create"/>
       <mvcSiteMapNode title="Editar" controller="Afiliado" action="Edit"/>
       <mvcSiteMapNode title="Eliminar" controller="Afiliado" action="Delete"/>
+      <mvcSiteMapNode title="Dato adicional" controller="DatoAdicionalAfiliado" action="Create"/>
     </mvcSiteMapNode>
 
     <mvcSiteMapNode title="Turno" controller="Turno" action="Index">

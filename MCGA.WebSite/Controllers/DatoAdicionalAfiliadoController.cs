@@ -1,5 +1,6 @@
 ﻿using MCGA.Entities;
 using MCGA.UI.Process;
+using MCGA.Constants;
 using MCGA.WebSite.Models;
 using System;
 using System.Collections.Generic;
@@ -16,29 +17,38 @@ namespace MCGA.WebSite.Controllers
 		TipoKeyProcess tipoKeyProcess = new TipoKeyProcess();
 		DatoAdicionalAfiliadoProcess datoAdicionalAfiliadoProcess = new DatoAdicionalAfiliadoProcess();
 
-		public JsonResult GetTipoKey()
+		public JsonResult GetDatoAdicional(int afiliadoId)
 		{
-			var listTipoKey = tipoKeyProcess.GetAll().OrderBy(o => o.Descripcion).Select( o=> new { Id = o.Id, Descripcion = o.Descripcion }).ToList();
-			return Json(listTipoKey, JsonRequestBehavior.AllowGet);
-		}
-		
-		public JsonResult GetCamposByTipoKey(int tipoKeyId)
-		{
-			List<ControlDatoAdicionalAfiliadoViewModel> listControl = new List<ControlDatoAdicionalAfiliadoViewModel>();
-			var tipoKey = tipoKeyProcess.GetById(tipoKeyId);
-			foreach(DetalleTipoKey detalleTipoKey in tipoKey.DetalleTipoKey)
+			List<CabeceraDatoAdicionalAfiliadoViewModel> listDatoAdicional = new List<CabeceraDatoAdicionalAfiliadoViewModel>();
+			List<TipoKey> listTipoKey = tipoKeyProcess.GetAll();
+			foreach(TipoKey tipoKey in listTipoKey)
 			{
-				ControlDatoAdicionalAfiliadoViewModel control = new ControlDatoAdicionalAfiliadoViewModel();
-				control.ControlId = detalleTipoKey.Id;
-				control.TipoControl = detalleTipoKey.TipoControl.NombreInterno;
-				control.LabelControl = detalleTipoKey.Nombre;
-				control.JsonData = detalleTipoKey.JsonData;
-				listControl.Add(control);
+				var datoAdicionalAfiliado = datoAdicionalAfiliadoProcess.GetAll().Where(o => o.AfiliadoId == afiliadoId && o.TipoKeyId == tipoKey.Id).Select(o => new { o.JsonData }).FirstOrDefault();
+				string jsonData = string.Empty;
+				if (datoAdicionalAfiliado != null)
+					jsonData = datoAdicionalAfiliado.JsonData;
+
+				CabeceraDatoAdicionalAfiliadoViewModel grupoDatoAdicional = new CabeceraDatoAdicionalAfiliadoViewModel();
+				grupoDatoAdicional.TipoKeyId = tipoKey.Id;
+				grupoDatoAdicional.NombreKey = tipoKey.Descripcion;
+				List<ControlDatoAdicionalAfiliadoViewModel> listControl = new List<ControlDatoAdicionalAfiliadoViewModel>();
+				foreach (DetalleTipoKey detalleTipoKey in tipoKey.DetalleTipoKey)
+				{
+					ControlDatoAdicionalAfiliadoViewModel control = new ControlDatoAdicionalAfiliadoViewModel();
+					control.Id = detalleTipoKey.Id;
+					control.Tipo = detalleTipoKey.TipoCampo.Tipo;
+					control.Label = detalleTipoKey.Nombre;
+					control.Valor = (jsonData == string.Empty) ? string.Empty : Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(jsonData)[control.Label].ToString();
+					listControl.Add(control);
+				}
+				grupoDatoAdicional.ListControl = listControl;
+				listDatoAdicional.Add(grupoDatoAdicional);
 			}
-			return Json(listControl, JsonRequestBehavior.AllowGet);
+			return Json(listDatoAdicional, JsonRequestBehavior.AllowGet);
 		}
 
 		// GET: DatoAdicionalAfiliado
+		[Route("dato-adicional", Name = DatoAdicionalAfiliadoControllerRoute.GetDatoAdicional)]
 		public ActionResult Create(int afiliadoId)
         {
 			var afiliado = afiliadoProcess.GetById(afiliadoId);
@@ -47,18 +57,16 @@ namespace MCGA.WebSite.Controllers
 			return View();
         }
 
-		
 		[HttpPost]
-		public JsonResult GuardarDatoAdicionalAfiliad(string AfiliadoId, string TipoKeyId, string JsonData)
+		public JsonResult GuardarDatoAdicionalAfiliad(List<string> listJsonData)
 		{
-			DatoAdicionalAfiliado datoAdicionalAfiliado = new DatoAdicionalAfiliado();
-			datoAdicionalAfiliado.Fecha = DateTime.Now;
-			datoAdicionalAfiliado.AfiliadoId = Convert.ToInt32(AfiliadoId);
-			datoAdicionalAfiliado.TipoKeyId = Convert.ToInt32(TipoKeyId);
-			datoAdicionalAfiliado.JsonData = JsonData;
-
-			datoAdicionalAfiliadoProcess.Add(datoAdicionalAfiliado);
-			return Json(datoAdicionalAfiliado, JsonRequestBehavior.AllowGet);
+			List<DatoAdicionalAfiliado> listDatoAdicionalAfiliado = new List<DatoAdicionalAfiliado>();
+			foreach(string jsonData in listJsonData)
+			{
+				listDatoAdicionalAfiliado.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<DatoAdicionalAfiliado>(jsonData));
+			}
+			datoAdicionalAfiliadoProcess.GuardarDatoAdicional(listDatoAdicionalAfiliado);
+			return Json(listJsonData, JsonRequestBehavior.AllowGet);
 		}
 
 		protected override void Dispose(bool disposing)

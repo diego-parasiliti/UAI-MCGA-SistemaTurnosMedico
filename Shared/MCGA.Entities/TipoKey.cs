@@ -17,16 +17,16 @@ namespace MCGA.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TipoKey()
         {
-            this.DatoAdicionalAfiliado = new HashSet<DatoAdicionalAfiliado>();
             this.DetalleTipoKey = new HashSet<DetalleTipoKey>();
+            this.DatoAdicionalAfiliado = new HashSet<DatoAdicionalAfiliado>();
         }
     
         public int Id { get; set; }
         public string Descripcion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatoAdicionalAfiliado> DatoAdicionalAfiliado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleTipoKey> DetalleTipoKey { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DatoAdicionalAfiliado> DatoAdicionalAfiliado { get; set; }
     }
 }
