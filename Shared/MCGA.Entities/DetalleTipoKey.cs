@@ -16,11 +16,10 @@ namespace MCGA.Entities
     {
         public int Id { get; set; }
         public int TipoKeyId { get; set; }
-        public int TipoControlId { get; set; }
+        public int TipoCampoId { get; set; }
         public string Nombre { get; set; }
-        public string JsonData { get; set; }
     
-        public virtual TipoControl TipoControl { get; set; }
+        public virtual TipoCampo TipoCampo { get; set; }
         public virtual TipoKey TipoKey { get; set; }
     }
 }

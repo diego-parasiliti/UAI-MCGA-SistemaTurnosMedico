@@ -67,7 +67,7 @@ namespace MCGA.WebSite.Controllers
 						while (fecha <= fechaHasta)
 						{
 							//Ver si atiende ese dia
-							if (fecha.DayOfWeek.ToString().ToUpper() == agenda.TipoDia.descripcion.ToUpper())
+							if ((int)fecha.DayOfWeek == agenda.TipoDia.referenciaDayOfWeek)
 							{
 								TimeSpan hora = agenda.hora_desde;
 								while (hora <= agenda.hora_hasta)

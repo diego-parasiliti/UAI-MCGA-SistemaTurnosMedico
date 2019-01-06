@@ -17,6 +17,14 @@ namespace MCGA.Entities
 			[Required(ErrorMessage = "Obligatorio")]
 			[MaxLength(510, ErrorMessage = "La longitud del texto debe ser <= a 510 carácteres.")]
 			public string descripcion { get; set; }
+
+			[DisplayName("Referencia DayOfWeek")]
+			[Required(ErrorMessage = "Obligatorio")]
+			[Range(0,6,ErrorMessage ="Debe estar entre 0 y 6.")]
+			public Nullable<int> referenciaDayOfWeek { get; set; }
+
+
+			
 		}
 	}
 }

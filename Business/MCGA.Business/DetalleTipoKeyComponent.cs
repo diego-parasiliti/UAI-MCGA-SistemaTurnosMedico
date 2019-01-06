@@ -18,7 +18,7 @@ namespace MCGA.Business
 		{
 			try
 			{
-				return db.DetalleTipoKey.Include(tk => tk.TipoKey).Include(tc => tc.TipoControl).ToList();
+				return db.DetalleTipoKey.Include(tk => tk.TipoKey).Include(tc => tc.TipoCampo).ToList();
 			}
 			catch
 			{

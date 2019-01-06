@@ -1,6 +1,24 @@
 ﻿@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Dato adicional de afiliado";
+    ViewBag.Description = "En esta página vamos a poder cargar datos adicionales del afiliado que seleccione.";
+    ViewBag.Author = Application.Name;
+    ViewBag.ReferrerMode = ReferrerMode.OriginWhenCrossOrigin;
+    ViewBag.TwitterCard = new SummaryLargeImageTwitterCard("@TwitterCard");
+    ViewBag.OpenGraph = new OpenGraphBusiness(
+        ViewBag.Title,
+        new OpenGraphImage(Url.AbsoluteContent("~/fonts/icons/open-graph-1200x630.png")) { Height = 630, Type = ContentType.Png, Width = 1200 },
+        new OpenGraphContactData(Application.StreetAddress, Application.Locality, Application.PostalCode, Application.Country)
+        {
+            Email = Application.Email,
+            Phone = Application.Phone,
+            Website = Url.AbsoluteRouteUrl(DatoAdicionalAfiliadoControllerRoute.GetDatoAdicional)
+        },
+        new OpenGraphLocation(Application.Latitude, Application.Longitude))
+    {
+        Determiner = OpenGraphDeterminer.Blank,
+
+        SiteName = Application.Name
+    };
 }
 
 <h2>Datos adicional de afiliado</h2>
@@ -9,265 +27,190 @@
 @Html.Hidden("AfiliadoId", (string)ViewBag.AfiliadoLogueadoId)
 
 <div class="form-horizontal content-personalizado">
-    <div class="row marginUnset">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="float-lg-right float-md-right float-sm-none">
-                <div class="form-group">
-                    <a id="agregar" title="Agregar dato adicional" class="btn btn-sm btn-primary text-white" onclick="AgregarDatoAdicional();">
-                        <i class="fa fa-plus-circle"></i>
-                        <span>Agregar</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    @Html.Hidden("ListControlId")
+    @Html.Hidden("ListKeyId")
+
+    <div class="row marginUnset" id="divDatosAdicionales">
+        
     </div>
 
-    <div class="row marginUnset">
+    <div class="row marginUnset mb-3" id="divButtonGuardar">
         <div class="col-12">
-            <div class="table-responsive">
-                <div id="tableDatoAdicional">
-                    <table class="table table-sm table-light table-bordered">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>
-                                    Tipo
-                                </th>
-                                <th>
-                                    Descripcion
-                                </th>
-                                <th>
-                                    Valor
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="5">
-                                    Tipo
-                                </td>
-                                <td>
-                                    A
-                                </td>
-                                <td>
-                                    1
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    B
-                                </td>
-                                <td>
-                                    2
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    C
-                                </td>
-                                <td>
-                                    3
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    D
-                                </td>
-                                <td>
-                                    4
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    E
-                                </td>
-                                <td>
-                                    5
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <hr class="hrSinMarginTop" />
+            <a class="btn btn-sm btn-success text-white float-right" title="Guardar" onclick="GuardarDatoAdicional();">
+                <i class="fa fa-check-circle"></i>
+                Guardar
+            </a>
         </div>
     </div>
+
+</div>
+<div>
+    <a class="btn btn-sm" href="@Url.Action("Index", "Turno")">
+        <i class="fa fa-chevron-circle-left"></i>
+        Volver al listado
+    </a>
 </div>
 
-
-<div class="modal fade" id="agregarDatoAdicional">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-light">
-                <h4 class="modal-title">Nuevo dato adicional</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group">
-                            @Html.Label("Tipo de dato", htmlAttributes: new { @class = "control-label col-md-12" })
-                            <div class="col-md-6">
-                                <select id="cboTipoKeyId" class="form-control inputSinMaxWidth" onchange="CargarFormNuevoDatoAdicional();"></select>
-                                @Html.Hidden("TipoKeyId")
-                                @Html.Hidden("ListControlId")
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="hrSinMarginTop" />
-                <div class="row" id="rowDatoAdicional">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="btn btn-secondary text-white" title="Cerrar" data-dismiss="modal">
-                    <i class="fa fa-close"></i>
-                    Cerrar
-                </a>
-                <a class="btn btn-success text-white" title="Guardar" onclick="GuardarDatoAdicional();">
-                    <i class="fa fa-check-circle"></i>
-                    Guardar
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("_DatoAdicionalGuardado")
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
-
+            GenerarTablasDatoAdicional();
         });
 
-        function AgregarDatoAdicional() {
-              $.ajax({
-                url: '@Url.Action("GetTipoKey", "DatoAdicionalAfiliado")',
-                datatype: "json",
-                async:false,
-                success: function (data) {
-                    var datos = data;
-                    $("#cboTipoKeyId").empty();
-                    for (var i = 0; i < datos.length; i++) {
-                        $("#cboTipoKeyId").append($('<option>', {
-                            value: datos[i].Id,
-                            text: datos[i].Descripcion
-                        }));
-                    }
-                    CargarFormNuevoDatoAdicional();
-                }
-            });
-            $('#agregarDatoAdicional').modal('show');
-        }
-
-        function CargarFormNuevoDatoAdicional() {
-            $('#TipoKeyId').val($('#cboTipoKeyId').val());
-            $('#rowDatoAdicional').empty();
+        function GenerarTablasDatoAdicional() {
             $.ajax({
-                url: '@Url.Action("GetCamposByTipoKey", "DatoAdicionalAfiliado")',
+                url: '@Url.Action("GetDatoAdicional", "DatoAdicionalAfiliado")',
                 datatype: "json",
-                data: { tipoKeyId: $("#TipoKeyId").val() },
                 async: false,
+                data: { afiliadoId: $("#AfiliadoId").val() },
                 success: function (data) {
+                    $('#divDatosAdicionales').empty();
                     var datos = data;
                     for (var i = 0; i < datos.length; i++) {
+
                         var div_col_principal = document.createElement('div');
-                        var div_formgroup = document.createElement('div');
-                        var label = document.createElement('label');
-                        var div_col_control = document.createElement('div');
-                        div_col_principal.className = "col-sm-12 col-md-6 col-lg-6";
-                        div_formgroup.className = "form-group";
-                        label.setAttribute("id", 'lbl_' + datos[i].ControlId);
-                        label.setAttribute("name", 'lbl_' + datos[i].ControlId);
-                        label.setAttribute("class", "col-md-6 control-label");
-                        label.innerHTML = datos[i].LabelControl;
-                        div_col_control.className = "col-sm-12 col-md-12 col-lg-12";
+                        div_col_principal.className = "col-12";
 
-                        switch (datos[i].TipoControl) {
-                            case "Fecha":
-                                var campo = document.createElement('input');
-                                campo.className = "form-control inputSinMaxWidth";
-                                campo.setAttribute("id", datos[i].ControlId);
-                                campo.setAttribute("name", datos[i].ControlId);
-                                campo.type = "date";
-                                div_col_control.appendChild(campo);
-                                break;
-                            case "TextBox":
-                                var campo = document.createElement('input');
-                                campo.className = "form-control inputSinMaxWidth";
-                                campo.setAttribute("id", datos[i].ControlId);
-                                campo.setAttribute("name", datos[i].ControlId);
-                                campo.type = "text";
-                                div_col_control.appendChild(campo);
-                                break;
-                            case "CheckBox":
-                                var campo = document.createElement('input');
-                                campo.setAttribute("id", datos[i].ControlId);
-                                campo.setAttribute("name", datos[i].ControlId);
-                                campo.type = "checkbox";
-                                campo.setAttribute("style", "margin-top:10px;");
-                                div_col_control.appendChild(campo);
-                                break;
-                            case "DropDownList":
-                                var campo = document.createElement('select');
-                                campo.className = "form-control inputSinMaxWidth";
-                                campo.setAttribute("id", datos[i].ControlId);
-                                campo.setAttribute("name", datos[i].ControlId);
-                                var fragment = document.createDocumentFragment();
-                                if (datos[i].DatosAdicionales != "") {
-                                    var json = JSON.parse(datos[i].DatosAdicionales);
-                                    for (var x = 0; x < json.length; x++) {
-                                        var opt = document.createElement('option');
-                                        opt.innerHTML = json[x];
-                                        opt.value = json[x];
-                                        fragment.appendChild(opt);
-                                    }
-                                }
-                                campo.appendChild(fragment);
-                                div_col_control.appendChild(campo);
-                                break;
+                        //Encabezado titulo
+                        var div_row_titulo = document.createElement('div');
+                        div_row_titulo.className = "row";
+
+                        var div_col_titulo = document.createElement('div');
+                        div_col_titulo.className = "col-12";
+
+                        var label_titulo = document.createElement('label');
+                        label_titulo.setAttribute("class", "control-label col-md-12");
+                        label_titulo.innerHTML = datos[i].NombreKey;
+
+                        var div_row_table = document.createElement('div');
+                        div_row_table.className = "row marginUnset";
+
+                        var div_row_table_responsive = document.createElement('div');
+                        div_row_table_responsive.className = "table-responsive";
+
+                        var table = document.createElement('table');
+                        table.className = "table table-sm table-light table-bordered";
+
+                        var thead = document.createElement('thead');
+                        thead.className = "thead-light";
+
+                        var tbody = document.createElement('tbody');
+
+                        var tr_thead = document.createElement('tr');
+                        var tr_body = document.createElement('tr');
+
+                        var listControlIds = '';
+                        //Cargo cabeceras th
+                        for (var iControl = 0; iControl < datos[i].ListControl.length; iControl++) {
+                            var th = document.createElement('th');
+                            th.setAttribute("id", 'lbl_' + datos[i].ListControl[iControl].Id);
+                            th.innerText = datos[i].ListControl[iControl].Label;
+
+                            var td = document.createElement('td');
+                            var campo = document.createElement('input');
+                            campo.className = "form-control inputSinMaxWidth";
+                            campo.setAttribute("id", datos[i].ListControl[iControl].Id);
+                            campo.setAttribute("name", datos[i].ListControl[iControl].Id);
+                            campo.setAttribute("autocomplete", "off");
+                            campo.type = datos[i].ListControl[iControl].Tipo;
+                            campo.setAttribute("value", datos[i].ListControl[iControl].Valor);
+                            td.appendChild(campo);
+
+
+                            tr_thead.appendChild(th);
+                            tr_body.appendChild(td);
+
+                            if (iControl == (datos[i].ListControl.length - 1))
+                                listControlIds = listControlIds + datos[i].ListControl[iControl].Id;
+                            else
+                                listControlIds = listControlIds + datos[i].ListControl[iControl].Id + ',';
                         }
-                        div_formgroup.appendChild(label);
-                        div_formgroup.appendChild(div_col_control);
-                        div_col_principal.appendChild(div_formgroup);
-                        $('#rowDatoAdicional').append(div_col_principal);
 
+                        div_col_titulo.appendChild(label_titulo);
+                        div_row_titulo.appendChild(div_col_titulo);
+                        div_col_principal.appendChild(div_row_titulo);
+
+                        thead.appendChild(tr_thead);
+                        tbody.appendChild(tr_body);
+                        table.appendChild(thead);
+                        table.appendChild(tbody);
+                        div_row_table_responsive.appendChild(table);
+                        div_row_table.appendChild(div_row_table_responsive);
+
+                        div_col_principal.appendChild(div_row_table);
+
+                        $('#divDatosAdicionales').append(div_col_principal);
+
+        
                         
-                        if (i == (datos.length -1)) 
-                            $('#ListControlId').val($('#ListControlId').val() + datos[i].ControlId);
-                        else
-                            $('#ListControlId').val($('#ListControlId').val() + datos[i].ControlId + ',');
-                        
-                        
+
+                        debugger;
+                        if (i == (datos.length - 1)) {
+                            $('#ListKeyId').val($('#ListKeyId').val() + datos[i].TipoKeyId);
+                            $('#ListControlId').val($('#ListControlId').val() + listControlIds);
+                        }
+                        else {
+                            $('#ListKeyId').val($('#ListKeyId').val() + datos[i].TipoKeyId  + ',');
+                            $('#ListControlId').val($('#ListControlId').val() + listControlIds + ',');
+                        }
+
+                        var hidden = document.createElement('input');
+                        hidden.setAttribute("type", "hidden");
+                        hidden.setAttribute("id", "hf_" + datos[i].TipoKeyId);
+                        hidden.setAttribute("value", listControlIds);
+                        $('#divDatosAdicionales').append(hidden);
+
                     }
+                    if (datos.length > 0)
+                        $('#divButtonGuardar').show();
+                    else
+                        $('#divButtonGuardar').hide();
                 }
             });
         }
-
 
         function GuardarDatoAdicional() {
-            var lisControlId = $('#ListControlId').val().split(",");
-            var listData = new Array();
-            var listData = new Array();
-            var data = { };
-            for (var i = 0; i < lisControlId.length; i++) {
-                debugger;
-                var textLabel = $('#lbl_' + lisControlId[i] + '').text();
-                data[textLabel] = $('#' + lisControlId[i] + '').val();
-            }
-            debugger;
-            var jsonData = JSON.stringify({
-                'AfiliadoId': $("#AfiliadoId").val(),
-                'TipoKeyId': $("#TipoKeyId").val(),
-                'JsonData': JSON.stringify(data)
-            });
+            var lisKeyId = $('#ListKeyId').val().split(",");
             
+
+            
+            var listJsonData = new Array();
+
+            for (var iKey = 0; iKey < lisKeyId.length; iKey++) {
+                debugger;
+                var lisControlId = $('#hf_' + lisKeyId[iKey]).val().split(",");
+                var listData = new Array();
+                var listData = new Array();
+                var data = {};
+                for (var i = 0; i < lisControlId.length; i++) {
+                    var textLabel = $('#lbl_' + lisControlId[i] + '').text();
+                    data[textLabel] = $('#' + lisControlId[i] + '').val();
+                }
+                debugger;
+                var jsonData = JSON.stringify({
+                    'AfiliadoId': $("#AfiliadoId").val(),
+                    'TipoKeyId': lisKeyId[iKey],
+                    'JsonData': JSON.stringify(data)
+                });
+                listJsonData[iKey] = jsonData;
+            }
+
+
             $.ajax({
                 url: '@Url.Action("GuardarDatoAdicionalAfiliad", "DatoAdicionalAfiliado")',
                 type: 'POST',
-                contentType: 'application/json',
-                dataType: "json",
-                data: jsonData ,
+                data: { listJsonData: listJsonData },
                 success: function (response) {
-                    $('#agregarDatoAdicional').modal('hide');
+
+                    GenerarTablasDatoAdicional();
+                    $('#datosGuardados').fadeIn(1000);
+                    setTimeout(function () {
+                        $('#datosGuardados').fadeOut(1000);
+                    }, 5000);
                 },
                 failure: function (response) {
                     alert(response.responseText);

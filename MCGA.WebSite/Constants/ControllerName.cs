@@ -27,7 +27,8 @@ namespace MCGA.Constants
 		public const string CalendarioProfesional = "Calendario";
 		public const string Atencion = "Atencion";
 		public const string CalendarioGeneral = "Calendario";
-		
+		public const string DatoAdicionalAfiliado = "DatoAdicionalAfiliado";
+
 
 	}
 }

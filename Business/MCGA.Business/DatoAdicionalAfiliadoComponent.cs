@@ -74,8 +74,6 @@ namespace MCGA.Business
 			}
 		}
 
-
-
 		public void Dispose()
 		{
 			db.Dispose();

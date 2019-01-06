@@ -20,6 +20,8 @@
         SiteName = Application.Name
     };
 }
+
+
 <h2>Nuevo <small>turno</small> </h2>
 <hr class="hrSinMarginTop" />
 
@@ -104,6 +106,7 @@
                         })
                         @Html.ValidationMessageFor(model => model.EspecialidadProfesionalId, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.EspecialidadProfesionalId)
+
                     </div>
                 </div>
                 <div class="form-group d-flex">
@@ -209,13 +212,14 @@
 
 
 @section Scripts {
-    @*<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>*@
     <script src="~/Scripts/tinymce/tinymce.min.js"></script>
     <script src="~/Scripts/tinymce/plugins/print/plugin.min.js"></script>
     <script src="~/Scripts/tinymce/plugins/textcolor/plugin.min.js"></script>
     <script src="~/Scripts/tinymce/plugins/lists/plugin.min.js"></script>
+    
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+
         tinymce.init({
             selector: '#Observaciones',
             height: 200,
@@ -327,7 +331,7 @@
         }
 
         function CargarHorarioDisponibles(idEspecialidadProfesional, fechaString) {
-            
+
             var listFecha = fechaString.split("/");
             var fecha = new Date(listFecha[2], listFecha[1] - 1, listFecha[0]);
             $.ajax({
@@ -336,7 +340,7 @@
                 async:false,
                 data: { idEspecialidadProfesional: idEspecialidadProfesional, fecha: moment(fecha).format("YYYY-MM-DD")},
                 success: function (data) {
-                    
+
                     var datos = data;
                     $("#cboHorario").empty();
                     for (var i = 0; i < datos.length; i++) {

@@ -11,7 +11,7 @@ namespace MCGA.UI.Process
 	{
 		private Business.TipoControlComponent business = new Business.TipoControlComponent();
 
-		public List<TipoControl> GetAll()
+		public List<TipoCampo> GetAll()
 		{
 			try
 			{
@@ -23,7 +23,7 @@ namespace MCGA.UI.Process
 			}
 		}
 
-		public TipoControl GetById(int? id)
+		public TipoCampo GetById(int? id)
 		{
 			try
 			{
@@ -35,11 +35,11 @@ namespace MCGA.UI.Process
 			}
 		}
 
-		public void Add(TipoControl tipoControl)
+		public void Add(TipoCampo tipoCampo)
 		{
 			try
 			{
-				business.Add(tipoControl);
+				business.Add(tipoCampo);
 			}
 			catch
 			{
@@ -47,11 +47,11 @@ namespace MCGA.UI.Process
 			}
 		}
 
-		public void Edit(TipoControl tipoControl)
+		public void Edit(TipoCampo tipoCampo)
 		{
 			try
 			{
-				business.Edit(tipoControl);
+				business.Edit(tipoCampo);
 			}
 			catch
 			{

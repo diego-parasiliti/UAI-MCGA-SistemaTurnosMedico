@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MCGA.Constants;
-using MCGA.Data;
 using MCGA.Entities;
 using MCGA.UI.Process;
 using MCGA.WebSite.Models;
@@ -35,91 +34,6 @@ namespace MCGA.WebSite.Controllers
 			return File(new Framework.ExportExcel().ExportarExcel(aColumnas, lstDatos), "application/vnd.ms-excel", "Listado de agendas.xls");
 		}
 
-		//public JsonResult GetCalendarioByIdEspecialidadProfesional(DateTime fechaDesde, DateTime fechaHasta, int idEspecialidadProfesional = 0)
-		//{
-		//	if (fechaDesde == null)
-		//		fechaDesde = new DateTime(1800, 1, 1);
-
-		//	if (fechaHasta == null)
-		//		fechaHasta = new DateTime(1800, 1, 1);
-
-		//	//Reviso si tiene alguna agenda
-		//	List<Agenda> listAtencion = process.GetAll().Where(o => o.EspecialidadProfesionalId == idEspecialidadProfesional && fechaDesde >= o.fecha_desde && fechaHasta <= o.fecha_hasta).ToList();
-		//	if (listAtencion.Count > 0)
-		//	{
-		//		List<CalendarioEspecialidadProfesionalViewModel> listCalendario = new List<CalendarioEspecialidadProfesionalViewModel>();
-		//		foreach (Agenda agenda in listAtencion)
-		//		{ 
-		//			DateTime fecha = fechaDesde;
-		//			while (fecha <= fechaHasta)
-		//			{
-		//				//Ver si atiende ese dia
-		//				if (fecha.DayOfWeek.ToString().ToUpper() == agenda.TipoDia.descripcion.ToUpper())
-		//				{
-		//					TimeSpan hora = agenda.hora_desde;
-		//					while (hora <= agenda.hora_hasta)
-		//					{
-		//						CalendarioEspecialidadProfesionalViewModel calendario = new CalendarioEspecialidadProfesionalViewModel();
-		//						Turno turno = turnoProcess.GetAll().Where(o => o.Fecha == fecha && o.Hora == hora && o.EspecialidadProfesionalId == idEspecialidadProfesional).FirstOrDefault();
-
-		//						//Cargo variables generales
-		//						calendario.FechaInicio = (new DateTime(fecha.Year, fecha.Month, fecha.Day, hora.Hours, hora.Minutes, hora.Seconds)).ToString("yyyy-MM-dd HH:mm"); //"2018-10-29 17:00";
-		//						calendario.FechaFin = (new DateTime(fecha.Year, fecha.Month, fecha.Day, (hora.Hours + 1), hora.Minutes, hora.Seconds)).ToString("yyyy-MM-dd HH:mm");
-		//						calendario.FontColor = Framework.ColorEvento.BLANCO;
-								
-		//						//Verificar si ese día y horario tiene turno
-		//						if (turno != null)
-		//						{
-		//							//Ver si esta atendido 
-		//							if (atencionProcess.GetAll().Where(o => o.turno_id == turno.Id).FirstOrDefault() != null)
-		//							{
-		//								//Lo atendio
-		//								//Tiene turno
-		//								calendario.Atendido = true;
-		//								calendario.IdTurno = turno.Id;
-		//								calendario.Titulo = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
-		//								calendario.Descripcion = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
-		//								calendario.BackgroundColor = Framework.ColorEvento.ATENDIDO;
-		//							}
-		//							else
-		//							{
-		//								//Tiene turno
-		//								calendario.Atendido = false;
-		//								calendario.IdTurno = turno.Id;
-		//								calendario.Titulo = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
-		//								calendario.Descripcion = string.Format("{0} {1}", turno.Afiliado.Nombre, turno.Afiliado.Apellido);
-		//								if (fecha.Date == DateTime.Now.Date)
-		//									//Pendiente de atender
-		//									calendario.BackgroundColor = Framework.ColorEvento.PENDIENTE_ATENCION;
-		//								else
-		//									//Turno ocupado
-		//									calendario.BackgroundColor = Framework.ColorEvento.OCUPADO;
-										
-										
-		//							}									
-		//						}
-		//						else
-		//						{
-		//							//No tiene turno
-		//							calendario.Atendido = false;
-		//							calendario.IdTurno = -1;
-		//							calendario.Titulo= "Disponible";
-		//							calendario.Descripcion = "Disponible";
-		//							calendario.BackgroundColor = Framework.ColorEvento.DISPONIBLE;
-		//						}
-		//						listCalendario.Add(calendario);
-		//						hora = hora.Add(new TimeSpan(1, 0, 0));
-		//					}
-		//				}
-		//				fecha = fecha.AddDays(1);
-		//			}
-		//		}
-		//		return Json(listCalendario, JsonRequestBehavior.AllowGet);
-		//	}
-		//	else
-		//		return Json(null, JsonRequestBehavior.AllowGet);
-		//}
-
 		public JsonResult GetFechasDisponiblesByIdEspecialidadProfesional(int idEspecialidadProfesional = 0)
 		{
 			List<Agenda> listAgenda = process.GetAll().Where(o => o.EspecialidadProfesionalId == idEspecialidadProfesional && o.AgendaCancelacion.Count == 0).ToList();
@@ -133,7 +47,7 @@ namespace MCGA.WebSite.Controllers
 					while (fecha <= agenda.fecha_hasta)
 					{
 						//Ver si atiende ese dia
-						if (fecha.DayOfWeek.ToString().ToUpper() == agenda.TipoDia.descripcion.ToUpper())
+						if ((int)fecha.DayOfWeek == agenda.TipoDia.referenciaDayOfWeek)
 						{
 							//Cantidad de horas que atiende en el día
 							int cantidadHoras =
@@ -160,7 +74,7 @@ namespace MCGA.WebSite.Controllers
 
 		public JsonResult GetHorarioDisponiblesByIdEspecialidadProfesionalFecha(int idEspecialidadProfesional, DateTime fecha)
 		{
-			int tipoDiaId = tipoDiaProcess.GetAll().Where(o => o.descripcion.ToUpper() == fecha.DayOfWeek.ToString().ToUpper()).FirstOrDefault().Id;
+			int tipoDiaId = tipoDiaProcess.GetAll().Where(o => o.referenciaDayOfWeek == (int)fecha.DayOfWeek).FirstOrDefault().Id;
 			Agenda agenda = process.GetAll().Where(o => o.EspecialidadProfesionalId == idEspecialidadProfesional && o.TipoDiaId == tipoDiaId && fecha >= o.fecha_desde && fecha <= o.fecha_hasta && o.AgendaCancelacion.Count == 0).FirstOrDefault();
 			if (agenda != null)
 			{

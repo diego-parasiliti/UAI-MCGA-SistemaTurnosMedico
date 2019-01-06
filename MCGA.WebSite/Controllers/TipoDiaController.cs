@@ -50,7 +50,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("agregar-tipo-dia", Name = TipoDiaControllerRoute.PostCreate)]
-		public ActionResult Create([Bind(Include = "Id,descripcion")] TipoDia tipoDia)
+		public ActionResult Create([Bind(Include = "Id,descripcion, referenciaDayOfWeek")] TipoDia tipoDia)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace MCGA.WebSite.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 		[Route("editar-tipo-dia", Name = TipoDiaControllerRoute.PostEdit)]
-		public ActionResult Edit([Bind(Include = "Id,descripcion")] TipoDia tipoDia)
+		public ActionResult Edit([Bind(Include = "Id,descripcion, referenciaDayOfWeek")] TipoDia tipoDia)
         {
             if (ModelState.IsValid)
             {
